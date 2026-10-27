@@ -1,0 +1,253 @@
+/* ==========================================================================
+   elan1 Tokens v2.0
+   --------------------------------------------------------------------------
+   Layer 1 — PARENT: the elan1 design system token layer (elan1-ui-01 ·
+   Foundations, Brand Book v1.0) exactly 
+   Type: Bricolage Grotesque (display) · Outfit (UI) · JetBrains Mono (data).
+   Layer 2 — elan1 v1.1 additions (kept so every screen keeps working):
+   five-step blast ladder, assurance levels, actor kinds, diagram zones, chart
+   roles, chrome signals, skeleton, scrim, breakpoints, icon and avatar sizes.
+   Layer 3 — v2 console roles shared with the children: gate lights, env,
+   series, door marks, sidebar/drawer widths, honesty ground.
+   Architecture: brand primitive → role token → component. Components consume
+   ROLE tokens only. Dark theme is DEFINED, not inverted. Density is a root setting.
+   ========================================================================== */
+
+:root, [data-theme="light"] {
+  color-scheme: light;
+
+  /* ---- Brand primitives (parent) — components never consume these directly */
+  --brand-ink: #0a1320; --brand-clay: #b9603f; --brand-paper: #fbfaf7; --brand-bone: #f2ede6;
+  --brand-slate: #1e3048; --brand-graphite: #4a5561; --brand-ember: #df8c64; --brand-kiln: #8a4229;
+  /* Functional primitives (Brand Book 03.3) — product and data only */
+  --brand-verdigris: #2e7d6b; --brand-amber: #c99a2e; --brand-crimson: #9b2c3b; --brand-cobalt: #2f6fb3;
+
+  /* ---- Tonal ramps (parent) ---------------------------------------------- */
+  --clay-100: #f7dccd; --clay-200: #edb79b; --clay-300: #df8c64; --clay-400: #cb7452; --clay-500: #b9603f;
+  --clay-600: #a44f32; --clay-700: #8a4229; --clay-800: #612817; --clay-900: #40190e;
+  --ink-100: #e7ecf1; --ink-200: #cdd6e0; --ink-300: #a3b1c2; --ink-400: #6e8199; --ink-500: #3b506a;
+  --ink-600: #24374f; --ink-700: #16243a; --ink-800: #0a1320; --ink-900: #060b12;
+
+  /* ---- Surface roles (parent) -------------------------------------------- */
+  --bg-canvas: #fbfaf7; --bg-surface: #ffffff; --bg-sunken: #f2ede6; --bg-raised: #ffffff;
+  --bg-chrome: #0a1320; --bg-chrome-hover: #16243a; --bg-chrome-active: #1e3048;
+  --bg-hover: #f4f1ec; --bg-active: #ece6dc; --bg-selected: #f7dccd;
+
+  /* ---- Text roles (parent) ------------------------------------------------ */
+  --text-primary: #0a1320; --text-secondary: #4a5561; --text-tertiary: #5c656f; --text-disabled: #a7aeb7;
+  --text-inverse: #fbfaf7; --text-on-chrome: #e7ecf1; --text-on-chrome-quiet: #a3b1c2;
+  --text-accent: #8a4229; --text-link: #8a4229;
+
+  /* ---- Border roles (parent) ---------------------------------------------- */
+  --border-subtle: #e8e2d8; --border-default: #918775; --border-strong: #0a1320; --border-accent: #b9603f; --border-chrome: #1e3048;
+
+  /* ---- Reserved status palette — six statuses, no seventh (parent) -------- */
+  --state-good: #2a7161;     --state-good-bg: #e3f0ec;     --state-good-border: #a9cfc4;
+  --state-warning: #836515;  --state-warning-accent: #c99a2e; --state-warning-bg: #faf1dc; --state-warning-border: #e0c880;
+  --state-serious: #a4531c;  --state-serious-bg: #fbeade;  --state-serious-border: #e2b28c;
+  --state-critical: #9b2c3b; --state-critical-bg: #f7e3e6; --state-critical-border: #ddaab2;
+  --state-info: #2c67a8;     --state-info-bg: #e4eef8;     --state-info-border: #a8c6e4;
+  --state-neutral: #4a5561;  --state-neutral-bg: #f0ece5;  --state-neutral-border: #d6cec2;
+
+  /* ---- Blast-radius ladder — a property of a write type, not a health signal.
+     v1.1: the five declared radius values one_record · one_counterparty · batch ·
+     tenant · cross_boundary. Steps 1–3 are the parent values; 4–5 extend the ramp. */
+  --blast-1: #2e7d6b; --blast-2: #4a7fa8; --blast-3: #c99a2e; --blast-4: #b8612a; --blast-5: #9b2c3b;
+  --blast-off: #e8e2d8;
+
+  /* ---- Visualisation ramp — clay into ink, mixed in OKLab (parent) --------- */
+  --viz-1: #161020; --viz-2: #3c2621; --viz-3: #5c3524; --viz-4: #7d4529; --viz-5: #9c5533; --viz-6: #b9603f; --viz-7: #cf7d5b; --viz-8: #e0a181;
+  --viz-grid: #e8e2d8; --viz-axis: #a7aeb7;
+
+  /* ---- Focus and selection (parent) --------------------------------------- */
+  --focus-ring: #2f6fb3; --focus-ring-offset: #fbfaf7; --selection-bg: #f7dccd; --selection-text: #0a1320;
+  --focus-width: 2px; --focus-gap: 2px;
+
+  /* ---- Type (parent) -------------------------------------------------------- */
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-ui: "Outfit", "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --font-wordmark: "Bricolage Grotesque", var(--font-display); /* the lockup is an asset; never typeset */
+  --text-display: 34px; --lh-display: 40px;
+  --text-title: 24px;   --lh-title: 30px;
+  --text-section: 18px; --lh-section: 24px;
+  --text-lead: 16px;    --lh-lead: 24px;
+  --text-body: 14px;    --lh-body: 20px;
+  --text-caption: 12px; --lh-caption: 16px;
+  --text-label: 11px;   --lh-label: 14px;
+  --text-micro: 10px;   --lh-micro: 13px;
+  --tracking-label: .08em; --tracking-title: -.02em; --tracking-display: -.03em;
+  --weight-regular: 400; --weight-medium: 500; --weight-bold: 800;
+  /* v1.1/v2 additions */
+  --weight-light: 300; --weight-semibold: 600; --weight-title: 700;
+  --text-page-title: 26px; --lh-page-title: 32px;   /* console page h1 */
+
+  /* ---- Space (parent) -------------------------------------------------------- */
+  --space-0: 0px; --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px; --space-6: 32px;
+  --space-7: 40px; --space-8: 48px; --space-9: 64px; --space-10: 80px;
+
+  /* ---- Density (default, parent) ------------------------------------------ */
+  --row-height: 40px; --control-height: 32px; --control-height-sm: 26px; --control-height-lg: 40px; --pane-padding: 20px;
+  --cell-padding-x: 12px; --cell-padding-y: 10px; --cell-padding-x-dense: 10px; --cell-padding-y-dense: 6px; --stack-gap: 16px;
+
+  /* ---- Radius & elevation (parent) --------------------------------------- */
+  --radius-none: 0px; --radius-sm: 3px; --radius-md: 5px; --radius-lg: 8px; --radius-full: 999px;
+  --shadow-0: none; --shadow-1: 0 1px 2px rgba(10, 19, 32, .06); --shadow-2: 0 2px 6px rgba(10, 19, 32, .08), 0 1px 2px rgba(10, 19, 32, .05);
+  --shadow-3: 0 8px 24px rgba(10, 19, 32, .12), 0 2px 6px rgba(10, 19, 32, .06); --shadow-4: 0 20px 48px rgba(10, 19, 32, .18), 0 4px 12px rgba(10, 19, 32, .08);
+  --shadow-inset: inset 0 1px 2px rgba(10, 19, 32, .06);
+
+  /* ---- Motion (parent) --------------------------------------------------------- */
+  --dur-instant: 80ms; --dur-fast: .14s; --dur-base: .2s; --dur-slow: .32s;
+  --ease-out: cubic-bezier(.22, .61, .36, 1); --ease-in-out: cubic-bezier(.45, .05, .55, .95); --ease-entrance: cubic-bezier(.16, .84, .44, 1);
+
+  /* ---- Layout (parent) ------------------------------------------------------- */
+  --rail-width: 68px; --rail-width-expanded: 216px; --panel-width: 320px; --panel-width-wide: 380px;
+  --topbar-height: 48px; --subbar-height: 44px; --content-max: 1120px; --measure: 68ch; --bearing: 50deg;
+  --z-base: 0; --z-sticky: 10; --z-overlay: 100; --z-modal: 200; --z-toast: 300;
+  /* v1.1/v2 additions */
+  --sidebar-width: 232px; --rail-width-s1: 232px; --drawer-width: 440px; --screen-max: 1440px;
+  --subnav-width: 236px; --tabbar-height: 60px; --content-wide: 1360px; --touch-min: 44px;
+  --z-chrome: 20; --z-palette: 250; --z-pill: 150; --z-tooltip: 400;
+  /* Breakpoints (documentation values; media queries use the literal numbers) */
+  --bp-xs: 360px; --bp-sm: 560px; --bp-md: 720px; --bp-lg: 1024px; --bp-xl: 1280px; --bp-2xl: 1536px;
+  /* Icon and avatar sizes */
+  --icon-xs: 12px; --icon-sm: 14px; --icon-md: 16px; --icon-lg: 20px; --icon-xl: 24px; --icon-stroke: 1.5px;
+  --avatar-xs: 20px; --avatar-sm: 24px; --avatar-md: 32px; --avatar-lg: 40px; --avatar-xl: 56px;
+
+  /* ======================= v1.1 additions (unchanged names) ================= */
+  /* Diagram zones — architecture and flow diagrams ONLY, never status */
+  --zone-kernel: #24374f;   --zone-kernel-bg: #e7ecf1;
+  --zone-consumer: #8a4229; --zone-consumer-bg: #f7e6dc;
+  --zone-runtime: #2c67a8;  --zone-runtime-bg: #e4eef8;
+  --zone-people: #2a7161;   --zone-people-bg: #e3f0ec;
+  --zone-refusal: #4a5561;  --zone-refusal-bg: #eeeae3;
+  --zone-external: #7a5f14; --zone-external-bg: #f7f0de;
+
+  /* Chart roles */
+  --chart-label: #5c656f;
+  --chart-series-primary: #24374f; --chart-series-accent: #b9603f; --chart-series-muted: #a3b1c2;
+  --chart-area-opacity: .14; --chart-stroke: 1.75px;
+
+  /* Assurance levels: an ordered ladder on the ink ramp (a property of the proof, never a status) */
+  --level-1: #3b506a; --level-1-bg: #eef1f5; --level-1-border: #cdd6e0; --level-1-fill: #6e8199;
+  --level-2: #16243a; --level-2-bg: #dfe5ec; --level-2-border: #a3b1c2; --level-2-fill: #24374f;
+  --level-3: #fbfaf7; --level-3-bg: #16243a; --level-3-border: #0a1320; --level-3-fill: #e7ecf1;
+  --level-off: #cdd6e0;
+
+  /* Actor kinds: shape + word, never colour alone. v2: people are initials in an
+     ink circle; agents are a quiet square with the clay corner. */
+  --actor-person-bg: #24374f; --actor-person-fg: #e7ecf1; --actor-person-border: #24374f;
+  --actor-agent-bg: #f2ede6;  --actor-agent-fg: #4a5561; --actor-agent-border: #d6cec2; --actor-agent-mark: #b9603f;
+  --actor-system-bg: #e7ecf1; --actor-system-fg: #3b506a; --actor-system-border: #cdd6e0;
+
+  /* Chrome signals and toasts */
+  --text-on-chrome-strong: #ffffff;
+  --chrome-sandbox-fg: #f0cf82; --chrome-sandbox-bg: rgba(201, 154, 46, .16); --chrome-sandbox-border: rgba(201, 154, 46, .55);
+  --chrome-live-fg: #8fd3c0; --chrome-live-bg: rgba(78, 170, 146, .16); --chrome-live-border: rgba(78, 170, 146, .5);
+
+  /* Loading, overlays */
+  --skeleton-base: #efe9e0; --skeleton-shine: #f8f5f0; --skeleton-dur: 1.4s;
+  --scrim: rgba(6, 11, 18, .5); --scrim-strong: rgba(6, 11, 18, .72);
+
+}
+
+/* ---- Derived roles: resolved on every themed element so a nested
+   [data-theme] specimen gets its own theme's values ----------------------- */
+:root, [data-theme] {
+  --focus-shadow: 0 0 0 var(--focus-gap) var(--focus-ring-offset), 0 0 0 calc(var(--focus-gap) + var(--focus-width)) var(--focus-ring);
+  --chart-1: var(--viz-6); --chart-2: var(--viz-3); --chart-3: var(--viz-8); --chart-4: var(--viz-1);
+  --chart-5: var(--viz-5); --chart-6: var(--viz-7); --chart-7: var(--viz-2); --chart-8: var(--viz-4);
+  --chart-grid: var(--viz-grid); --chart-axis: var(--viz-axis); 
+  --toast-bg: var(--bg-raised); --toast-fg: var(--text-primary); --toast-action: var(--text-link);
+  --toast-good: var(--state-good); --toast-warning: var(--state-warning-accent); --toast-serious: var(--state-serious);
+  --toast-critical: var(--state-critical); --toast-info: var(--state-info); --toast-neutral: var(--text-primary);
+  /* v2 console roles */
+  /* Gate lights (G1–G9) map onto status roles */
+  --gate-pass: var(--state-good);     --gate-pass-bg: var(--state-good-bg);     --gate-pass-border: var(--state-good-border);
+  --gate-warn: var(--state-warning);  --gate-warn-bg: var(--state-warning-bg);  --gate-warn-border: var(--state-warning-border);
+  --gate-fail: var(--state-critical); --gate-fail-bg: var(--state-critical-bg); --gate-fail-border: var(--state-critical-border);
+  --gate-run: var(--state-info);      --gate-run-bg: var(--state-info-bg);      --gate-run-border: var(--state-info-border);
+  --gate-na: var(--state-neutral);    --gate-na-bg: var(--state-neutral-bg);    --gate-na-border: var(--state-neutral-border);
+  /* Environment: sandbox vs live. Sandbox is never clay. */
+  --env-sandbox-fg: var(--state-warning); --env-sandbox-bg: var(--state-warning-bg); --env-sandbox-edge: var(--state-warning-accent);
+  --env-live-fg: var(--state-good); --env-live-bg: var(--state-good-bg);
+  /* Money & meter (rupees, never tokens) */
+  --meter-used: var(--viz-6); --meter-held: var(--viz-8); --meter-free: var(--bg-sunken);
+  /* Door and product marks — a letter + word, tones from the ink/viz ramps (never a status, never clay alone) */
+  --door-work: var(--ink-700); --door-records: var(--viz-4); --door-agents: var(--ink-500); --door-assurance: var(--viz-3); --door-reference: var(--ink-400);
+  /* Categorical series (never a status) */
+  --series-1: var(--viz-6); --series-2: var(--ink-600); --series-3: var(--ink-400); --series-4: var(--viz-8);
+  /* Channel badges and honesty marks */
+  --channel-fg: var(--text-secondary); --channel-bg: var(--bg-sunken); --channel-edge: var(--border-subtle);
+  --honesty-ground: var(--bg-sunken);
+}
+
+/* ---- Density modes (parent) ----------------------------------------------- */
+:root[data-density="compact"] {
+  --row-height: 32px; --control-height: 28px; --control-height-sm: 22px; --control-height-lg: 34px; --pane-padding: 14px;
+  --cell-padding-x: 10px; --cell-padding-y: 6px; --cell-padding-x-dense: 8px; --cell-padding-y-dense: 4px; --stack-gap: 12px;
+}
+:root[data-density="comfortable"] {
+  --row-height: 48px; --control-height: 38px; --control-height-sm: 30px; --control-height-lg: 46px; --pane-padding: 28px;
+  --cell-padding-x: 16px; --cell-padding-y: 14px; --cell-padding-x-dense: 12px; --cell-padding-y-dense: 10px; --stack-gap: 20px;
+}
+
+/* ---- Dark theme: defined, not inverted (parent values) -------------------- */
+:root[data-theme="dark"], [data-theme="dark"] {
+  color-scheme: dark;
+  --bg-canvas: #0a1320; --bg-surface: #101b2b; --bg-sunken: #060b12; --bg-raised: #16243a; --bg-chrome: #060b12;
+  --bg-chrome-hover: #16243a; --bg-chrome-active: #1e3048; --bg-hover: #16243a; --bg-active: #1e3048; --bg-selected: #3b2a22;
+  --text-primary: #f2ede6; --text-secondary: #a3b1c2; --text-tertiary: #8fa0b6; --text-disabled: #4a5b70; --text-inverse: #0a1320;
+  --text-on-chrome: #e7ecf1; --text-on-chrome-quiet: #a3b1c2; --text-accent: #df8c64; --text-link: #df8c64;
+  --border-subtle: #1b2b41; --border-default: #5f738a; --border-strong: #6e8199; --border-accent: #b9603f; --border-chrome: #16243a;
+  --state-good: #4eaa92; --state-good-bg: #10261f; --state-good-border: #2b5c4d;
+  --state-warning: #e0b44e; --state-warning-accent: #c99a2e; --state-warning-bg: #2a2110; --state-warning-border: #5f4a1c;
+  --state-serious: #e0975e; --state-serious-bg: #2b1c11; --state-serious-border: #63401f;
+  --state-critical: #e0697a; --state-critical-bg: #2b1015; --state-critical-border: #63262f;
+  --state-info: #6fa8e0; --state-info-bg: #10202f; --state-info-border: #2c4a68;
+  --state-neutral: #a3b1c2; --state-neutral-bg: #16243a; --state-neutral-border: #2a3e58;
+  --blast-1: #4eaa92; --blast-2: #6fa8e0; --blast-3: #e0b44e; --blast-4: #e0975e; --blast-5: #e0697a; --blast-off: #1e3048;
+  --viz-1: #f2ede6; --viz-2: #e0a181; --viz-3: #cf7d5b; --viz-4: #b9603f; --viz-5: #9c5533; --viz-6: #7d4529; --viz-7: #5c3524; --viz-8: #3c2621;
+  --viz-grid: #1b2b41; --viz-axis: #4a5b70;
+  --focus-ring: #6fa8e0; --focus-ring-offset: #0a1320; --selection-bg: #5c3524; --selection-text: #f2ede6;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, .4); --shadow-2: 0 2px 6px rgba(0, 0, 0, .45), 0 1px 2px rgba(0, 0, 0, .3);
+  --shadow-3: 0 8px 24px rgba(0, 0, 0, .5), 0 2px 6px rgba(0, 0, 0, .35); --shadow-4: 0 20px 48px rgba(0, 0, 0, .6), 0 4px 12px rgba(0, 0, 0, .4);
+  --shadow-inset: inset 0 1px 2px rgba(0, 0, 0, .35);
+
+  /* v1.1 additions, dark */
+  --zone-kernel: #cdd6e0;   --zone-kernel-bg: #16243a;
+  --zone-consumer: #df8c64; --zone-consumer-bg: #2b1c14;
+  --zone-runtime: #6fa8e0;  --zone-runtime-bg: #10202f;
+  --zone-people: #4eaa92;   --zone-people-bg: #10261f;
+  --zone-refusal: #a3b1c2;  --zone-refusal-bg: #1b2636;
+  --zone-external: #e0b44e; --zone-external-bg: #2a2110;
+  --chart-1: #df8c64; --chart-2: #f2ede6; --chart-3: #9c5533; --chart-4: #cdd6e0;
+  --chart-5: #e0a181; --chart-6: #b9603f; --chart-7: #a3b1c2; --chart-8: #7d4529;
+  --chart-series-primary: #cdd6e0; --chart-series-accent: #df8c64; --chart-series-muted: #4a5b70;
+  --chart-label: #8fa0b6; --chart-area-opacity: .18;
+  --level-1: #cdd6e0; --level-1-bg: #16243a; --level-1-border: #2a3e58; --level-1-fill: #6e8199;
+  --level-2: #f2ede6; --level-2-bg: #1e3048; --level-2-border: #3b506a; --level-2-fill: #a3b1c2;
+  --level-3: #0a1320; --level-3-bg: #e7ecf1; --level-3-border: #e7ecf1; --level-3-fill: #24374f;
+  --level-off: #2a3e58;
+  --actor-person-bg: #24374f; --actor-person-fg: #e7ecf1; --actor-person-border: #3b506a;
+  --actor-agent-bg: #16243a;  --actor-agent-fg: #a3b1c2;  --actor-agent-border: #2a3e58; --actor-agent-mark: #df8c64;
+  --actor-system-bg: #16243a; --actor-system-fg: #a3b1c2; --actor-system-border: #2a3e58;
+  --skeleton-base: #16243a; --skeleton-shine: #1e3048;
+  --scrim: rgba(0, 0, 0, .56); --scrim-strong: rgba(0, 0, 0, .78);
+
+  /* v2 roles, dark */
+  --door-work: var(--ink-300); --door-records: var(--viz-3); --door-agents: var(--ink-400); --door-assurance: var(--viz-2); --door-reference: var(--ink-500);
+  --series-1: var(--viz-3); --series-2: var(--ink-200); --series-3: var(--ink-400); --series-4: var(--viz-6);
+  --meter-used: var(--viz-3); --meter-held: var(--ink-400);
+}
+
+/* ---- Reduced motion collapses every duration at the token layer ---------- */
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-instant: 0s; --dur-fast: 0s; --dur-base: 0s; --dur-slow: 0s; --skeleton-dur: 0s; }
+}
+:root[data-motion="reduce"] { --dur-instant: 0s; --dur-fast: 0s; --dur-base: 0s; --dur-slow: 0s; --skeleton-dur: 0s; }
+
+/* ---- Touch: 44px minimum targets on coarse pointers ---------------------- */
+@media (pointer: coarse) {
+  :root { --control-height: 44px; --control-height-sm: 36px; --control-height-lg: 48px; }
+}

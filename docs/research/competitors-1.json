@@ -1,0 +1,797 @@
+[
+  {
+    "vendor": "Credo AI",
+    "slug": "credo-ai",
+    "url": "https://www.credo.ai/product",
+    "category": "AI governance platform (documentation x model/use-case-centric); Forrester Wave Leader Q3 2025; Gartner MQ 2026 Visionary",
+    "central_object": "AI use case (with linked models, vendors and, since 2025-26, agents) in an 'AI registry'",
+    "positioning": "'The Unified AI Governance Platform - Measurable Trust for Every AI System': discover, assess, govern, monitor and report on every agent, model and application; now pitching an Agent Registry and GAIA, an AI governance agent that automates intake and documentation.",
+    "buyer": "Head of AI governance / Responsible AI lead, legal and compliance, CRO; enterprise (Mastercard, Booz Allen cited)",
+    "key_modules": [
+      "AI Registry: Use cases, Models, Vendors (plus Agent Registry with autonomy classification and dependency graphs)",
+      "Governance Center: Stages, Questionnaires, Triggers & Actions, Policy Packs, Risk configuration, Control library, Fields",
+      "Risk: risk scenarios / risk types / risk classifications (incl. an 'AI Agency' risk type: Tool Misuse, Unauthorized Actions, Infinite Loop Execution)",
+      "Compliance: policy packs (EU AI Act, NIST AI RMF, NYC LL144, ISO 42001)",
+      "Artifacts: Review history, Reports",
+      "GAIA (Govern AI Assistant): GA 13 May 2026; drafts intake metadata and questionnaire answers, suggests risks; each suggestion accept/edit/reject with reasoning",
+      "Shadow AI discovery, Monitoring, Business insights; Governance Knowledge Graph (regulation x business context x config)"
+    ],
+    "nav_structure": "Left sidebar: Home · Dashboard · AI registry (Use cases, Models, Vendors) · Governance Center (Stages, Questionnaires, Triggers & Actions, Policy Packs, Risk configuration, Control library, Fields) · Settings · Notifications · Help. Record pages have a secondary rail: Overview · Questionnaire · Risk · Compliance, then Artifacts: Review history · Reports. Header shows record ID (UC-1051), lifecycle stage chip and status chip ('Collecting evidence', 'Reviewing assessment') and one primary CTA ('Submit for review' / 'Complete review').",
+    "ux_patterns": [
+      "Record header = name + human ID (UC-1051) + stage chip + status chip + single primary CTA",
+      "Two-level nav: global sidebar + per-record section rail with 'Artifacts' grouped separately",
+      "Stage stepper (1 Intake -> 2 Governance) with a right-hand 'Review in progress' panel: reviewers N/M signed off, due date, comments",
+      "Governance plan card: alert count, risk types with counts, applied policy packs, deep links 'View risk' / 'View compliance'",
+      "Filterable risk-scenario table with chip filters and per-row Archive/Edit/Delete",
+      "Modal confirmation after 'Submit for review' ('You will be notified...')",
+      "AI-assistant suggestions that are individually accept/edit/reject with shown reasoning (GAIA)"
+    ],
+    "strengths": [
+      "Very clean record-centric information architecture: every use case reads like a case file with stage, status, owners and artifacts",
+      "Review workflow is visible (reviewers signed off 0/1, due date, comments) - a good model for elan1's approval panel",
+      "Policy packs make the regulatory mapping legible to non-engineers",
+      "Agent-specific risk vocabulary (Tool Misuse, Unauthorized Actions) already in the product",
+      "GAIA's per-suggestion accept/edit/reject with reasoning is a strong human-in-the-loop micro-pattern"
+    ],
+    "gaps": [
+      "Documentation, not enforcement: reviews gate a use case's lifecycle stage, not a business write at runtime",
+      "Central object is the use case/model; there is no per-action record of what an agent actually did to a system of record",
+      "'Trace-level policy enforcement' is claimed on the product page for agent observability, but nothing public shows it stopping a write [unverified]",
+      "Nothing signed or independently checkable; review history is an internal log",
+      "Refusals are not first-class objects"
+    ],
+    "pricing": "Not public (enterprise sales; 'Talk to an Expert').",
+    "recent_news": [
+      "13 May 2026: GAIA (Govern AI Assistant) generally available",
+      "2026: Fast Company Most Innovative Companies - No. 6 in Applied AI",
+      "Q3 2025: Leader, Forrester Wave AI Governance Solutions (12 top scores)",
+      "June 2026: Visionary, inaugural Gartner MQ for AI Governance Platforms (per E08)",
+      "Product page (2026) adds Agent Registry with dependency graphs and 'observability with trace-level policy enforcement'"
+    ],
+    "elan1_takeaways": [
+      "Copy the record header grammar for elan1 Records: action ID + stage chip + status chip + one primary CTA",
+      "Adopt the per-record section rail, but make the sections Decision · Approval · Evidence · Proof rather than Questionnaire/Risk",
+      "Use a Credo-style 'Review in progress' side panel for elan1 Work approvals, but bind it to one pending business write, with the diff of the write shown",
+      "Borrow the accept/edit/reject-with-reasoning pattern for any AI-drafted field; log each choice into the proof record",
+      "Beat them on the noun: Credo's registry lists use cases; elan1 Agents door should show what each agent wrote, was refused, and was approved for"
+    ],
+    "matrix": {
+      "enforce": "No",
+      "per_action_record": "No",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/credo-ai-1.jpg",
+        "caption": "Credo AI platform (v19.2.0), use case 'FairHire AI' (UC-1051) Overview: stage 'Production', status 'Collecting evidence', governance plan card (4 alerts, risk types with counts, policy packs EU AI Act / NIST AI RMF / NYC LL144), contributor list, 'Submit for review' CTA; full left nav visible. Frame from Credo's product video thumbnail.",
+        "source_url": "https://embed-ssl.wistia.com/deliveries/fe146196d32d2efa2867f1b28285d0f8.webp (embedded on https://www.credo.ai/ai-agent-registry)"
+      },
+      {
+        "file": "assets/competitors/credo-ai-2.jpg",
+        "caption": "Credo AI (v20.0.0-rc.3), agent record 'Cursor Agent' (UC-1104) in Intake: 'Assessment submitted for review' modal over a stage stepper (Intake -> Governance) and a 'Review in progress' panel (0 of 1 reviewers signed off).",
+        "source_url": "https://embed-ssl.wistia.com/deliveries/281f722f5e0d7e15607c7b76d753089e00263057.webp (embedded on https://www.credo.ai/ai-agent-registry)"
+      },
+      {
+        "file": "assets/competitors/credo-ai-3.jpg",
+        "caption": "Credo AI Governance Center > Risk configuration: risk-scenario table filtered to 'Risk type: AI Agency' (Tool Misuse, Infinite Loop Execution, Unauthorized Actions...) with Archive/Edit/Delete row actions.",
+        "source_url": "https://embed-ssl.wistia.com/deliveries/c9caa266e1c183666ce0d290654370930ce4e571.webp (embedded on https://www.credo.ai/ai-agent-registry)"
+      }
+    ],
+    "sources": [
+      "https://www.credo.ai/product",
+      "https://www.credo.ai/ai-agent-registry",
+      "https://www.credo.ai/blog/announcing-general-availability-of-govern-ai-assistant-gaia-credo-ais-ai-governance-agent",
+      "https://www.gov.uk/ai-assurance-techniques/credo-ai-responsible-ai-governance-platform"
+    ]
+  },
+  {
+    "vendor": "ServiceNow AI Control Tower",
+    "slug": "servicenow-ai-control-tower",
+    "url": "https://www.servicenow.com/products/ai-control-tower.html",
+    "category": "Platform-bundled AI governance + runtime control (enforcement x action-centric, single estate); Gartner MQ 2026 Leader",
+    "central_object": "AI asset as a CMDB configuration item (AI system, model, prompt, dataset, MCP server) linked to business services; plus workflow records (AI cases, tasks)",
+    "positioning": "'Enforce runtime governance for AI at scale' - a central hub to discover, secure, govern, observe and measure any AI (first- or third-party) on the ServiceNow AI Platform.",
+    "buyer": "Chief AI Officer, CIO/CTO, risk and security leaders; existing ServiceNow customers (ITSM/IRM/ITAM)",
+    "key_modules": [
+      "Discover: auto-inventory of agents, models, MCP servers; 30 new integrations (AWS, Google Cloud, Azure, SAP, Oracle, Workday) announced Knowledge 2026",
+      "Secure: AI identity/access (Veza), least privilege, prompt-injection blocking",
+      "Govern: AI strategy, lifecycle, risk & compliance, 5 new NIST/EU AI Act frameworks, AI cases",
+      "Observe: live metrics and log traces (Traceloop acquisition)",
+      "Measure: value/ROI and cost dashboards",
+      "AI Gateway, kill switch, Intelligent Approvals (GA May 2026), AI Agent Advisor"
+    ],
+    "nav_structure": "Classic workspace (docs): top bar 'AI Control Tower' app pill; landing 'Welcome to AI Control Tower' with a 'Top items to review' strip; tab row Overview · AI strategy · AI asset inventory · Value · Health · Evaluation · Risk & compliance · Security & privacy · AI cases · AI Gateway. New Next-Experience UI (marketing): left rail Home · Activity center · Plan · Inventory · Govern (Risk and compliance, Security) · Insights · Settings.",
+    "ux_patterns": [
+      "'Top items to review' banner of counted, linked exceptions (tasks past due, new AI cases, assets pending review)",
+      "Lifecycle funnel tiles (New / Assess / Build and test / Deploy) with counts",
+      "Donuts for AI systems by type/provider; half-gauge risk classification (Unacceptable/High/Medium/Low)",
+      "Inventory table with type segmented control (All / AI systems / AI models / Prompts / Dataset / MCP server), asset state + asset status chips, and a right-side 'Refine list' filter drawer",
+      "'Top action items' list with 'Automate with AI' split buttons",
+      "Compliance posture per framework as progress bars with 'high priority issues' callouts",
+      "Strategy tab mapping AI to goals/targets with RAG status"
+    ],
+    "strengths": [
+      "Owns the workflow and the approver relationship; approvals and cases are native records",
+      "'Top items to review' turns a dashboard into a work queue - exactly the Work-door instinct",
+      "Asset state vs asset status separated (lifecycle vs review outcome) - clean, reusable pattern",
+      "Kill switch + AI Gateway + Intelligent Approvals move it into the runtime path (inside ServiceNow)",
+      "Links AI to business services via CMDB, which makes blast radius legible"
+    ],
+    "gaps": [
+      "Enforcement and per-action records only for writes ServiceNow owns; E08 open question on third-party systems of record remains",
+      "Records are ServiceNow workflow records - nothing signed or verifiable by a third party",
+      "Dashboards are asset-centric (counts of AI systems), not action-centric (what was written, approved, refused)",
+      "Refusals appear as blocked events/metrics, not as evidence records [by absence]",
+      "Dense tab row (10 tabs) - high cognitive load, typical of the platform"
+    ],
+    "pricing": "Not public; licensed within ServiceNow AI Platform tiers (see ServiceNow product tiers doc); no price in the May 2026 release.",
+    "recent_news": [
+      "5 May 2026 (Knowledge 2026): AI Control Tower expanded to discover/observe/govern/secure/measure AI 'across any system'; 30 new integrations; kill switch; AI Gateway; Traceloop observability; Veza identity",
+      "AI Agent Advisor and Intelligent Approvals GA May 2026; Control Tower enhancements GA August 2026",
+      "Gartner MQ for AI Governance Platforms (June 2026): Leader"
+    ],
+    "elan1_takeaways": [
+      "Put a 'Top items to review' strip at the top of elan1 Work: pending approvals, refused writes needing attention, overdue proofs - each a counted link",
+      "Separate 'state' (where the action is in its lifecycle) from 'status' (decision outcome) in every elan1 table",
+      "Beat the inventory: elan1's primary table is governed writes (invoice posted, limit changed) with decision + proof columns, not a list of AI assets",
+      "Show the system of record ServiceNow does not own (ERPNext, SAP, Tally) as a first-class column - the portability argument made visible",
+      "Keep elan1 to four doors; ServiceNow's 10-tab row is the anti-pattern"
+    ],
+    "matrix": {
+      "enforce": "Partial - inside ServiceNow workflows; kill switch/AI Gateway announced for broader scope (GA Aug 2026)",
+      "per_action_record": "Partial - workflow records",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/servicenow-ai-control-tower-1.jpg",
+        "caption": "ServiceNow AI Control Tower Overview tab (docs screenshot): 'Top items to review' strip, lifecycle tiles New/Assess/Build and test/Deploy, AI systems by type and provider donuts, risk classification gauge, AI systems trend; tab row incl. AI asset inventory, Risk & compliance, AI cases, AI Gateway. Cropped to top 1100px.",
+        "source_url": "https://www.servicenow.com/docs/r/intelligent-experiences/ai-control-tower/overview-tab-in-ai-control-tower.html"
+      },
+      {
+        "file": "assets/competitors/servicenow-ai-control-tower-2.jpg",
+        "caption": "ServiceNow AI Control Tower 'AI strategy' tab (docs screenshot): goals and targets by AI strategic priority with red/yellow/green status bars and expandable lists.",
+        "source_url": "https://www.servicenow.com/docs/r/intelligent-experiences/ai-control-tower/ai-strategy-ai-control-tower.html"
+      },
+      {
+        "file": "assets/competitors/servicenow-ai-control-tower-3.jpg",
+        "caption": "ServiceNow AI Control Tower Inventory (marketing render of the new UI): asset-type segmented control, asset state and status chips, 'Refine list' filter drawer (managed status, risk score, lifecycle status).",
+        "source_url": "https://www.servicenow.com/products/ai-control-tower.html"
+      },
+      {
+        "file": "assets/competitors/servicenow-ai-control-tower-4.jpg",
+        "caption": "ServiceNow AI Control Tower Govern > Risk and compliance (marketing render): top action items with 'Automate with AI', regulatory risk classification donut, compliance score per framework (EU AI Act 6/10 controls).",
+        "source_url": "https://www.servicenow.com/products/ai-control-tower.html"
+      }
+    ],
+    "sources": [
+      "https://www.servicenow.com/products/ai-control-tower.html",
+      "https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-expands-AI-Control-Tower-to-discover-observe-govern-secure-and-measure-AI-deployed-across-any-system-in-the-enterprise/default.aspx",
+      "https://www.servicenow.com/docs/r/intelligent-experiences/ai-control-tower/ai-governance.html",
+      "https://theaieconomy.substack.com/p/servicenow-ai-control-tower-knowledge-2026-enforcement",
+      "https://diginomica.com/servicenow-knowledge-2026-ai-control-tower-expands-autonomous-workforce-reaches-every-function-and"
+    ]
+  },
+  {
+    "vendor": "IBM watsonx.governance",
+    "slug": "ibm-watsonx-governance",
+    "url": "https://www.ibm.com/products/watsonx-governance",
+    "category": "AI governance platform (documentation x model-centric, with evaluation/monitoring); Gartner MQ 2026 Leader; Forrester Wave Leader Q3 2025",
+    "central_object": "Model / AI use case with factsheets (OpenPages-based Governance console); agents and tools now catalogued as governed components",
+    "positioning": "End-to-end AI lifecycle governance: inventory, risk and compliance (EU AI Act, SR 11-7), evaluation and monitoring of models and agents; with watsonx Orchestrate as the agent runtime.",
+    "buyer": "Model risk management (banks, SR 11-7/E-23), CRO/compliance, data science leadership; IBM accounts",
+    "key_modules": [
+      "Governance console (OpenPages): use cases, models, questionnaires, risk identification, change management, oversight tasks",
+      "AI Factsheets / model inventory",
+      "Governed agentic catalog: approved tools/agents (guardrail detectors: jailbreak, PII, HAP, relevance)",
+      "Evaluation & monitoring (Evaluation Studio, traces)",
+      "Enforcement Tracking for watsonx Orchestrate (Aug 2026): scheduled ingestion of agent evaluation metrics as governance evidence, pass/breach tracking",
+      "Agentic Control Plane in watsonx Orchestrate (Jul 2026): ops dashboard, policy management, content guardrails, shared agent catalog"
+    ],
+    "nav_structure": "Two surfaces: (1) Governance console - dark top bar, tabbed workspace (Home + open records as tabs), Home with My Tasks / Subscription Tasks / Oversight Tasks tabs and widget grid; (2) watsonx cloud UI (dataplatform.cloud.ibm.com/aigov/...) with hamburger nav, e.g. 'Governed agentic catalog' with left filter facets (Type, Category, Provider, Inventory, Framework, Runtime details) and card grid.",
+    "ux_patterns": [
+      "Personal landing: 'Welcome, Kate!' + last-login timestamp + task tabs with counts",
+      "KPI widgets as big numbers + donuts (use cases by risk level, models by risk tier, by lifecycle phase)",
+      "'New Use Case' / 'New Change Request' CTAs embedded inside widgets",
+      "Record-as-browser-tab workspace (Questionnaire, Risk Identification open as tabs)",
+      "Faceted catalog of approved tools/agents as cards with provider/type/version",
+      "Useful-links panel to regulations (EU AI Act, SR 11-7, E-23)"
+    ],
+    "strengths": [
+      "Deep regulated-industry fit (SR 11-7 model risk), mature task/oversight workflow",
+      "Explicit 'Oversight Tasks' concept - a human reviewer queue",
+      "Governed catalog: 'approved components only' is an understandable control for builders",
+      "Enforcement Tracking frames evidence as 'continuously updated record' - closest IBM gets to per-agent evidence"
+    ],
+    "gaps": [
+      "Documentation/evaluation, not runtime gating of business writes; Enforcement Tracking records metrics after the fact (scheduled), per IBM's own announcement",
+      "Model-centric data model (models by risk tier, factsheets); no business action object",
+      "No signing/hashing/verifiability in any 2026 announcement reviewed (A3 trigger not fired)",
+      "Two disconnected UIs (OpenPages console vs watsonx cloud) and an Orchestrate control plane - fragmented",
+      "Dashboards heavy with empty/'No Value' states in real screenshots"
+    ],
+    "pricing": "Publicly listed SaaS tiers on IBM site (Essentials/Standard) - amounts not verified in this pass [unverified].",
+    "recent_news": [
+      "11 Aug 2026: 'From governance policies to governance proof' - Enforcement Tracking for watsonx Orchestrate (evaluation metrics auto-ingested as evidence; no signing mentioned)",
+      "Jul 2026: Agentic Control Plane in watsonx Orchestrate (ops dashboard, policy management, content guardrails, agent catalog)",
+      "June 2026: Leader, inaugural Gartner MQ for AI Governance Platforms (positioned highest per OneTrust's MQ image alt text)"
+    ],
+    "elan1_takeaways": [
+      "Give each elan1 user a personal landing with their own queues (My approvals / Watching / Oversight) and counts, like IBM's task tabs",
+      "Use IBM's 'governance proof' language as the foil: elan1's proof is per write and checkable, IBM's is a metric pulled on a schedule",
+      "A governed catalog of allowed tools maps to elan1 Agents: per agent, show allowed actions and the policy that gates each",
+      "Avoid empty-state donuts; elan1 dashboards should default to recent governed writes, not zero-filled charts"
+    ],
+    "matrix": {
+      "enforce": "No",
+      "per_action_record": "No (Enforcement Tracking = scheduled agent metrics, not per action)",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/ibm-watsonx-governance-1.jpg",
+        "caption": "IBM watsonx Governance console Home (vendor screenshot on G2): task tabs (My Tasks, Subscription Tasks, Oversight Tasks), widgets for model performance, change management, inventory (use cases by risk level, models by risk tier), use cases by lifecycle phase, regulatory useful links. Cropped.",
+        "source_url": "https://images.g2crowd.com/uploads/attachment/file/1708949/governance-console-home.png (via https://www.g2.com/products/ibm-watsonx-governance/reviews)"
+      },
+      {
+        "file": "assets/competitors/ibm-watsonx-governance-2.jpg",
+        "caption": "IBM watsonx 'Governed agentic catalog' (vendor screenshot on G2): faceted filter (Type, Category, Provider, Inventory, Framework, Runtime details) and card grid of approved tools (Jailbreak Detector, PII Detector, HAP Detector...). Cropped.",
+        "source_url": "https://images.g2crowd.com/uploads/attachment/file/1708948/governed-agentic-catalog-filter.png (via https://www.g2.com/products/ibm-watsonx-governance/reviews)"
+      }
+    ],
+    "sources": [
+      "https://www.ibm.com/new/announcements/from-governance-policies-to-governance-proof-with-enforcement-tracking-for-watsonx-orchestrate",
+      "https://www.ibm.com/new/announcements/introducing-the-agentic-control-plane",
+      "https://www.g2.com/products/ibm-watsonx-governance/reviews",
+      "https://dataplatform.cloud.ibm.com/docs/content/svc-watsonxgov/wxgov-console.html?context=wx"
+    ]
+  },
+  {
+    "vendor": "Palantir AIP",
+    "slug": "palantir-aip",
+    "url": "https://www.palantir.com/docs/foundry/aip/overview",
+    "category": "Operational AI platform with action governance (enforcement x action-centric, single estate: Foundry)",
+    "central_object": "The Ontology action (typed action on Ontology objects) - agents/Logic functions call actions; actions have rules, parameters, submission criteria, history, metrics",
+    "positioning": "AIP connects LLMs to the Ontology so AI can reason over and write back to operational objects through governed actions; the architecture elan1's E08 calls 'the proof the design is right'.",
+    "buyer": "Operational leaders and CIO/CDO in defense, government, manufacturing, healthcare, energy; existing Foundry customers",
+    "key_modules": [
+      "Ontology Manager: object types, action types (Rules, Parameters, User Interface, Capabilities, Security & Submission Criteria, Automations, History, Observability)",
+      "AIP Logic: no-code LLM functions over the Ontology",
+      "AIP Agent Studio: agent builder with retrieval context, tools and a visible reasoning panel",
+      "Workshop apps, Automate, Action metrics / run history",
+      "Ontology MCP servers in MCP Hub (May 2026): external agents access Ontology with scoped permissions",
+      "Global Branching with approval policies (GA May 2026)"
+    ],
+    "nav_structure": "Foundry app shell: thin dark left launcher (Home, Search, Notifications, Recent, Files, Apps) and per-app workspaces. Action type page: left rail Overview · Rules · Parameters · User Interface · Capabilities · Security & Submission Criteria · Automations · History · Observability; main pane shows Input -> Rules graph and Dependents (Automation, Workshop, Object View, Process...).",
+    "ux_patterns": [
+      "Action type 'overview graph': inputs on the left, rules (Modify object / Create object) on the right - the write made legible before it runs",
+      "'Security & Submission Criteria' as a first-class section of every action - conditions that must hold for the write to be accepted",
+      "Dependents panel: which automations/apps call this action (blast radius)",
+      "Action metrics: executions stacked success vs failure-type over time, P95 duration, 'Run history' link",
+      "Agent Studio three-pane: context/tools | chat | Reasoning trace (user query -> ontology context -> prompt -> output)",
+      "Status chip 'Experimental' and RID copy buttons for every object"
+    ],
+    "strengths": [
+      "The only vendor whose central object is the business action; rules + submission criteria sit on the write path",
+      "Explicit dependents/blast radius on each action",
+      "Failure types are visible in metrics - refusals are at least counted",
+      "Reasoning panel makes agent provenance inspectable per turn"
+    ],
+    "gaps": [
+      "Only for Foundry objects; external systems of record require Foundry integration",
+      "No independently checkable (signed/chained) record; evidence lives inside Foundry",
+      "UI is an engineer's tool - dense, configuration-first, not an auditor's view",
+      "Refusal counted as failure metric, not a first-class evidence object with reason and approver (Partial per E08)"
+    ],
+    "pricing": "Not public (enterprise contracts; AIP bootcamps).",
+    "recent_news": [
+      "May 2026: Ontology MCP servers in MCP Hub; schedule rules on action types; Global Branching GA with approval policies (Palantir docs announcements)",
+      "June 2026: AIPCon 10 customer showcase (BusinessWire, 4 Jun 2026)",
+      "No 2026 announcement found naming a non-Foundry system of record as an action target (A5 trigger not fired) [finding by absence]"
+    ],
+    "elan1_takeaways": [
+      "Steal the action-type anatomy for elan1 Records: Input -> Policy -> Write -> Proof, drawn as a graph on every governed write",
+      "Make 'submission criteria' visible and plain-English on each write: which rule, which threshold, which approver",
+      "Show dependents/blast radius for each agent permission in the Agents door",
+      "Chart outcomes as allowed / held for approval / refused - and make each bar clickable to the proof records (Palantir stops at counts)",
+      "Beat Palantir on portability and on the auditor's view: a proof page a stranger can verify, outside the vendor"
+    ],
+    "matrix": {
+      "enforce": "Yes - only on Foundry objects",
+      "per_action_record": "Yes - on Foundry objects",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "Partial"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/palantir-aip-1.jpg",
+        "caption": "Palantir AIP Logic home (docs): 'Build no-code Ontology functions', create-new-Logic CTA, list of Logic functions with creator and date; Foundry left launcher.",
+        "source_url": "https://palantir.com/docs/foundry/logic/overview/"
+      },
+      {
+        "file": "assets/competitors/palantir-aip-2.jpg",
+        "caption": "Palantir AIP Agent Studio edit view (docs): retrieval context and tools on the left, chat with cited sources in the centre, Reasoning panel (user query -> ontology context -> prompt -> agent output) on the right; version v14.0 and Publish.",
+        "source_url": "https://palantir.com/docs/foundry/chatbot-studio/overview/"
+      },
+      {
+        "file": "assets/competitors/palantir-aip-3.jpg",
+        "caption": "Palantir Ontology Manager action type 'Escalate Patient Care' (docs): left rail incl. Rules, Security & Submission Criteria, History, Observability; Input -> Rules graph (Modify Patient, Create Alert); Dependents (Automation, Workshop...).",
+        "source_url": "https://palantir.com/docs/foundry/ontology-manager/overview/"
+      },
+      {
+        "file": "assets/competitors/palantir-aip-4.jpg",
+        "caption": "Palantir action metrics (docs): executions per 5-minute bucket stacked Success vs 'Failure, failure-type: function_failure', P95 duration, 'Run history' link.",
+        "source_url": "https://palantir.com/docs/foundry/action-types/action-metrics/"
+      }
+    ],
+    "sources": [
+      "https://www.palantir.com/docs/foundry/aip/overview",
+      "https://palantir.com/docs/foundry/ontology-manager/overview/",
+      "https://palantir.com/docs/foundry/action-types/action-metrics/",
+      "https://www.palantir.com/docs/foundry/announcements/2026-05",
+      "https://www.businesswire.com/news/home/20260604590081/en/Palantir-Customers-Reveal-How-AI-Amplifies-Their-Tradecraft-at-AIPCon-10"
+    ]
+  },
+  {
+    "vendor": "Boomi Agent Control Tower",
+    "slug": "boomi-agent-control-tower",
+    "url": "https://boomi.com/platform/agentstudio/",
+    "category": "Integration-platform agent governance (enforcement x agent/integration-centric); evolving into 'Agent Control Plane' with AI Gateway",
+    "central_object": "Agent (registered from Boomi Agent Garden and third-party providers: Bedrock, Agentforce, Copilot, Snowflake) and its provider account",
+    "positioning": "Agentstudio: build, govern and orchestrate all AI agents; Agent Control Tower registers first- and third-party agents with anomaly detection and a kill switch. Sept 2026: Agent Control Plane + AI Gateway (Lunar.dev tech) can cap tokens and hold high-risk actions until human approval.",
+    "buyer": "CIO / integration and platform teams, IT security; Boomi iPaaS customers",
+    "key_modules": [
+      "Agent Garden (build), Agent Designer, Agent Marketplace",
+      "Agent Control Tower: Agents registry (by provider), Monitoring and Compliance dashboard, provider management, kill switch",
+      "Anomaly detection; trust level (Endorsed/Deprecated/Not endorsed); AAGEI score (security, risk, ethics, reliability, performance)",
+      "Agent Control Plane (Sept 2026): universal registry, observability/lineage/audit logs, AI Gateway (MCP + LLM gateway), Boomi Connect MCP servers, hybrid runtime"
+    ],
+    "nav_structure": "Top bar 'Agentstudio' with product tabs Agent Garden | Agent Control Tower; thin icon rail inside Control Tower (Agents map, Providers, Monitoring, Audit/Search, Alerts).",
+    "ux_patterns": [
+      "Status counter strip: Total / Not applicable / Inactive / Active / Draft",
+      "Bubble 'galaxy' map of agents grouped by provider with hover counts, toggle to list view",
+      "KPI tiles with deltas (Active agents, Tokens, Avg response, Errors, Invocations)",
+      "Radar chart composite score per agent (AAGEI) + ranked list",
+      "Trust-level donut (Endorsed / Deprecated / Not endorsed)",
+      "Global filters (provider, account, model) + time window selector"
+    ],
+    "strengths": [
+      "Cross-vendor registry is real and visual; provider grouping answers 'where do my agents live'",
+      "Kill switch is a clear, single enforcement verb",
+      "Endorsement status is a simple governance state buyers understand",
+      "Sept 2026 AI Gateway adds 'hold high-risk action until human approval' - closest to elan1's gate in this batch"
+    ],
+    "gaps": [
+      "Unit is the agent invocation/token, not the business write; dashboards are telemetry",
+      "Audit logs and observability, no per-action record of the write (E08 A4 trigger: watch the AI Gateway approval feature)",
+      "Nothing signed; the gateway is the same party logging its own decisions",
+      "Radar/composite scores are opaque - hard to defend to an auditor",
+      "Monitoring screenshot data dates from 2024; approval UX for held actions not publicly shown [unverified]"
+    ],
+    "pricing": "Agent Control Tower included in the Base edition of Agentstudio (Boomi docs); price not public.",
+    "recent_news": [
+      "2 Sep 2026: Boomi Agent Control Plane announced - AI Gateway built on acquired Lunar.dev technology; token limits and 'stopping high-risk actions until they have human approval' (TechTarget)",
+      "13 May 2026: Lunar.dev LoI (per E08); acquisition completed per Sept 2026 coverage",
+      "2025: Agentstudio launch; AWS ML blog on Boomi + Bedrock governance"
+    ],
+    "elan1_takeaways": [
+      "Adopt a status counter strip atop the Agents door (Active / Paused / Draft / Unowned) with click-to-filter",
+      "Offer a 'kill switch' verb per agent in elan1 - but make the pause itself a proof record (who, why, when)",
+      "Don't copy composite radar scores; show concrete counts: writes allowed, held, refused, per agent",
+      "Watch Boomi's held-for-approval UX - elan1's approval card must show the business diff and policy reason, which a gateway cannot"
+    ],
+    "matrix": {
+      "enforce": "Partial - registry, guardrails, kill switch; Sept 2026 AI Gateway holds high-risk actions for approval [announced, unverified in production]",
+      "per_action_record": "No - observability and audit logs",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/boomi-agent-control-tower-1.jpg",
+        "caption": "Boomi Agentstudio > Agent Control Tower 'Agents' view (Boomi docs): status counters (684 total, 323 active, 278 draft...), bubble map grouped by provider (Boomi Agent Garden, AWS Bedrock, Salesforce, Copilot, Custom Accounts) with hover tooltip.",
+        "source_url": "https://help.boomi.com/docs/Atomsphere/Platform/act-View_agents"
+      },
+      {
+        "file": "assets/competitors/boomi-agent-control-tower-2.jpg",
+        "caption": "Boomi Agent Control Tower 'Monitoring and Compliance' dashboard (AWS ML blog, June 2025; sample data dated 2024): KPI tiles, AAGEI radar score, trust level donut (Endorsed/Deprecated/Not endorsed), invocations and tokens charts. Cropped.",
+        "source_url": "https://aws.amazon.com/blogs/machine-learning/advancing-ai-agent-governance-with-boomi-and-aws-a-unified-approach-to-observability-and-compliance/"
+      }
+    ],
+    "sources": [
+      "https://boomi.com/platform/agentstudio/",
+      "https://help.boomi.com/docs/Atomsphere/Platform/Agent_Control_Tower",
+      "https://boomi.com/platform/agent-control-plane/",
+      "https://www.techtarget.com/data-technologies/news/366649690/Boomi-intros-layer-for-controlling-AI-costs-and-connections",
+      "https://aws.amazon.com/blogs/machine-learning/advancing-ai-agent-governance-with-boomi-and-aws-a-unified-approach-to-observability-and-compliance/"
+    ]
+  },
+  {
+    "vendor": "Microsoft Agent 365 (with Entra Agent ID, Purview, Defender)",
+    "slug": "microsoft-agent-365",
+    "url": "https://www.microsoft.com/en-us/microsoft-agent-365",
+    "category": "Bundled agent control plane (enforcement x agent-identity-centric)",
+    "central_object": "Agent identity (Entra Agent ID) registered in the Microsoft 365 admin center registry",
+    "positioning": "'The control plane for agents': manage agents alongside employees with the admin tools IT already uses - registry, identity, access, DLP, threat protection.",
+    "buyer": "IT admin / CIO and security (CISO) in Microsoft 365 tenants",
+    "key_modules": [
+      "M365 admin center > Agents: Overview, All agents (Registry · Map · Requests), Shadow AI, Tools, Settings",
+      "Registry sync / Connected platforms (Bedrock, Google, Databricks Genie, Anthropic Claude, Salesforce)",
+      "Agent requests: publish or reject submitted agents",
+      "Agent details: Details · Users · Data & tools · Security · Permissions · Certification · Activity; Block / Uninstall",
+      "Entra Agent ID (identity, conditional access); Purview (audit, DSPM, DLP); Defender (threats); Security Dashboard for AI"
+    ],
+    "nav_structure": "Standard M365 admin shell: left nav Home · Copilot · Agents (Overview, All agents, Shadow AI, Tools, Settings) · Users · Work IQ · Devices · Teams & groups · Marketplace · Billing · Setup · Admin centers; 'All agents' page has tabs Registry | Map | Requests; agent opens in a right flyout panel.",
+    "ux_patterns": [
+      "KPI tiles tuned to governance gaps: Total agents, Agents at risk, Agents without owners, Unmanaged agents",
+      "'Top actions for you' cards: Pending requests, Agents at risk, Agents without owners, Agents with exceptions - each with a list and one CTA (Manage requests / Assign owners)",
+      "Registry table with chip filters (Status, Publisher type, Platform, Channel), Export, Refresh",
+      "Right-side flyout for record detail with tab row and Block/Uninstall actions",
+      "Request review card: Pending publish, Publish to... / Reject submission",
+      "Registry sync card with connection count and error count"
+    ],
+    "strengths": [
+      "Scale and distribution: registry of hundreds of thousands of agents inside a console every IT admin uses",
+      "Excellent 'governance gap' KPIs (without owners, unmanaged) that convert to one-click actions",
+      "Approval of agent publication is a real, simple two-button flow",
+      "Identity-first model gives conditional access and block at identity level"
+    ],
+    "gaps": [
+      "Governs the agent (identity, publication, access), not the business write it performs",
+      "Records are Purview audit logs - telemetry from the same vendor that runs the agent",
+      "Nothing independently checkable; refusals (blocked agents) are state changes, not evidence records",
+      "Price: bundled at $15/user/month or inside E7 - bundling threat (E08 threat 3 / O08 A2)"
+    ],
+    "pricing": "GA 1 May 2026: $15 per user per month standalone (requires M365 E5, Business Premium or Defender+Purview Frontline); included in Microsoft 365 E7 at $99/user/month (per SAMexpert; Microsoft blog confirms GA date).",
+    "recent_news": [
+      "1 May 2026: Microsoft 365 E7 and Agent 365 generally available",
+      "2026: unified agent registry syncing agents from AWS Bedrock, Google Cloud, Databricks Genie, Anthropic Claude, Salesforce; default blocks for shadow AI (Microsoft Mechanics)",
+      "Security Dashboard for AI surfaces Agent 365 agents in an AI inventory"
+    ],
+    "elan1_takeaways": [
+      "Copy the 'Top actions for you' card row for elan1 Work: Pending approvals · Refused writes · Agents without owner · Proofs failing verification",
+      "Use gap KPIs, not vanity KPIs: 'writes without a named approver', 'agents with write access but no policy'",
+      "Use a right-side flyout for quick look at a governed write, with full page for the proof",
+      "Make elan1's approval card richer than Microsoft's Publish/Reject: show the exact write, the policy hit, the evidence that will be emitted",
+      "Position against bundling: Microsoft governs who the agent is; elan1 proves what it did in the ledger"
+    ],
+    "matrix": {
+      "enforce": "Partial - identity, DLP, conditional access, block agent",
+      "per_action_record": "No - audit logs",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/microsoft-agent-365-1.jpg",
+        "caption": "Microsoft 365 admin center > Agents > All agents > Registry (Microsoft Learn): KPI tiles (Total agents 493,802; Agents at risk; Agents without owners; Unmanaged agents), Registry sync card, chip filters, agent table.",
+        "source_url": "https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-registry?view=o365-worldwide"
+      },
+      {
+        "file": "assets/competitors/microsoft-agent-365-2.jpg",
+        "caption": "Agent 365 overview (Microsoft Learn, 'Last updated February 18, 2026'): registry, active users, agent run-time, connected platforms tiles; 'Top actions for you' cards - Pending requests, Agents at risk, Agents without owners, Agents with exceptions.",
+        "source_url": "https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-registry?view=o365-worldwide"
+      },
+      {
+        "file": "assets/competitors/microsoft-agent-365-3.jpg",
+        "caption": "Agent request review (Microsoft Learn): 'Success Agent' Pending publish, platform Copilot Studio, with 'Publish to...' and 'Reject submission' actions; Details / Data & tools / Security / Permissions tabs.",
+        "source_url": "https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-requests?view=o365-worldwide"
+      },
+      {
+        "file": "assets/competitors/microsoft-agent-365-4.jpg",
+        "caption": "Agent details flyout over the registry (Microsoft Learn): 'Learning (Frontier)' with Uninstall/Block and tabs Details, Users, Data & tools, Security, Permissions, Certification, Activity.",
+        "source_url": "https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-details?view=o365-worldwide"
+      }
+    ],
+    "sources": [
+      "https://www.microsoft.com/en-us/microsoft-agent-365",
+      "https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-registry?view=o365-worldwide",
+      "https://learn.microsoft.com/en-us/microsoft-agent-365/overview",
+      "https://techcommunity.microsoft.com/blog/microsoft_365blog/microsoft-365-e7-and-agent-365-are-now-generally-available/4516295",
+      "https://samexpert.com/agent-365/",
+      "https://www.youtube.com/watch?v=8kmlNeW-MnE"
+    ]
+  },
+  {
+    "vendor": "OneTrust AI Governance",
+    "slug": "onetrust-ai-governance",
+    "url": "https://www.onetrust.com/solutions/ai-governance/",
+    "category": "Privacy/GRC suite extended to AI (documentation x policy/data-asset-centric, adding runtime guardrails); Gartner MQ 2026 Visionary",
+    "central_object": "AI project / AI system in the AI Program Center (linked to data assets, vendors, policies); agents registered with a defined purpose",
+    "positioning": "'Ship AI Faster With Risk Control Where AI Runs' - turn AI policy into controls across homegrown and third-party AI; prove governance in production.",
+    "buyer": "Chief Privacy Officer, DPO, GRC/compliance, CISO; OneTrust privacy customers",
+    "key_modules": [
+      "AI Program Center (projects, risk, workflow stage, recent activity)",
+      "Discovery & inventory of systems, models, agents, datasets, vendors",
+      "Risk assessment templates (EU AI Act, NIST AI RMF, ISO 42001), intake/approval/attestation workflows",
+      "Runtime: monitoring for Bedrock/AgentCore, Azure Foundry, Databricks, Gemini Enterprise",
+      "AI Policy Manager + Guardrail Enforcement (block/allow/redact/escalate/route), AI Guard SDK, Guardian Agents, MCP policy enforcement with audit logs",
+      "Evidence: audit-ready evidence from assessments, approvals, attestations, telemetry, enforcement actions"
+    ],
+    "nav_structure": "Icon-only left rail (Home, Dashboards, Projects/Inventory, notifications, settings, help) and a page header 'AI Program Center' / 'Dashboards & Analytics'; banner alerts on top; widget row; projects list below.",
+    "ux_patterns": [
+      "Contextual banner: 'New data has been linked to the X project. Review project...' with a single link",
+      "Question-titled widgets ('What is the risk of my AI projects?', 'Are your projects on track?')",
+      "Projects list rows with status pills (Pending review, New risks) + risk flag + stage + outstanding items",
+      "Recent activity panel with expandable change types (New data, New risks)"
+    ],
+    "strengths": [
+      "Question-framed widgets are plain-English and executive-friendly",
+      "Change-driven prompts (new data linked -> review) keep reviews event-triggered",
+      "Broad claim set: runtime guardrails and 'prove governance in production' - the most elan1-sounding copy in this batch",
+      "Big installed base in privacy teams"
+    ],
+    "gaps": [
+      "Runtime controls are at the prompt/model/MCP layer, not the business write; per E08 still No on enforcement [2026 claims unverified]",
+      "Evidence is aggregated counts of blocked/redacted/routed activity, not one record per business action",
+      "Nothing signed or third-party verifiable",
+      "Screens are mostly marketing renders; real console not publicly shown"
+    ],
+    "pricing": "Not public (quote-based; part of OneTrust platform bundles).",
+    "recent_news": [
+      "9 Mar 2026: real-time AI governance and agent oversight capabilities (agent detection/inventory, runtime control) - SiliconANGLE",
+      "May/June 2026: Visionary, Gartner MQ for AI Governance Platforms",
+      "2026: Guardian Agents and MCP governance controls; AI Guard SDK; Fall 2026 release webinar scheduled 19 Nov 2026"
+    ],
+    "elan1_takeaways": [
+      "Title elan1 Assurance widgets as questions an auditor asks ('Can every posted invoice be traced to an approval?')",
+      "Use event-triggered banners: 'Policy v7 changed - 3 agents now need re-approval'",
+      "Counter OneTrust's 'prove governance in production' with per-write proof: click any count to the individual records",
+      "Status pills in pairs (review state + new risk) are compact - reuse for Records rows"
+    ],
+    "matrix": {
+      "enforce": "No (E08). 2026 page claims block/redact/route at model/MCP layer for supported platforms [unverified; not business write]",
+      "per_action_record": "No",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No - blocked activity is tracked as counts [unverified]"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/onetrust-ai-governance-1.jpg",
+        "caption": "OneTrust 'AI Program Center' (marketing render used in SiliconANGLE coverage, Mar 2026): new-data banner, 'What is the risk of my AI projects?' donut, 'Are your projects on track?' bars, recent activity, projects list with Pending review / New risks pills. Cropped.",
+        "source_url": "https://siliconangle.com/2026/03/09/onetrust-expands-platform-real-time-ai-governance-agent-oversight-capabilities/"
+      },
+      {
+        "file": "assets/competitors/onetrust-ai-governance-2.jpg",
+        "caption": "OneTrust AI Governance solution page, viewport screenshot (Firecrawl, 1440x900): hero copy and 'Dashboards & Analytics' product video poster.",
+        "source_url": "https://www.onetrust.com/solutions/ai-governance/"
+      }
+    ],
+    "sources": [
+      "https://www.onetrust.com/solutions/ai-governance/",
+      "https://siliconangle.com/2026/03/09/onetrust-expands-platform-real-time-ai-governance-agent-oversight-capabilities/",
+      "https://www.gartner.com/reviews/product/onetrust-ai-governance"
+    ]
+  },
+  {
+    "vendor": "Trustible",
+    "slug": "trustible",
+    "url": "https://trustible.ai/",
+    "category": "Purpose-built AI governance (documentation x use-case/regulation-centric); mentioned in Gartner MQ 2026",
+    "central_object": "AI use case (explicitly argued as the right unit, over model or vendor), with models, agents, vendors linked",
+    "positioning": "'The AI governance platform for regulated enterprises' - intake, risk & impact, monitoring and compliance in one system of record; risk-based triage so low-risk AI is auto-approved.",
+    "buyer": "AI governance lead, General Counsel/legal, compliance in regulated mid-to-large enterprises and public sector (Leidos, Nuix, Mariner Finance)",
+    "key_modules": [
+      "Intake & triage (risk-based routing: Low auto-approval, Medium standard review, High deep review, with SLAs)",
+      "Unified AI inventory (use cases, models, agents, vendors)",
+      "Risk & impact assessments with expert-curated risk cards",
+      "Monitor (post-deployment incidents, user feedback)",
+      "Comply (EU AI Act, ISO 42001, NIST AI RMF coverage %)",
+      "Executive dashboard; AI assistant ('Ask me anything about your AI inventory')"
+    ],
+    "nav_structure": "Dashboard tabs Executive · Workflows · Task Management; 'On this page' jump nav (Key metrics, Recent use cases, Use case overview, Risk overview, Workflow progress, Framework readiness); Dashboard Filters and Share controls.",
+    "ux_patterns": [
+      "KPI cards incl. 'Net Benefit $' (ROI framing)",
+      "Dark-header sortable table: use case, status pill, ROI, inherent vs residual risk level, benefit, #risks, #mitigations",
+      "Risk-routing lanes with SLA countdowns ('1 day left')",
+      "Framework readiness as % bars",
+      "'On this page' anchor list for long dashboards",
+      "Shareable dashboard link for executives"
+    ],
+    "strengths": [
+      "Clear argument that governance should be organised around the business use, not the model - closest philosophy to elan1 among doc tools",
+      "Risk-based triage with auto-approval and SLAs is a strong throughput pattern",
+      "Inherent vs residual risk columns side by side",
+      "Executive-friendly: ROI and benefit next to risk"
+    ],
+    "gaps": [
+      "All pre-/post-deployment documentation; nothing sits in the runtime path",
+      "Use case is a design-time object, not a per-action record",
+      "No verifiable artefacts",
+      "Small vendor ($4.6M round reported) - limited runtime integrations"
+    ],
+    "pricing": "Not public.",
+    "recent_news": [
+      "22 Jul 2026: mentioned in the 2026 Gartner Magic Quadrant for AI Governance Platforms (PR Newswire)",
+      "2026: new customer logos (Leidos, First Command, Mariner Finance) on homepage",
+      "Earlier: $4.6M funding announcement (PR Newswire)"
+    ],
+    "elan1_takeaways": [
+      "Adopt risk-based routing lanes for elan1 approvals: auto-allow / single approver / dual approval, each with SLA countdown",
+      "Show 'inherent vs residual' style pairs on writes: policy risk before and after approval",
+      "Use a shareable, read-only Assurance page for executives and auditors (Trustible's 'Share this dashboard')",
+      "Beat them by making the use case point to live writes: each approved use case lists the governed writes it has produced"
+    ],
+    "matrix": {
+      "enforce": "No",
+      "per_action_record": "No",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/trustible-1.jpg",
+        "caption": "Trustible Executive Dashboard, demo account (third-party review screenshot): KPI cards (AI use cases, models, AI vendors, Net Benefit), Recent Use Cases table with status, ROI, risk level, benefit, #risks, #mitigations.",
+        "source_url": "https://thectoclub.com/tools/trustible-review/"
+      },
+      {
+        "file": "assets/competitors/trustible-2.jpg",
+        "caption": "Trustible Executive Dashboard (vendor marketing card via Crozdesk listing): tabs Executive/Workflows/Task Management, Share this dashboard, inherent vs residual risk columns, 'On this page' jump nav.",
+        "source_url": "https://peoplemanagingpeople.com/tools/best-ai-platforms/"
+      }
+    ],
+    "sources": [
+      "https://trustible.ai/",
+      "https://trustible.ai/platform-overview/",
+      "https://trustible.ai/types-of-ai-governance-platforms/",
+      "https://www.prnewswire.com/news-releases/trustible-mentioned-in-the-2026-gartner-magic-quadrant-for-ai-governance-platforms-302832403.html",
+      "https://www.prnewswire.com/news-releases/trustible-announces-4-6m-in-funding-to-accelerate-ai-governance-in-enterprises-302477546.html"
+    ]
+  },
+  {
+    "vendor": "Holistic AI",
+    "slug": "holistic-ai",
+    "url": "https://www.holisticai.com/",
+    "category": "AI governance + testing platform (documentation x model-risk-centric, with red teaming); Gartner MQ 2026 Challenger",
+    "central_object": "AI asset / AI system (models, agents, LLM apps, APIs, pipelines) with discovered artifacts and risk assessments",
+    "positioning": "'The Enterprise AI Governance Platform' - Identify (discovery & inventory), Protect (red teaming, 40+ tests, monitoring), Enforce (policy & compliance, Sentinel/Guardian Agents).",
+    "buyer": "AI risk / model risk, compliance, CISO; enterprise (Unilever-era heritage in audits)",
+    "key_modules": [
+      "Identify: shadow AI discovery across AWS, Azure, GitHub, Databricks; staging and one-click reconciliation into inventory",
+      "Protect: red teaming (prompt injection, jailbreak), 40+ tests (bias, hallucination, toxicity, privacy, robustness), Agent Graph",
+      "Enforce: policy enforcement & compliance, sign-off workflows",
+      "Guardian Agents / Sentinel Agents ('New'): autonomous real-time oversight of agents [enforcement mode unspecified]"
+    ],
+    "nav_structure": "Web app (app.holisticai.com/platform) with dashboard cards: Assets management, Artifacts management, Risk management, Risk distribution, Signoff status; three-pillar product IA Identify / Protect / Enforce.",
+    "ux_patterns": [
+      "Shadow-AI table with % risk score colour-coded, category pill, source-system icons, artifact counts",
+      "KPI cards incl. 'Pending reconciliation' highlighted as the actionable one",
+      "Progress fractions (Reconciled 40/50, Linked artifacts 269/291)",
+      "Signoff gauge ('3/3 high-risk assets signed off')",
+      "Radar cards for technical vs governance risk dimensions"
+    ],
+    "strengths": [
+      "Discovery-to-inventory reconciliation is a good 'staging' pattern (found vs accepted)",
+      "Fractions and sign-off gauges make completeness legible",
+      "Strong testing depth (red teaming) for model risk"
+    ],
+    "gaps": [
+      "Model-risk-centric; no business-action object",
+      "Enforcement claims (Sentinel/Guardian agents) not specified as blocking [unverified]",
+      "Sign-off is on assets, not on writes; nothing verifiable",
+      "Marketing composites; real console not publicly documented"
+    ],
+    "pricing": "Not public.",
+    "recent_news": [
+      "June 2026: Challenger in Gartner MQ; highest ranking for AI Risk and Compliance use case in companion Critical Capabilities (vendor claim)",
+      "2026: Shadow AI discovery with risk scoring, staging and reconciliation (blog)",
+      "2026: Guardian Agents marked 'New' on site"
+    ],
+    "elan1_takeaways": [
+      "Use fraction-style completeness for proofs: '1,204 / 1,204 writes with verified proof'",
+      "Adopt a staging lane for newly discovered agents in elan1 Agents: discovered -> registered -> scoped -> live",
+      "A sign-off gauge is fine for exec view, but every segment must drill to the individual approvals"
+    ],
+    "matrix": {
+      "enforce": "No",
+      "per_action_record": "No",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/holistic-ai-1.jpg",
+        "caption": "Holistic AI shadow-AI discovery table (blog image): name, shadow-AI risk %, category pill (Model/Application/Uncategorized), source icons (Azure, GitHub, AWS), artifact counts.",
+        "source_url": "https://www.holisticai.com/blog/enterprise-ai-inventory"
+      },
+      {
+        "file": "assets/competitors/holistic-ai-2.jpg",
+        "caption": "Holistic AI discovery KPIs (blog image): Total assets, Shadow AI 78 pending reconciliation, Artifacts discovered, High-risk assets; platform growth line chart; risk distribution donut.",
+        "source_url": "https://www.holisticai.com/blog/shadow-ai-discovery-risk-scoring-staging-reconciliation"
+      },
+      {
+        "file": "assets/competitors/holistic-ai-3.jpg",
+        "caption": "Holistic AI platform dashboard composite (LinkedIn product image): Assets management, Artifacts management, Risk management, Risk distribution, Signoff status gauge, technical and governance risk radar cards.",
+        "source_url": "https://www.linkedin.com/company/holisticai"
+      }
+    ],
+    "sources": [
+      "https://www.holisticai.com/",
+      "https://www.holisticai.com/ai-governance-platform",
+      "https://www.holisticai.com/guardian-agents",
+      "https://www.holisticai.com/holistic-ai-recognized-gartner-magic-quadrant-2026",
+      "https://www.gov.uk/ai-assurance-techniques/holistic-ai-governance-risk-and-compliance-platform"
+    ]
+  },
+  {
+    "vendor": "Saidot",
+    "slug": "saidot",
+    "url": "https://www.saidot.ai/",
+    "category": "AI governance platform on a knowledge graph (documentation x use-case/policy-centric); Gartner MQ 2026 Niche",
+    "central_object": "AI system (with linked agents, models, datasets) connected to a curated library graph of risks, controls, policies and third-party models",
+    "positioning": "'Govern your AI systems, models, and agents in one connected graph' - agent-first, graph-based governance with a curated library (260+ risks, 620+ controls, 110+ policies, 170+ third-party models/products).",
+    "buyer": "AI governance and compliance teams in European enterprises and public sector; AI product teams",
+    "key_modules": [
+      "Saidot Library: Feed, Policies, Risks, Models, Evaluations, Products (curated knowledge base)",
+      "Governance workspace: Systems, Agents (+ Tools), Datasets, Models, Controls catalogues",
+      "Risk inheritance: new model/product risks flow to linked systems automatically",
+      "Automations; integrations with Azure AI Foundry, Amazon Bedrock; REST API, webhooks, MCP servers so agents can query governance data",
+      "AI Governance Agent notifying in Slack/Claude and creating Jira tickets"
+    ],
+    "nav_structure": "Two-mode left rail: Library (book icon) vs Governance (building icon). Governance has a space switcher (e.g. 'Space General'), Home, Systems, then 'Catalogues': Agents, Datasets, Models, Controls. Breadcrumbs Governance / General / Agents.",
+    "ux_patterns": [
+      "Serif display page titles (Systems, Agents) with a one-line purpose sentence under each",
+      "KPI tiles with month-over-month deltas: Total systems, Classification rate, Control readiness, Pending reviews",
+      "Inventory table with risk pill + importance pill + owner + updated",
+      "Library feed: event cards ('A new risk was added to Workday AI product page') with Follow",
+      "Trending topics rail (new models/products added)",
+      "Chat-surface agent message citing a logged change ID and the Jira ticket it created"
+    ],
+    "strengths": [
+      "Risk inheritance through the graph is the best 'change propagates' story in the batch",
+      "Clean, calm visual language (serif titles, generous spacing) - premium feel",
+      "Feed-style change log makes governance feel alive",
+      "MCP server for agents to query/register - agent-first framing"
+    ],
+    "gaps": [
+      "Design-time governance; no runtime path",
+      "System-level records; no per-action record",
+      "Logged change IDs are internal, not verifiable",
+      "Niche placement; limited enforcement integrations"
+    ],
+    "pricing": "Public pricing page with self-serve plans (no long-term contract, cancel anytime); amounts not captured in this pass [unverified].",
+    "recent_news": [
+      "June 2026: Niche Player, Gartner MQ for AI Governance Platforms",
+      "2026: 'agent-first' repositioning; MCP servers for agent-first governance; AI Governance Agent (Slack/Claude, Jira)",
+      "March 2026: platform demo release (YouTube teaser)"
+    ],
+    "elan1_takeaways": [
+      "Borrow the one-sentence purpose line under every elan1 page title",
+      "Use a feed for Assurance: 'Policy P-12 changed -> 4 agents inherit new approval rule' with Follow",
+      "Propagation view: when a policy changes, show which agents and which pending writes are affected",
+      "Match Saidot's calm typographic quality; elan1 can be evidence-dense without looking like a SIEM"
+    ],
+    "matrix": {
+      "enforce": "No",
+      "per_action_record": "No",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/saidot-1.jpg",
+        "caption": "Saidot Governance > Systems inventory (homepage marketing composite, sample dates Jun 2026): KPI tiles (Total systems, Classification rate, Control readiness, Pending reviews), systems table with risk and importance pills; overlaid 'AI Governance Agent' message about inherited risks and a created Jira ticket; integration logos.",
+        "source_url": "https://www.saidot.ai/"
+      },
+      {
+        "file": "assets/competitors/saidot-2.jpg",
+        "caption": "Saidot Governance > Agents catalogue (product page image): Agents / Tools tabs, table of agents with owner, platform (Foundry Agent Service, AWS Bedrock) and risk.",
+        "source_url": "https://www.saidot.ai/product"
+      },
+      {
+        "file": "assets/competitors/saidot-3.jpg",
+        "caption": "Saidot Library > Feed (help centre screenshot): event cards for new risks on third-party product pages with Follow, 'Trending topics' of newly added models/products.",
+        "source_url": "https://help.saidot.ai/knowledge-base/getting-started-with-saidot"
+      }
+    ],
+    "sources": [
+      "https://www.saidot.ai/",
+      "https://www.saidot.ai/product",
+      "https://www.saidot.ai/pricing",
+      "https://help.saidot.ai/knowledge-base/getting-started-with-saidot"
+    ]
+  }
+]

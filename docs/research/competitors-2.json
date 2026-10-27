@@ -1,0 +1,1230 @@
+[
+  {
+    "vendor": "Airia",
+    "slug": "airia",
+    "url": "https://airia.com",
+    "group": "competitor",
+    "category": "AI security + governance platform (agent gateway, policy engine, agent builder)",
+    "central_object": "the agent (and its tool calls / model calls)",
+    "positioning": "'Secure every AI agent' — one control plane across models, agents, tools and MCP servers: Discover, Secure, Govern, Optimize. Gartner MQ 2026 Visionary.",
+    "buyer": "CISO / security and AI-transformation teams; secondary: platform/AI engineering",
+    "key_modules": [
+      "Discover: AI Discovery, Security Posture, AI Inventory, Risk Classification",
+      "Secure: Red Teaming, MCP Gateway, Agent Constraints (policy engine), AI Guardrails",
+      "Govern: Governance Dashboard, Compliance Reporting (EU AI Act, NIST AI RMF, SR 11-7, HIPAA, ISO 42001, SOC 2), System Controls",
+      "Optimize: Agent Builder, Model Routing, Cost Optimization, Prototyping Studio, Model Lifecycle / Model Change Management, Data Integrations"
+    ],
+    "nav_structure": "Four verb pillars as top-level tabs (Discover / Secure / Govern / Optimize); in-product left rail per pillar (e.g. Discover → Connect, Dashboard, Agents, Inventory, Activity Feed).",
+    "ux_patterns": [
+      "Verb-pillar IA (4 doors) — directly comparable to elan1's Four Doors",
+      "KPI tiles with week-over-week deltas and sparklines (Assets discovered, People exposed, Critical exposures, AI calls 24h)",
+      "Natural-language question chips on the dashboard ('Which unsanctioned AI apps can read email?')",
+      "Execution-log table with status pills (Running/Completed/Failed/Paused) and a single 'Generate Compliance Report' CTA",
+      "Risk-tiered autonomy: escalate high-impact actions to human review"
+    ],
+    "strengths": [
+      "Closest IA analogue to Four Doors; clean, light, purple-accented, consumer-grade polish",
+      "Agent Constraints claims execution-layer enforcement 'before the tool call fires' with human-review escalation — the nearest runtime story to elan1 in this batch",
+      "Framework-mapped continuous documentation"
+    ],
+    "gaps": [
+      "Record is an execution log / trace about the agent, not a per-business-write record",
+      "No public evidence of signed, chained or third-party-verifiable decisions",
+      "Refusals appear as log rows, not first-class evidence",
+      "Breadth (builder + gateway + governance + cost) dilutes the approval/proof story"
+    ],
+    "pricing": "Not public (demo-led enterprise sales). [unverified: third-party review sites list tiers; not relied on]",
+    "recent_news": [
+      "14 Jul 2026 — Model Change Management (90-day deprecation warnings, bulk agent migration, version history for audits)",
+      "Jun 2026 — named Visionary in inaugural Gartner MQ for AI Governance Platforms",
+      "Sep 2026 — finalist in four categories, 2026 AI Awards; Cybersecurity Stars 'Most Innovative AI Governance Platform' 2026"
+    ],
+    "elan1_takeaways": [
+      "Airia is the vendor most likely to be confused with elan1 on a slide: it says 'enforce' and 'human review'. elan1 must show the business write (invoice, payment) as the row, not the agent.",
+      "Borrow the KPI-tile-with-delta header for Work and Assurance, but make the tiles business nouns: 'Writes gated today', 'Awaiting approval', 'Refused', 'Receipts issued'.",
+      "Their 'Generate Compliance Report' CTA is the right instinct; elan1's equivalent is 'Export evidence bundle' with an offline-verify link.",
+      "Avoid their four-pillar sprawl: every elan1 door should open on one object list."
+    ],
+    "matrix": {
+      "enforce": "Partial — agent gateway / Agent Constraints at tool-call layer, with HITL escalation claimed",
+      "per_action_record": "No — execution logs/audit trail about agent activity",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No [finding by absence]"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/airia-1.jpg",
+        "caption": "Airia homepage hero with the in-page product mock: Discover pillar, left rail (Connect, Dashboard, Agents, Inventory, Activity Feed) and KPI tiles with weekly deltas. Marketing-site rendering of the UI, not a live tenant.",
+        "source_url": "https://airia.com/"
+      },
+      {
+        "file": "assets/competitors/airia-2.jpg",
+        "caption": "Airia Compliance Reporting marketing graphic: 'Execution Logs' table (schedule, response time, OWASP checks, status pills) with a 'Generate Compliance Report' button. Stylised illustration of the product.",
+        "source_url": "https://airia.com/ai-platform/compliance-reporting/"
+      }
+    ],
+    "sources": [
+      "https://airia.com/",
+      "https://airia.com/ai-platform/agent-constraints/",
+      "https://www.globenewswire.com/news-release/2026/07/14/3326777/0/en/Airia-Launches-Model-Change-Management-to-Eliminate-AI-Agent-Downtime-and-Governance-Gaps.html",
+      "https://www.globenewswire.com/news-release/2026/09/22/3366523/0/en/airia-named-finalist-in-four-categories-in-the-2026-ai-awards.html"
+    ]
+  },
+  {
+    "vendor": "ModelOp (+ Kong AI Gateway)",
+    "slug": "modelop",
+    "url": "https://www.modelop.com",
+    "group": "competitor",
+    "category": "AI lifecycle governance / model operations system of record, enforced via partner API gateway",
+    "central_object": "the model / AI use case (inventory record), plus the API endpoint at Kong",
+    "positioning": "'Industrialized AI delivery' — Enterprise AI Command Center as the system of record for AI assets; July 2026 partnership with Kong makes governance decisions 'instantly enforceable' at the AI gateway. Gartner MQ 2026 Visionary.",
+    "buyer": "Chief AI / model risk officer, MRM teams in banks, insurers, pharma; enterprise architects",
+    "key_modules": [
+      "Dashboard (value, priority risks, models in production, open issues)",
+      "Models: Overview, Inventory List, Business Models, Monitors",
+      "Model Lifecycles: visual workflow (Run Tests → Identify Risks → Catalog Risks → Create Model Review Report)",
+      "Compliance: Overview, Reporting (EU AI Act, SR 11-7 templates)",
+      "Operations: Jobs, Runtimes, Deployments, Notifications",
+      "Kong Konnect AI Gateway: allow/deny/modify traffic to AI endpoints; LLM analytics"
+    ],
+    "nav_structure": "Dark left rail with four groups (Models / Model Lifecycles / Compliance / Operations) and nested sub-items; page title bar; table-first content.",
+    "ux_patterns": [
+      "'Governance completion %' traffic-light column on the inventory",
+      "Business-KPI framing on the dashboard ($ cumulative value next to risk)",
+      "BPMN-style lifecycle canvas with the active path highlighted",
+      "Enforcement delegated to gateway; gateway UI is classic observability (requests, error rate, P99)"
+    ],
+    "strengths": [
+      "Strong regulated-industry MRM credibility",
+      "Real runtime lever through Kong (endpoint-level cut-off when controls lapse)",
+      "Lifecycle workflow is visual and understandable"
+    ],
+    "gaps": [
+      "Enforcement unit is an API endpoint, not a business write — cannot stop 'this invoice' while allowing 'that one'",
+      "No per-action record; Kong analytics are aggregate telemetry",
+      "No signed or chained decisions mentioned in the partnership release",
+      "Marketing UI is wireframe-like; real product density unknown"
+    ],
+    "pricing": "Not public (enterprise). Kong Konnect has public tiers; not re-verified here.",
+    "recent_news": [
+      "16 Jul 2026 — ModelOp + Kong partnership: zero-trust enforcement for the agentic enterprise (governance status drives gateway allow/deny)",
+      "Aug 2026 — 'The AI Factory' with Manulife at Ai4 2026",
+      "Jun 2026 — Visionary, Gartner MQ AI Governance Platforms"
+    ],
+    "elan1_takeaways": [
+      "The ModelOp+Kong split (governance brain here, enforcement there) is exactly the seam elan1 closes in one kernel: say so on the Agents door — 'policy, gate and receipt are one hop'.",
+      "Borrow 'governance completion %' as a per-agent readiness bar on the Agents door (declaration complete, approver assigned, key custody set).",
+      "Show enforcement at the record level in demos: two writes from the same agent, one allowed and one refused, side by side."
+    ],
+    "matrix": {
+      "enforce": "Partial — at the API gateway (endpoint allow/deny)",
+      "per_action_record": "No",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/modelop-1.jpg",
+        "caption": "ModelOp 'Demo: Inventory' video poster — Inventory List with Name, Business Unit, Risk Tier, Stage and Governance Completion % (traffic-light dots). Stylised product mock.",
+        "source_url": "https://www.modelop.com/ai-governance-software/inventory"
+      },
+      {
+        "file": "assets/competitors/modelop-2.jpg",
+        "caption": "ModelOp 'EU AI Act – High Risk' model lifecycle canvas: Run Tests → Identify Risks → Catalog Risks → Create Model Review Report, with full left-rail nav (Models, Model Lifecycles, Compliance, Operations). Stylised Figma render from ModelOp's controls page.",
+        "source_url": "https://www.modelop.com/ai-governance-software/controls"
+      },
+      {
+        "file": "assets/competitors/modelop-3.jpg",
+        "caption": "ModelOp Dashboard mock: cumulative value $46.2M, priority risks, models in production, open issues; deployed models by business KPI with governance scores. Stylised Figma render.",
+        "source_url": "https://www.modelop.com/ai-governance-software/reporting"
+      },
+      {
+        "file": "assets/competitors/modelop-4.jpg",
+        "caption": "Kong Konnect Analytics Summary (requests, error rate, P99 latency, traffic over time) — frame from Kong's LLM analytics launch video; this is the gateway half of the ModelOp+Kong story.",
+        "source_url": "https://konghq.com/blog/product-releases/ai-analytics"
+      }
+    ],
+    "sources": [
+      "https://www.modelop.com/",
+      "https://www.globenewswire.com/news-release/2026/07/16/3328488/0/en/modelop-and-kong-partner-to-bring-zero-trust-enforcement-to-the-agentic-enterprise.html",
+      "https://konghq.com/blog/enterprise/kong-modelop-zero-trust-agentic-ai-governance",
+      "https://konghq.com/blog/product-releases/ai-analytics"
+    ]
+  },
+  {
+    "vendor": "Monitaur",
+    "slug": "monitaur",
+    "url": "https://www.monitaur.ai",
+    "group": "competitor",
+    "category": "AI governance + model assurance (insurance / regulated heritage)",
+    "central_object": "the model, with control evidence and transactions attached",
+    "positioning": "'AI governance that goes beyond good intentions'; Sept 2026 spun out FlightSim as a standalone 'objective assurance' (black-box testing) product. Gartner MQ 2026 Visionary.",
+    "buyer": "Model risk, compliance and actuarial leaders in insurance and financial services",
+    "key_modules": [
+      "Governance (policies, controls, reviews)",
+      "Models (outcomes, features, outliers, tests, versions, counterfactuals)",
+      "Transactions (per-decision records of model outputs)",
+      "Audit",
+      "FlightSim — black-box testing scorecards across reliability, performance, bias, security"
+    ],
+    "nav_structure": "Left rail: Home · Governance · Models · Transactions · Audit; model page uses tabbed detail (Transactions / Features / Outliers / Tests / Versions / Counterfactuals).",
+    "ux_patterns": [
+      "Model-outcome donut that separates 'Write policy / Do not write policy / Human review' — decision outcomes including human review as a first-class slice",
+      "Tabbed model detail with per-feature distributions",
+      "Scorecard outputs used as a purchasing gate (FlightSim)"
+    ],
+    "strengths": [
+      "Only vendor in this batch that historically records transactions (individual model decisions) — E08's 'Partial' per-action record",
+      "'Transactions' and 'Audit' are top-level nav — evidence is a first-class door",
+      "Assurance language resonates with auditors"
+    ],
+    "gaps": [
+      "Transaction = a model inference, not a business write in a system of record",
+      "Does not sit in the write path; cannot stop the write",
+      "FlightSim scorecards are vendor-produced; no signatures or third-party verifiability mentioned",
+      "Dated visual design (2021-era teal) on the public mock"
+    ],
+    "pricing": "Not public.",
+    "recent_news": [
+      "15 Sep 2026 — FlightSim available standalone; enterprises using FlightSim results as a gate to purchase/deploy high-impact AI",
+      "30 Jun 2026 — Visionary, inaugural Gartner MQ AI Governance Platforms"
+    ],
+    "elan1_takeaways": [
+      "Monitaur's outcome donut (write / do-not-write / human review) is the right chart for elan1's Work door header: Allowed · Refused · Held for approval — with Refused given equal visual weight.",
+      "Keep 'Records' as a top-level door, as Monitaur does with Transactions and Audit — evidence must never be buried in Settings.",
+      "FlightSim shows buyers accept 'scorecard as gate'; elan1's receipt should be the gate artefact for writes."
+    ],
+    "matrix": {
+      "enforce": "No",
+      "per_action_record": "Partial — evidence about a model decision, not a business write",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/monitaur-1.jpg",
+        "caption": "Monitaur platform product image (laptop frame): Model Outcomes donut (1,326 transactions: 60% write policy, 30% do not write policy, 10% human review), feature importance, tabbed detail and left rail Home/Governance/Models/Transactions/Audit.",
+        "source_url": "https://www.monitaur.ai/platform"
+      }
+    ],
+    "sources": [
+      "https://www.monitaur.ai/",
+      "https://www.monitaur.ai/platform",
+      "https://www.globenewswire.com/news-release/2026/09/15/3362166/0/en/monitaur-brings-objective-assurances-to-high-impact-ai.html",
+      "https://www.businesswire.com/news/home/20260630461104/en/Monitaur-Recognized-as-Visionary-in-the-Inaugural-2026-Gartner-Magic-Quadrant-for-AI-Governance-Platforms"
+    ]
+  },
+  {
+    "vendor": "Zenity",
+    "slug": "zenity",
+    "url": "https://zenity.io",
+    "group": "competitor",
+    "category": "AI agent security (posture + runtime detection/response)",
+    "central_object": "the agent (security resource: agent, agent action, GPT action, flow, MCP)",
+    "positioning": "Security and governance for AI agents across SaaS, cloud/home-grown and endpoint/browser; 'deterministically allows, modifies or blocks an action before it occurs'.",
+    "buyer": "CISO, security operations, AppSec; platform teams owning Copilot/Agentforce/Bedrock estates",
+    "key_modules": [
+      "AI Observability (inventory of agents, owners, permissions)",
+      "AISPM (pre-deployment posture)",
+      "Exposure Management",
+      "Runtime Boundaries (inline guardrails)",
+      "Agentic Identity & Access Management",
+      "AIDR — detection & response mapped to OWASP / MITRE ATLAS"
+    ],
+    "nav_structure": "Security-console grammar: Inventory → resource detail → issues; filters and saved queries; risk columns (security risk, business criticality).",
+    "ux_patterns": [
+      "Inventory table with Type, Created by, Security risk bars, Business criticality chip, Status",
+      "Query builder + free-text search + removable filter chips + 'Add filter'",
+      "Platform-native icons per row (Copilot, Agentforce, OpenAI, Bedrock)"
+    ],
+    "strengths": [
+      "Broadest agent-platform coverage (Copilot, ChatGPT Enterprise, Gemini, Claude, Cursor, Bedrock, AgentCore, Foundry, Vertex)",
+      "Real inline prevention story",
+      "Mature, dense, legible security tables"
+    ],
+    "gaps": [
+      "Unit is a security event on an agent, not a business write",
+      "Records are execution traces for forensics — the actor's own telemetry",
+      "No signed or third-party-verifiable record",
+      "No approval workflow for business owners (security-team tool)"
+    ],
+    "pricing": "Not public.",
+    "recent_news": [
+      "3 Aug 2026 — $125M Series C led by Norwest (SoftBank Vision Fund 2, Hitachi Ventures, LG Tech Ventures, Qumra); claims tripling revenue three years running",
+      "O08 row A6: acquisition/bundling of Zenity into a platform the buyer owns is a watch trigger"
+    ],
+    "elan1_takeaways": [
+      "Copy Zenity's filter-chip + 'Add filter' + result count pattern for every elan1 list (Work queue, Records ledger).",
+      "Show the source-platform icon on each row (which agent runtime asked), but make the row's title the business write ('Post payment ₹4,20,000 to Vendor X').",
+      "Position against: 'Zenity tells security what an agent tried; elan1 gives finance and the auditor a receipt for what was written.'"
+    ],
+    "matrix": {
+      "enforce": "Partial — blocks agent behaviours inline",
+      "per_action_record": "No — traces for forensics",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/zenity-1.jpg",
+        "caption": "Zenity Inventory: 1,285 resources with query selector, search, 'Active' filter chip, and columns Resource name, Type (Agent / Agent Action / GPT Action / Canvas), Created by, Security risk, Business criticality, Creation time, Status. Product image from the 'Cloud & Homegrown agents' page.",
+        "source_url": "https://zenity.io/use-cases/agent-type/cloud-and-homegrown"
+      }
+    ],
+    "sources": [
+      "https://zenity.io/",
+      "https://zenity.io/use-cases/agent-type/cloud-and-homegrown",
+      "https://www.businesswire.com/news/home/20260803963850/en/Zenity-Raises-$125-Million-to-Secure-the-Era-of-1-Billion-AI-Agents"
+    ]
+  },
+  {
+    "vendor": "Noma Security",
+    "slug": "noma",
+    "url": "https://noma.security",
+    "group": "competitor",
+    "category": "AI / agent security platform (AI-SPM, red teaming, runtime protection)",
+    "central_object": "the AI asset / agent and its toolsets",
+    "positioning": "Security for LLMs, RAG and AI agents; 'Agentic Risk Map' visualises each agent's triggers, toolsets, knowledge and channels.",
+    "buyer": "CISO / AI security teams",
+    "key_modules": [
+      "Dashboard (open issues by severity, top risks, compliance status, top assets by risk, assets discovered)",
+      "Posture Management → Inventory → agent detail",
+      "Agentic Risk Map (graph of agent → toolsets / knowledge / channels with issue badges)",
+      "Risks, Policies, Compliance",
+      "AI red teaming, runtime protection"
+    ],
+    "nav_structure": "Top tab bar (Dashboard · Risks · Policies · Compliance …); breadcrumb drill-down (Posture Management / Inventory / <agent>).",
+    "ux_patterns": [
+      "Agent-as-graph: node-link map with red/yellow issue counters on destructive tools ('Delete Salesforce records', 'Update Salesforce records')",
+      "Right-hand detail drawer with agent info (status, base model, environment, owners, instructions) and ranked issues with severity bars",
+      "Compliance progress bars per framework (EU AI Act, NIST AI RMF, ISO 42001, GDPR)"
+    ],
+    "strengths": [
+      "The risk map makes 'which write tools can this agent reach?' instantly visible — the closest visual to elan1's declaration",
+      "Flags 'external triggers bypass human-in-the-loop review' as an issue — shares elan1's worldview",
+      "Polished, modern visual system"
+    ],
+    "gaps": [
+      "Finds risky configurations; does not gate the individual write",
+      "No per-action receipt; no refusal record",
+      "Compliance % bars are self-reported posture"
+    ],
+    "pricing": "Not public.",
+    "recent_news": [
+      "31 Jul 2025 — $100M Series B led by Evolution Equity Partners; ARR up >1,300% YoY (company claim)",
+      "Late 2025 — launched Agentic Risk Map (Techstrong coverage, Oct/Nov 2025)",
+      "2026 — publishes OWASP Agentic Top 10 mapping"
+    ],
+    "elan1_takeaways": [
+      "Adopt the agent graph for the Agents door: agent → declared write capabilities (by system of record) → approval rule → last receipt. Colour write-capable edges.",
+      "Put 'destructive / money-moving' capabilities first and in red, exactly as Noma badges 'Delete Salesforce records'.",
+      "Use the right-drawer detail pattern for agent and record detail so the list stays visible."
+    ],
+    "matrix": {
+      "enforce": "Partial — runtime protection",
+      "per_action_record": "No",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/noma-1.jpg",
+        "caption": "Noma dashboard (as published on AppSecSanta's review): open issues by severity with trend deltas, issues-by-severity chart, top risks, compliance status bars (EU AI Act, NIST AI RMF, ISO 42001, GDPR), top assets by risk and connected platforms (Copilot Studio, Agentforce, ServiceNow, Bedrock, Databricks, Azure ML). Vendor marketing render.",
+        "source_url": "https://appsecsanta.com/noma-security"
+      },
+      {
+        "file": "assets/competitors/noma-2.jpg",
+        "caption": "Noma Agentic Risk Map: 'Sales Support Agent' node linked to toolsets (Delete / Update Salesforce records, flagged), knowledge and channels, with right-hand agent-info panel and ranked issues ('Multiple external triggers… bypass human-in-the-loop review'). Image from Techstrong.ai coverage.",
+        "source_url": "https://techstrong.ai/features/noma-security-adds-ability-to-visualize-ai-agent-workflows/"
+      }
+    ],
+    "sources": [
+      "https://noma.security/",
+      "https://www.prnewswire.com/news-releases/noma-security-raises-100m-to-drive-adoption-of-ai-agent-security-302518641.html",
+      "https://noma.security/solution/agentic-risk-map/",
+      "https://techstrong.ai/features/noma-security-adds-ability-to-visualize-ai-agent-workflows/"
+    ]
+  },
+  {
+    "vendor": "Cranium",
+    "slug": "cranium",
+    "url": "https://cranium.ai",
+    "group": "competitor",
+    "category": "AI security & governance (discovery, AI-BOM, exposure management, trust reporting)",
+    "central_object": "the AI system / asset (and its 'AI Card')",
+    "positioning": "'Secure & govern enterprise AI' via an 'AI Trust Loop': Discover, Observe, Govern, Secure, Prove. The AI Card is a 'living, exportable transparency report' shared with customers, partners and regulators via AI Trust Hubs. Gartner MQ 2026 Niche.",
+    "buyer": "CISO, AI governance lead; third-party-risk teams receiving AI Cards",
+    "key_modules": [
+      "Discover (shadow AI detection)",
+      "AI inventory / AI-BOM",
+      "Exposure Management",
+      "Govern (framework mapping: NIST AI RMF, ISO 42001, EU AI Act)",
+      "Prove: AI Card + AI Trust Hubs (external sharing)"
+    ],
+    "nav_structure": "Dark navy left rail (Dashboard · AI Card · Artifacts); card grid of AI systems with compliance-score rings.",
+    "ux_patterns": [
+      "Compliance score rings (graded or binary) per AI system",
+      "Exportable, shareable card per system — a trust-centre object for AI",
+      "'Backed by technical evidence, not screenshots' copy"
+    ],
+    "strengths": [
+      "Only vendor here with an outward-facing proof object shared with third parties — the right instinct",
+      "Trust-hub distribution model mirrors Vanta Trust Center"
+    ],
+    "gaps": [
+      "Card is about a system's posture, not a per-action record",
+      "'Automated attestation' is vendor-asserted; no public signature/verification scheme found",
+      "Scores are percentages — easy to game, hard for an auditor to check"
+    ],
+    "pricing": "Not public.",
+    "recent_news": [
+      "2026 — AI Card positioned with 'automated attestation' and '0 days of audit prep' (product page)",
+      "Jun 2026 — Niche, Gartner MQ AI Governance Platforms",
+      "Earlier: $25M Series A (company press release)"
+    ],
+    "elan1_takeaways": [
+      "E08 threat #2 watch: Cranium uses the word 'attestation' — check quarterly whether it becomes a signed artefact.",
+      "elan1's answer to the AI Card is a per-action receipt plus a per-period evidence bundle, both verifiable offline — show the verify step, not a score ring.",
+      "Never show a single 'compliance %' in Assurance; show counts that can be recomputed from receipts."
+    ],
+    "matrix": {
+      "enforce": "No",
+      "per_action_record": "No",
+      "independently_checkable": "No — shared, but vendor-asserted (watch: 'automated attestation')",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/cranium-1.jpg",
+        "caption": "Cranium 'AI Cards' view (press image for its exposure-management launch): left rail Dashboard / AI Card / Artifacts, blurred card grid with overlaid compliance-score rings (graded v1 vs binary v2).",
+        "source_url": "https://www.prnewswire.com/news-releases/cranium-introduces-first-of-its-kind-exposure-management-solution-for-ai--genai-302135190.html"
+      }
+    ],
+    "sources": [
+      "https://cranium.ai/",
+      "https://cranium.ai/platform/ai-card/",
+      "https://www.prnewswire.com/news-releases/cranium-introduces-first-of-its-kind-exposure-management-solution-for-ai--genai-302135190.html"
+    ]
+  },
+  {
+    "vendor": "Relyance AI",
+    "slug": "relyance",
+    "url": "https://www.relyance.ai",
+    "group": "competitor",
+    "category": "Data security, privacy & AI governance (data-flow lineage)",
+    "central_object": "the data flow / data element (Data Journeys)",
+    "positioning": "Real-time visibility of how personal and sensitive data moves through code, infrastructure, vendors and AI systems; 2026 commercial launch of 'Lyo' data-defense agent. Gartner MQ 2026 Niche (per E08).",
+    "buyer": "Chief privacy officer, CISO, data governance",
+    "key_modules": [
+      "Act: Risks",
+      "Observe: Inventory, Visual Maps, Data, Data Journeys, Assets",
+      "Manage: Vendors (TPRM), Products & Services, Partners, Customers, Assessments, Domains",
+      "Comply: Universal ROPA, Assessments, Data Subject Request, Consent Logs"
+    ],
+    "nav_structure": "Black left rail grouped by verbs — ACT · OBSERVE · MANAGE · COMPLY — with breadcrumb (Home / Data) and page tabs (Dashboard / Issues) plus segmented control (Security / Governance).",
+    "ux_patterns": [
+      "Verb-grouped sidebar (Act / Observe / Manage / Comply) — the closest analogue to Four Doors in the batch",
+      "Filter bar of dropdown chips (Severity, Status, Data elements, Classifications) + Add filter + Clear filters",
+      "Heat-map matrix (identity risk × data classification)",
+      "Lineage node + side drawer showing data elements, who has access, processing location, last-scanned freshness"
+    ],
+    "strengths": [
+      "Excellent IA discipline — verbs as section headers",
+      "'Last scanned 14 hours ago' freshness indicator builds trust",
+      "Consent Logs and DSR as first-class records"
+    ],
+    "gaps": [
+      "Governs data movement, not business writes",
+      "No enforcement in the write path",
+      "No verifiable record"
+    ],
+    "pricing": "Not public; free 30-day AI governance trial announced Nov 2025.",
+    "recent_news": [
+      "23 Mar 2026 — commercial availability of Lyo (real-time data defense)",
+      "4 Nov 2025 — free 30-day AI governance trial",
+      "21 Apr 2025 — Data Journeys launch",
+      "10 Oct 2024 — $32M Series B (Thomvest)"
+    ],
+    "elan1_takeaways": [
+      "Relyance proves a verb-grouped rail scales to ~20 items. elan1's Four Doors should be the top level with at most 3–4 children each.",
+      "Adopt the freshness stamp ('Last sealed 2 min ago', 'Chain head verified 09:14') on Records and Assurance.",
+      "Use the heat-map for Assurance: agent × system-of-record with counts of allowed / held / refused."
+    ],
+    "matrix": {
+      "enforce": "No",
+      "per_action_record": "No",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/relyance-2.jpg",
+        "caption": "Relyance Risks dashboard (vendor screenshot on G2): verb-grouped sidebar ACT / OBSERVE / MANAGE / COMPLY, filter chips, 494 security issues, severity/status donuts, breach catalysts, top risky assets and identity-risk heat-map.",
+        "source_url": "https://www.g2.com/products/relyance-ai/reviews"
+      },
+      {
+        "file": "assets/competitors/relyance-1.jpg",
+        "caption": "Relyance Data Journeys: lineage from EU billing table to a Snowflake sync service, with side panel of data elements (SSN, address, name), who has access (external roles), processing location and 'Last scanned 14 hours ago'.",
+        "source_url": "https://www.relyance.ai/product/data-journeys"
+      }
+    ],
+    "sources": [
+      "https://www.relyance.ai/news",
+      "https://www.relyance.ai/product/data-journeys",
+      "https://www.g2.com/products/relyance-ai/reviews"
+    ]
+  },
+  {
+    "vendor": "Truyo",
+    "slug": "truyo",
+    "url": "https://truyo.com",
+    "group": "competitor",
+    "category": "Privacy + AI governance platform (use-case inventory, risk assessment)",
+    "central_object": "the AI use case (and privacy request)",
+    "positioning": "AI governance for the enterprise board and privacy office; Leader in the inaugural 2026 Gartner MQ for AI Governance Platforms; offers a 'Truyo Trust Warranty' (coverage up to $1M for life of the initial contract).",
+    "buyer": "Chief privacy officer, AI governance board, legal/compliance",
+    "key_modules": [
+      "AI Inventory (use cases, shadow AI)",
+      "Risk Assessment (regulation-aligned)",
+      "AI Model Validation",
+      "Employee Survey, Vendor Assessment, Employee Training",
+      "Privacy: automated DSAR management, consent"
+    ],
+    "nav_structure": "Icon-only left rail; dashboard of risk cards (Total AI Risks, High Risk Overview, Use-case status) above an 'Active AI Risks' list.",
+    "ux_patterns": [
+      "Risk-tier donut (Unacceptable / Critical / Very High / High) in EU-AI-Act vocabulary",
+      "'View all' drill-downs from each card",
+      "Commercial trust device: a warranty card with a coverage amount"
+    ],
+    "strengths": [
+      "Gartner Leader — will be on every shortlist",
+      "Speaks the privacy/legal buyer's language",
+      "Warranty is a bold way to monetise confidence"
+    ],
+    "gaps": [
+      "Documentation/assessment product; no runtime path",
+      "Use-case granularity — cannot say anything about a single write",
+      "Generic dashboard styling"
+    ],
+    "pricing": "Not public.",
+    "recent_news": [
+      "22 Jun 2026 — named a Leader in the 2026 Gartner MQ for AI Governance Platforms"
+    ],
+    "elan1_takeaways": [
+      "Truyo's warranty shows buyers pay for assurance, not features — elan1's L2 pitch should price the receipt, not the seat.",
+      "Use EU-AI-Act risk-tier vocabulary only where it maps to a declaration; otherwise keep elan1's own nouns.",
+      "Avoid icon-only rails — elan1's four doors should always be labelled."
+    ],
+    "matrix": {
+      "enforce": "No",
+      "per_action_record": "No",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/truyo-1.jpg",
+        "caption": "Truyo AI Governance Dashboard product image: Total AI Risks (100: 84 high, 16 medium), High Risk Overview donut (Unacceptable / Critical / Very High / High), and an 'Active AI Risks' use-case list; icon-only left rail.",
+        "source_url": "https://truyo.com/platform/ai-governance/"
+      }
+    ],
+    "sources": [
+      "https://truyo.com/platform/ai-governance/",
+      "https://www.prnewswire.com/news-releases/truyo-named-a-leader-in-the-2026-gartner-magic-quadrant--for-ai-governance-platforms-302806625.html",
+      "https://truyo.com/certification-warranty-program/"
+    ]
+  },
+  {
+    "vendor": "SAP (Joule agents / AI Agent Hub in SAP LeanIX)",
+    "slug": "sap",
+    "url": "https://www.sap.com/products/artificial-intelligence/ai-agent-hub.html",
+    "group": "competitor",
+    "category": "Incumbent ERP with agent runtime (Joule) and vendor-agnostic agent inventory/governance (AI Agent Hub)",
+    "central_object": "the agent as an enterprise-architecture 'fact sheet' (LeanIX); inside S/4 the SAP business document",
+    "positioning": "Sapphire 2026: AI Agent Hub is a 'vendor-agnostic governance layer to manage both SAP and third-party AI agents', included at no additional cost in the Business AI Platform; Joule repositioned as the gateway to the SAP stack; Autonomous Suite built under an ISO-certified, SOX-compatible process.",
+    "buyer": "CIO / enterprise architect (LeanIX), SAP CoE, finance transformation",
+    "key_modules": [
+      "AI Agent Discovery Inbox (Action needed / Linked / Rejected / Total discoveries)",
+      "Inventory of fact sheets (agent ↔ business capability ↔ model ↔ provider)",
+      "Agent analytics (sessions, first/last active, tokens) via SAP Cloud ALM agent monitoring",
+      "Dashboards, Reports, Diagrams",
+      "Joule Studio (agent building), Joule agents in S/4HANA"
+    ],
+    "nav_structure": "LeanIX top bar: Dashboards · Inventory · Reports · Diagrams · More; global 'Search for Fact Sheet'; list + right slide-over with tabs Overview / Details / Analytics / Changelog.",
+    "ux_patterns": [
+      "Inbox triage for discovered agents (link / reject) with status pills",
+      "Right slide-over with a Changelog tab on every object",
+      "Fact-sheet relations (agent → capability → model → provider) as coloured chips"
+    ],
+    "strengths": [
+      "Governance is free with the platform — the O08 C1 bundling threat in concrete form",
+      "Owns the system of record for SAP customers; SAP's own document trail is per-action inside SAP",
+      "Discovery inbox is a strong, reusable triage pattern"
+    ],
+    "gaps": [
+      "Hub inventories and monitors; it does not gate a write in a non-SAP system",
+      "No signed, portable receipt",
+      "Enterprise-architecture framing (fact sheets) is far from a finance approver's mental model"
+    ],
+    "pricing": "AI Agent Hub included at no additional cost in SAP Business AI Platform (SAPinsider on Sapphire 2026). Joule/AI units priced separately [not verified here].",
+    "recent_news": [
+      "May 2026 — new Joule Studio for enterprise-scale agentic development",
+      "Sapphire 2026 — AI Agent Hub positioned as vendor-agnostic governance, included at no extra cost; Autonomous Suite",
+      "Jul 2026 — SAP Business AI release highlights Q2 2026",
+      "Oct 2025 — SAP Connect: new Joule agents, LeanIX AI Agent Hub"
+    ],
+    "elan1_takeaways": [
+      "O08 C1 is live: SAP now includes agent governance at no extra cost. elan1 must never be pitched as 'agent inventory' — that is free from SAP, Microsoft and ServiceNow.",
+      "Borrow the Discovery Inbox as elan1's Agents onboarding: every agent seen at the MCP boundary lands as 'Undeclared → Declare / Block'.",
+      "Borrow the Changelog tab on every object; for elan1 it is the receipt chain for that object."
+    ],
+    "matrix": {
+      "enforce": "Partial — inside SAP (Joule / SAP workflow); Hub itself does not block",
+      "per_action_record": "Partial — SAP's own document trail, SAP objects only",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/sap-1.jpg",
+        "caption": "SAP AI Agent Hub hero image: AI Agent Discovery Inbox (Three-way matching agent, Playwright MCP server, Compliance Tracker Bot, Claude 4.5 Opus — all 'Action Needed') with slide-over Analytics tab (sessions, first/last active, tokens, sessions-over-time).",
+        "source_url": "https://www.sap.com/products/artificial-intelligence/ai-agent-hub.html"
+      },
+      {
+        "file": "assets/competitors/sap-2.jpg",
+        "caption": "SAP News Center graphic 'Discover, manage & govern all agents in one place': SAP LeanIX AI Agent Discovery Inbox with KPIs (50 action needed, 70 linked, 70 rejected, 190 total), filter bar and rows linking agents to capabilities, models and providers (SAP / non-SAP / custom).",
+        "source_url": "https://news.sap.com/2025/10/sap-connect-business-ai-new-joule-agents-embedded-intelligence/"
+      }
+    ],
+    "sources": [
+      "https://www.sap.com/products/artificial-intelligence/ai-agent-hub.html",
+      "https://sapinsider.org/blogs/sap-sapphire-2026-autonomous-enterprise-ai-agents/",
+      "https://news.sap.com/2026/05/new-joule-studio-enterprise-scale-agentic-development/",
+      "https://news.sap.com/2025/10/sap-connect-business-ai-new-joule-agents-embedded-intelligence/"
+    ]
+  },
+  {
+    "vendor": "Crator (Crator Labs)",
+    "slug": "crator",
+    "url": "https://www.cratorlabs.ai",
+    "group": "competitor",
+    "category": "AI implementation platform for ERPNext (hosted) — O08 watch row B4",
+    "central_object": "the change set to an ERPNext site (sandbox → review → publish); runtime approvals use ERPNext native authorization",
+    "positioning": "'Implement ERPNext yourself with AI' — Crator hosts ERPNext and builds every change you describe; you review it and publish it, for a flat monthly fee.",
+    "buyer": "SMB owner / operator implementing ERPNext without a partner",
+    "key_modules": [
+      "Builder (chat → change set in sandbox preview)",
+      "Agents",
+      "Preview / Manage toggle, 'Active change' indicator, Watch / Control modes",
+      "Approval workflows via ERPNext standard authorization (e.g. Sales Orders above a threshold need approval)"
+    ],
+    "nav_structure": "Split screen: chat on the left, live ERPNext preview on the right; top toggle Builder / Agents.",
+    "ux_patterns": [
+      "'Ready for review — Discard / Keep changes' commit bar",
+      "Document shows 'Pending Approval' pill with Actions → Approve / Reject",
+      "Chat explains what was configured and its effect in plain bullets"
+    ],
+    "strengths": [
+      "Most elegant review-before-publish UX in the batch",
+      "Talks the SMB owner's language (thresholds, approvers)",
+      "Flat, public pricing"
+    ],
+    "gaps": [
+      "Hosted-only (no attach mode) — O08 B4 trigger not fired as of this reading",
+      "Approval is ERPNext's native workflow; no independent record or receipt",
+      "USD pricing only on site; India signals limited to GST/Tally examples"
+    ],
+    "pricing": "Public: Standard $100/month (10,000 credits) + ERPNext hosting $50/month up to 10 users (per cratorlabs.ai, Sep 2026).",
+    "recent_news": [
+      "2026 — Frappeverse Mumbai 2026 recap and ERPNext v16 content on Crator blog",
+      "O08 B4 status (our reading, Sep 2026): hosted-only, USD pricing, examples mention GST summary and Tally ledger sync — watch, not triggered"
+    ],
+    "elan1_takeaways": [
+      "Copy the 'Ready for review · Discard / Keep changes' bar for elan1's approval card: one primary, one destructive, explicit consequence text.",
+      "Copy the chat-explains-effect pattern for approval context: '₹4.2L exceeds the ₹2L threshold declared for this agent; approver: you'.",
+      "B4 watch: the day Crator adds attach mode or ₹ pricing, rung1's wedge narrows."
+    ],
+    "matrix": {
+      "enforce": "Partial — ERPNext native authorization on Crator-hosted sites [our reading, unverified]",
+      "per_action_record": "Partial — ERPNext document/version trail only",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [
+      {
+        "file": "assets/competitors/crator-1.jpg",
+        "caption": "Crator homepage hero with product UI: chat ('create a workflow where all Sales Orders above $10,000 require my approval'), 'Ready for review — Discard / Keep changes', and live ERPNext preview of a Sales Order in 'Pending Approval' with Actions → Approve / Reject.",
+        "source_url": "https://www.cratorlabs.ai/"
+      }
+    ],
+    "sources": [
+      "https://www.cratorlabs.ai/",
+      "https://index.dodopayments.com/crator",
+      "https://www.cratorlabs.ai/blog/frappeverse-mumbai-2026-recap"
+    ]
+  },
+  {
+    "vendor": "Frappe (Flow, Builder AI, Frappe Cloud)",
+    "slug": "frappe",
+    "url": "https://frappe.io",
+    "group": "competitor",
+    "category": "Open-source ERPNext platform host — O08 B1/B2/B3/C5",
+    "central_object": "DocType / document (ERPNext)",
+    "positioning": "Owner of the ERPNext permission model, partner network and ~30k sites; shipping agent tooling.",
+    "buyer": "see O08 row",
+    "key_modules": [],
+    "nav_structure": "not assessed (light-touch)",
+    "ux_patterns": [],
+    "strengths": [],
+    "gaps": [],
+    "pricing": "Frappe Cloud public pricing; not re-verified.",
+    "recent_news": [
+      "Aug 2026 product updates: Builder's AI assistant 'Bob' generates pages/DocTypes/forms with approval workflows for sensitive changes (build-time, not runtime business writes)",
+      "Mail 'Email Screener' — one-click approve/reject of first-time senders"
+    ],
+    "elan1_takeaways": [
+      "B1 not fired on this reading: the approval step shipped is for Builder changes, not a permission-aware runtime gate for agent writes. Re-check Flow licence and GA monthly."
+    ],
+    "matrix": {
+      "enforce": "Partial — ERPNext native workflow/permissions inside Frappe only",
+      "per_action_record": "Partial — native version log",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [],
+    "note": "Light-touch entry from the O08 watch-list; no screenshots captured in this pass.",
+    "sources": [
+      "https://frappe.io/blog/product-updates/product-updates-for-august-2026",
+      "https://www.cratorlabs.ai/blog/frappeverse-mumbai-2026-recap"
+    ]
+  },
+  {
+    "vendor": "Odoo (native AI agents)",
+    "slug": "odoo",
+    "url": "https://www.odoo.com",
+    "group": "competitor",
+    "category": "ERP incumbent — O08 A8",
+    "central_object": "Odoo record",
+    "positioning": "Odoo 19 AI agents use Topics and Tools to act inside Odoo (e.g. create a lead).",
+    "buyer": "see O08 row",
+    "key_modules": [],
+    "nav_structure": "not assessed (light-touch)",
+    "ux_patterns": [],
+    "strengths": [],
+    "gaps": [],
+    "pricing": "n/a",
+    "recent_news": [
+      "Odoo 19 documentation: agents can write records via assigned Tools; docs describe no confirmation/approval step or agent-specific audit log"
+    ],
+    "elan1_takeaways": [
+      "A8 half-fired: Odoo AI already mutates the app, but without a gate. That is an argument for elan1, not against it — watch for a gate."
+    ],
+    "matrix": {
+      "enforce": "No — no approval step documented for agent writes",
+      "per_action_record": "No",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [],
+    "note": "Light-touch entry from the O08 watch-list; no screenshots captured in this pass.",
+    "sources": [
+      "https://www.odoo.com/documentation/19.0/applications/productivity/ai/agents.html"
+    ]
+  },
+  {
+    "vendor": "Zoho (Zia Agents / Agent Studio)",
+    "slug": "zoho",
+    "url": "https://www.zoho.com",
+    "group": "competitor",
+    "category": "SMB suite incumbent — O08 A7 / C3",
+    "central_object": "Zoho app record",
+    "positioning": "Zia Agents platform (Feb 2025) with Agent Studio, prebuilt agents, MCP and marketplace (Jul 2025).",
+    "buyer": "see O08 row",
+    "key_modules": [],
+    "nav_structure": "not assessed (light-touch)",
+    "ux_patterns": [],
+    "strengths": [],
+    "gaps": [],
+    "pricing": "Bundled in Zoho One tiers [not verified].",
+    "recent_news": [
+      "Feb 2025 — Zia Agents announced; Jul 2025 — Zia LLM, custom agent builder, MCP, marketplace"
+    ],
+    "elan1_takeaways": [
+      "A7 trigger (schema-level change in Books/Inventory with an approval record) not verified in this pass — needs a hands-on check."
+    ],
+    "matrix": {
+      "enforce": "Not assessed",
+      "per_action_record": "Not assessed",
+      "independently_checkable": "Not assessed",
+      "refusal_is_evidence": "Not assessed"
+    },
+    "screenshots": [],
+    "note": "Light-touch entry from the O08 watch-list; no screenshots captured in this pass.",
+    "sources": [
+      "https://www.businesswire.com/news/home/20250204066995/en/Zoho-Corporation-Announces-Zia-Agents-AI-Platform-Supporting-Autonomous-Agents-Across-Organizations-Broad-Portfolio",
+      "https://secure.businesswire.com/news/home/20250717118204/en/Zoho-Launches-Zia-LLM-and-Deepens-AI-Portfolio-with-Prebuilt-Agents-Custom-Agent-Builder-MCP-and-Marketplace"
+    ]
+  },
+  {
+    "vendor": "Salesforce Agentforce (price anchor)",
+    "slug": "agentforce",
+    "url": "https://www.salesforce.com/agentforce/pricing/",
+    "group": "competitor",
+    "category": "Price anchor for O08 C2",
+    "central_object": "agent action (Flex Credits)",
+    "positioning": "Agentforce moved from per-conversation to per-action Flex Credits pricing.",
+    "buyer": "see O08 row",
+    "key_modules": [],
+    "nav_structure": "not assessed (light-touch)",
+    "ux_patterns": [],
+    "strengths": [],
+    "gaps": [],
+    "pricing": "Per-action Flex Credits; commonly reported as ~$0.10 per action (Salesforce pricing page / secondary guides) — the anchor O08 C2 halves to ~₹4.",
+    "recent_news": [
+      "2025–2026 — Flex Credits per-action pricing live"
+    ],
+    "elan1_takeaways": [
+      "C2: elan1's per-governed-action price must be explained against the ~$0.10/action anchor; keep the receipt visible in the price story."
+    ],
+    "matrix": {
+      "enforce": "Not assessed",
+      "per_action_record": "Not assessed",
+      "independently_checkable": "Not assessed",
+      "refusal_is_evidence": "Not assessed"
+    },
+    "screenshots": [],
+    "note": "Light-touch entry from the O08 watch-list; no screenshots captured in this pass.",
+    "sources": [
+      "https://www.salesforce.com/agentforce/pricing/",
+      "https://www.concret.io/blog/new-agentforce-pricing-model"
+    ]
+  },
+  {
+    "vendor": "Tally Solutions",
+    "slug": "tally",
+    "url": "https://tallysolutions.com",
+    "group": "competitor",
+    "category": "Indian SMB accounting incumbent — O08 A9",
+    "central_object": "voucher / ledger",
+    "positioning": "Watch for an agent or ERP-class inventory/manufacturing module.",
+    "buyer": "see O08 row",
+    "key_modules": [],
+    "nav_structure": "not assessed (light-touch)",
+    "ux_patterns": [],
+    "strengths": [],
+    "gaps": [],
+    "pricing": "n/a",
+    "recent_news": [
+      "Not researched in this pass (partner circulars move before the website)."
+    ],
+    "elan1_takeaways": [
+      "Keep in the quarterly review; no UX relevance to the console."
+    ],
+    "matrix": {
+      "enforce": "Not assessed",
+      "per_action_record": "Not assessed",
+      "independently_checkable": "Not assessed",
+      "refusal_is_evidence": "Not assessed"
+    },
+    "screenshots": [],
+    "note": "Light-touch entry from the O08 watch-list; no screenshots captured in this pass.",
+    "sources": []
+  },
+  {
+    "vendor": "Open Policy Agent (OPA) and commercial PDPs",
+    "slug": "opa",
+    "url": "https://www.openpolicyagent.org",
+    "group": "competitor",
+    "category": "Policy decision point — E08 §04 reference",
+    "central_object": "policy bundle / decision",
+    "positioning": "OPA signs policy bundles, not decisions (E08 §04).",
+    "buyer": "see O08 row",
+    "key_modules": [],
+    "nav_structure": "not assessed (light-touch)",
+    "ux_patterns": [],
+    "strengths": [],
+    "gaps": [],
+    "pricing": "Open source (CNCF).",
+    "recent_news": [
+      "No change found in this pass."
+    ],
+    "elan1_takeaways": [
+      "elan1's Records door should render the decision itself as a signed object, next to the bundle hash that was in force — the one thing OPA-based stacks do not show."
+    ],
+    "matrix": {
+      "enforce": "Yes — as a PDP, when wired in",
+      "per_action_record": "No — decision returned as a value; decision logs are unsigned",
+      "independently_checkable": "No",
+      "refusal_is_evidence": "No"
+    },
+    "screenshots": [],
+    "note": "Light-touch entry from the O08 watch-list; no screenshots captured in this pass.",
+    "sources": [
+      "https://www.openpolicyagent.org/docs/latest/management-bundles/"
+    ]
+  },
+  {
+    "vendor": "Stack1 infrastructure watch (TrueFoundry, Rafay, Shakudo, Elestio, NVIDIA / Red Hat AI, Lab0, Trope)",
+    "slug": "stack1-watch",
+    "url": "",
+    "group": "competitor",
+    "category": "Infrastructure / hosting / platform rows O08 A10, B5–B8, C4",
+    "central_object": "cluster / gateway / service",
+    "positioning": "Not console competitors for elan1; tracked for stack1 and cost floor.",
+    "buyer": "see O08 row",
+    "key_modules": [],
+    "nav_structure": "not assessed (light-touch)",
+    "ux_patterns": [],
+    "strengths": [],
+    "gaps": [],
+    "pricing": "TrueFoundry, Elestio publish pricing pages; not re-verified.",
+    "recent_news": [
+      "Not researched in depth in this pass."
+    ],
+    "elan1_takeaways": [
+      "No elan1 console implications; keep with stack1 lead."
+    ],
+    "matrix": {
+      "enforce": "Not assessed",
+      "per_action_record": "Not assessed",
+      "independently_checkable": "Not assessed",
+      "refusal_is_evidence": "Not assessed"
+    },
+    "screenshots": [],
+    "note": "Light-touch entry from the O08 watch-list; no screenshots captured in this pass.",
+    "sources": [
+      "https://www.truefoundry.com/pricing"
+    ]
+  },
+  {
+    "vendor": "Vanta",
+    "slug": "vanta",
+    "url": "https://www.vanta.com",
+    "group": "benchmark",
+    "category": "Trust / compliance automation",
+    "central_object": "control / test / framework",
+    "positioning": "Automated compliance with continuous tests and a public Trust Center.",
+    "buyer": "benchmark",
+    "key_modules": [
+      "Tests",
+      "Reports",
+      "Compliance",
+      "Customer Trust (Trust Center)",
+      "Risk",
+      "Vendors",
+      "Assets",
+      "Personnel",
+      "Integrations"
+    ],
+    "nav_structure": "Workspace switcher + Find… search at top of a light left rail; Home / Starter guide / Tests / Reports, then domain groups, then Integrations.",
+    "ux_patterns": [
+      "Public Trust Center: tabs Overview / Resources / Controls / Subprocessors / Updates / FAQ; 'Updated 5 min ago' live freshness pill; gated documents with lock icon + 'Request access'",
+      "Controls shown as passing checklists grouped by domain with '+ 23 more'",
+      "Report page with date-range and framework chips; framework progress and upcoming audits Gantt"
+    ],
+    "strengths": [
+      "Public Trust Center: tabs Overview / Resources / Controls / Subprocessors / Updates / FAQ; 'Updated 5 min ago' live freshness pill; gated documents with lock icon + 'Request access'",
+      "Controls shown as passing checklists grouped by domain with '+ 23 more'"
+    ],
+    "gaps": [],
+    "pricing": "See public pricing page (not re-verified in this pass).",
+    "recent_news": [],
+    "elan1_takeaways": [
+      "Build an elan1 'Assurance → Public verification page' in the Trust Center shape: what is enforced, live freshness, request-access for evidence bundles.",
+      "Live freshness pill ('Chain verified 2 min ago') on Assurance.",
+      "Checklist-of-controls pattern for declarations: green ticks are recomputed from receipts, not self-attested."
+    ],
+    "screenshots": [
+      {
+        "file": "assets/competitors/vanta-1.jpg",
+        "caption": "Vanta Trust Center example (sample company 'Factio', from Vanta's launch post): SOC 2 / HIPAA badges, tabs Overview/Resources/Controls/Subprocessors/Updates/FAQ, controls grouped by domain with green checks and 'Updated 5 min ago', gated reports with lock icons.",
+        "source_url": "https://www.vanta.com/resources/introducing-vanta-trust-center-state-of-trust-report"
+      },
+      {
+        "file": "assets/competitors/vanta-2.jpg",
+        "caption": "Vanta in-app Compliance report: left rail (Find…, Home, Starter guide, Tests, Reports, Compliance, Customer Trust, Risk, Vendors, Assets, Personnel, Integrations), framework progress, upcoming audits, test owners by SLA state, tests passing by category.",
+        "source_url": "https://www.vanta.com/products/automated-compliance"
+      }
+    ],
+    "sources": [
+      "https://www.vanta.com/products/trust-center",
+      "https://www.vanta.com/products/automated-compliance"
+    ]
+  },
+  {
+    "vendor": "Drata",
+    "slug": "drata",
+    "url": "https://drata.com",
+    "group": "benchmark",
+    "category": "Trust / compliance automation",
+    "central_object": "control test",
+    "positioning": "Continuous control monitoring with evidence.",
+    "buyer": "benchmark",
+    "key_modules": [
+      "Quick Start",
+      "Dashboard",
+      "Compliance: Controls, Frameworks, Monitoring, Event Tracking, Reports",
+      "Risk: Risk Assessment, Vendors, Assets",
+      "Governance: Personnel, Policy Center"
+    ],
+    "nav_structure": "Navy left rail grouped COMPLIANCE / RISK / GOVERNANCE.",
+    "ux_patterns": [
+      "Failure-first hero card: '15 Failed Control Tests' with a red 'Fix Now' CTA",
+      "Readiness gauge (93% Ready)",
+      "'View Raw Evidence' button beside aggregated charts; 'Event Tracking' as a nav item"
+    ],
+    "strengths": [
+      "Failure-first hero card: '15 Failed Control Tests' with a red 'Fix Now' CTA",
+      "Readiness gauge (93% Ready)"
+    ],
+    "gaps": [],
+    "pricing": "See public pricing page (not re-verified in this pass).",
+    "recent_news": [],
+    "elan1_takeaways": [
+      "Lead the Work door with what needs a human now (held writes), not with totals — Drata's failure-first card.",
+      "Put 'View raw evidence' next to every aggregate in Assurance: each count drills to receipts.",
+      "Event Tracking as nav validates elan1's Records door."
+    ],
+    "screenshots": [
+      {
+        "file": "assets/competitors/drata-1.jpg",
+        "caption": "Drata dashboard (screenshot published in ComplyJet's Drata review): 15 failed control tests with 'Fix Now', 93% ready gauge, policy/personnel/vendor/test/event counters, control test results chart with 'View Raw Evidence'. Older UI generation.",
+        "source_url": "https://www.complyjet.com/blog/drata-review"
+      }
+    ],
+    "sources": [
+      "https://drata.com/products/compliance",
+      "https://www.complyjet.com/blog/drata-review"
+    ]
+  },
+  {
+    "vendor": "Linear",
+    "slug": "linear",
+    "url": "https://linear.app",
+    "group": "benchmark",
+    "category": "Speed, keyboard-first, command palette",
+    "central_object": "issue",
+    "positioning": "Issue tracking built for speed; everything reachable by keyboard and Cmd-K.",
+    "buyer": "benchmark",
+    "key_modules": [
+      "Inbox",
+      "My issues",
+      "Views",
+      "Roadmap / Projects",
+      "Teams → Issues / Backlog / All"
+    ],
+    "nav_structure": "Compact dark sidebar: Search, Inbox, My issues, Views, Favorites, Teams; history (recently viewed) and back/forward in the title bar.",
+    "ux_patterns": [
+      "Contextual command menu: select a row, type a verb ('Change status to…') and pick with arrows/enter",
+      "Recently viewed list from a clock icon",
+      "Short human IDs (ECM-51) + status glyphs; grouped list with counts; '+ Filter' dashed affordance",
+      "Optimistic UI — no spinners"
+    ],
+    "strengths": [
+      "Contextual command menu: select a row, type a verb ('Change status to…') and pick with arrows/enter",
+      "Recently viewed list from a clock icon"
+    ],
+    "gaps": [],
+    "pricing": "See public pricing page (not re-verified in this pass).",
+    "recent_news": [],
+    "elan1_takeaways": [
+      "Cmd-K in elan1 must act on the selected record: 'Approve', 'Refuse with reason', 'Open receipt', 'Copy verify command'.",
+      "Give every governed write a short ID (e.g. GW-1042) and a status glyph set: held, allowed, refused, sealed.",
+      "Inbox for approvers = Linear Inbox: J/K to move, A approve, R refuse, E escalate."
+    ],
+    "screenshots": [
+      {
+        "file": "assets/competitors/linear-1.jpg",
+        "caption": "Linear desktop navigation (changelog image): sidebar (New issue, Search, Inbox, My issues, Views, Roadmap, Teams) and recently viewed issues pop-over with IDs and status glyphs.",
+        "source_url": "https://linear.app/changelog/2021-09-23-desktop-navigation"
+      },
+      {
+        "file": "assets/competitors/linear-2.jpg",
+        "caption": "Linear contextual command menu (2019 changelog): selected issue → 'Change status to…' list (Backlog, Todo, In Progress, In Review, Done, Testing, Canceled). Older UI; pattern unchanged.",
+        "source_url": "https://linear.app/changelog/2019-10-07-contextual-command-menu"
+      }
+    ],
+    "sources": [
+      "https://linear.app/changelog/2021-09-23-desktop-navigation",
+      "https://linear.app/changelog/2019-10-07-contextual-command-menu"
+    ]
+  },
+  {
+    "vendor": "Stripe Dashboard + Workbench",
+    "slug": "stripe",
+    "url": "https://dashboard.stripe.com",
+    "group": "benchmark",
+    "category": "Money, events, logs, receipts",
+    "central_object": "payment / event object",
+    "positioning": "The reference for object detail pages, event timelines and developer logs.",
+    "buyer": "benchmark",
+    "key_modules": [
+      "Payments, Customers, Balances",
+      "Developers → Workbench: Overview, Errors, Inspector, Logs, Events, Webhooks, Shell"
+    ],
+    "nav_structure": "Global search + Test-mode toggle in header; Workbench as a bottom-docked panel with tabs.",
+    "ux_patterns": [
+      "Event list (monospace event type + plain-English description + timestamp) with right-hand detail showing origin date, source, API version and collapsible JSON",
+      "Every object has a copyable ID (evt_…) and 'Copy link'",
+      "Test mode toggle visible everywhere",
+      "Read-only Shell"
+    ],
+    "strengths": [
+      "Event list (monospace event type + plain-English description + timestamp) with right-hand detail showing origin date, source, API version and collapsible JSON",
+      "Every object has a copyable ID (evt_…) and 'Copy link'"
+    ],
+    "gaps": [],
+    "pricing": "See public pricing page (not re-verified in this pass).",
+    "recent_news": [],
+    "elan1_takeaways": [
+      "Records door = Stripe Events: left list 'gw.write.allowed / gw.write.refused / gw.approval.granted' with plain-English lines; right pane = receipt with copyable IDs, hashes and raw JSON.",
+      "Add a 'Sandbox / Live' toggle in the header exactly like Test mode.",
+      "Receipt page modelled on a Stripe receipt: amount-like headline (the business effect), then who/what/when/rule, then proofs."
+    ],
+    "screenshots": [
+      {
+        "file": "assets/competitors/stripe-1.jpg",
+        "caption": "Stripe Workbench Events tab (docs image): filter chips (Date, Status, Event type, Resource), event list with monospace types and plain-English descriptions, detail pane with origin date, source, API version and expandable event JSON.",
+        "source_url": "https://docs.stripe.com/workbench/overview"
+      }
+    ],
+    "sources": [
+      "https://docs.stripe.com/workbench/overview",
+      "https://stripe.com/blog/developer-dashboard"
+    ]
+  },
+  {
+    "vendor": "Datadog",
+    "slug": "datadog",
+    "url": "https://www.datadoghq.com",
+    "group": "benchmark",
+    "category": "Observability — log search, facets, time histogram",
+    "central_object": "log event",
+    "positioning": "Search-first log exploration with facets and live tail.",
+    "buyer": "benchmark",
+    "key_modules": [
+      "Log Explorer",
+      "Views / saved queries",
+      "Facets",
+      "Watchdog insights"
+    ],
+    "nav_structure": "Dense icon rail on the left; search bar with query syntax, time picker and play/pause live controls across the top.",
+    "ux_patterns": [
+      "Query language with inline syntax validation ('Missing closing parenthesis')",
+      "Time histogram above results; faceted sidebar with counts",
+      "Group into Fields / Patterns / Transactions; visualise as List/Timeseries/Top list/Table",
+      "Status colour bar at row start"
+    ],
+    "strengths": [
+      "Query language with inline syntax validation ('Missing closing parenthesis')",
+      "Time histogram above results; faceted sidebar with counts"
+    ],
+    "gaps": [],
+    "pricing": "See public pricing page (not re-verified in this pass).",
+    "recent_news": [],
+    "elan1_takeaways": [
+      "Records door needs a query bar with a small grammar (agent:ap-bot sor:erpnext outcome:refused amount:>200000) and a histogram above the list.",
+      "Facet sidebar with counts for Outcome, Agent, System of record, Rule, Approver.",
+      "Colour bar on the left edge of each row for outcome (allowed / held / refused)."
+    ],
+    "screenshots": [
+      {
+        "file": "assets/competitors/datadog-1.jpg",
+        "caption": "Datadog Log Explorer (Datadog blog): query bar with syntax error hint, time histogram, facet sidebar (Service, Status with counts), 4.63k results table with status colour bars.",
+        "source_url": "https://www.datadoghq.com/blog/search-logs-datadog-log-management/"
+      }
+    ],
+    "sources": [
+      "https://www.datadoghq.com/blog/search-logs-datadog-log-management/"
+    ]
+  },
+  {
+    "vendor": "Vercel",
+    "slug": "vercel",
+    "url": "https://vercel.com",
+    "group": "benchmark",
+    "category": "Deploy / runtime logs",
+    "central_object": "deployment / request",
+    "positioning": "Minimal, fast project dashboard with live logs.",
+    "buyer": "benchmark",
+    "key_modules": [
+      "Project, Deployments, Analytics, Speed Insights, Flags, Logs, Observability, Firewall, Storage, Settings"
+    ],
+    "nav_structure": "Project-level horizontal tabs; logs page with collapsible filter sidebar.",
+    "ux_patterns": [
+      "Live mode toggle with a 'Live Mode' banner row",
+      "Tiny histogram timeline above logs",
+      "Filters as collapsible accordion groups with counts (Error 131, Warning 2)",
+      "Monospace tabular numerals for time"
+    ],
+    "strengths": [
+      "Live mode toggle with a 'Live Mode' banner row",
+      "Tiny histogram timeline above logs"
+    ],
+    "gaps": [],
+    "pricing": "See public pricing page (not re-verified in this pass).",
+    "recent_news": [],
+    "elan1_takeaways": [
+      "Give Records a Live toggle for demos: new governed writes stream in at the top.",
+      "Tabular monospace for times, IDs and hashes; proportional font for business text.",
+      "Accordion filters with counts in a left pane."
+    ],
+    "screenshots": [
+      {
+        "file": "assets/competitors/vercel-1.jpg",
+        "caption": "Vercel runtime Logs (docs image, light theme): project tabs, filter sidebar (Timeline, Contains level with counts, Environment, Route…), search, Live toggle, histogram and request rows.",
+        "source_url": "https://vercel.com/docs/logs/runtime"
+      }
+    ],
+    "sources": [
+      "https://vercel.com/docs/logs/runtime"
+    ]
+  },
+  {
+    "vendor": "Sigstore Rekor Search",
+    "slug": "rekor",
+    "url": "https://search.sigstore.dev",
+    "group": "benchmark",
+    "category": "Transparency log / verification UI",
+    "central_object": "log entry (signed, indexed, timestamped)",
+    "positioning": "Public search over the Rekor transparency log.",
+    "buyer": "benchmark",
+    "key_modules": [
+      "Search by attribute (Log Index, UUID, Email, Hash, Commit SHA)"
+    ],
+    "nav_structure": "Single page: attribute selector + value + Search; results as entry cards.",
+    "ux_patterns": [
+      "Entry card: UUID, Type, Log Index, Integrated time (relative + ISO)",
+      "Hash, Signature and Public Key Certificate in dark monospace blocks",
+      "Everything is a link to itself (permalink by index)"
+    ],
+    "strengths": [
+      "Entry card: UUID, Type, Log Index, Integrated time (relative + ISO)",
+      "Hash, Signature and Public Key Certificate in dark monospace blocks"
+    ],
+    "gaps": [],
+    "pricing": "Free public-good service (Sigstore / OpenSSF).",
+    "recent_news": [],
+    "elan1_takeaways": [
+      "elan1's public verify page should look like this: paste a receipt ID or hash → entry card with chain position, sealed time, signature and key — no login.",
+      "Always show relative + absolute time together ('2 min ago (2026-09-24T10:31:02+05:30)').",
+      "Make log index and chain head permalinks."
+    ],
+    "screenshots": [
+      {
+        "file": "assets/competitors/rekor-1.jpg",
+        "caption": "Live Rekor Search (search.sigstore.dev) for log index 100000000: entry UUID, type hashedrekord, integrated time (relative + ISO), hash, signature and decoded public-key certificate.",
+        "source_url": "https://search.sigstore.dev/?logIndex=100000000"
+      },
+      {
+        "file": "assets/competitors/rekor-2.jpg",
+        "caption": "Rekor Search as originally contributed by Chainguard: search by email, 'Showing 20 of 742', entry card with hash, signature and certificate details.",
+        "source_url": "https://www.chainguard.dev/unchained/chainguard-contributes-rekor-search-project-to-sigstore"
+      }
+    ],
+    "sources": [
+      "https://search.sigstore.dev/",
+      "https://www.chainguard.dev/unchained/chainguard-contributes-rekor-search-project-to-sigstore"
+    ]
+  }
+]
