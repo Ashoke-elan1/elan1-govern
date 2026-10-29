@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><title>Final confirmation</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+  :root { --ink: #14161f; --muted: #5b5f6b; --line: #d9d6cf; --paper: #fbfaf7; --clay: #c2552d; --ok: #2f6b3d; --held: #8a5a00; --bad: #a3271f; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color: var(--ink); font-size: 9.6pt; line-height: 1.42; margin: 0; background: #fff; }
+  h1 { font-size: 20pt; margin: 0 0 4pt; letter-spacing: -0.3pt; }
+  h2 { font-size: 13pt; margin: 18pt 0 6pt; padding-top: 6pt; border-top: 2px solid var(--ink); page-break-after: avoid; }
+  p { margin: 0 0 6pt; }
+  .kicker { color: var(--clay); font-weight: 700; letter-spacing: 1pt; font-size: 8pt; text-transform: uppercase; }
+  .lead { color: var(--muted); font-size: 10pt; }
+  table { width: 100%; border-collapse: collapse; margin: 4pt 0 8pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid var(--line); padding: 4pt 5pt; text-align: left; vertical-align: top; }
+  th { background: #f1efe9; font-size: 8.4pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+  .B { color: var(--ok); font-weight: 600; }
+  code { font-family: Consolas, monospace; font-size: 8.2pt; background: #f4f2ec; padding: 0 2pt; }
+  .grid { display: flex; gap: 6pt; margin: 6pt 0 10pt; }
+  .card { flex: 1; border: 1px solid var(--line); padding: 6pt 8pt; background: var(--paper); }
+  .card .n { font-size: 16pt; font-weight: 700; }
+  .card .l { font-size: 8pt; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4pt; }
+  .answer { border: 2px solid var(--ink); padding: 8pt 10pt; margin: 8pt 0 10pt; background: var(--paper); font-size: 10.4pt; }
+  .note { border-left: 3px solid var(--clay); padding: 4pt 8pt; background: var(--paper); margin: 6pt 0 10pt; }
+  ul { margin: 0 0 6pt 14pt; padding: 0; } li { margin: 0 0 2pt; }
+  .small { font-size: 8.4pt; color: var(--muted); }
+</style></head><body>
+
+<p class="kicker">Elan1 Govern · front end · final confirmation</p>
+<h1>Is everything fixed and built?</h1>
+<p class="lead">28 October 2026, after the last changes. This check was read-only; nothing was built or changed. It covers L1, L2, L3 and Sovereign. The public site is excluded, because it is already built.</p>
+
+<div class="answer"><strong>Answer: yes.</strong>
+  <ul>
+    <li><strong>Every reported problem is fixed.</strong> That is every Broken, Partial and Missing item in every report: 103 distinct problems, 0 still open.</li>
+    <li><strong>The plan's checklist is complete.</strong> All 151 required screens, pages, buttons, demo sign-ins, journeys and per-level features are built.</li>
+    <li><strong>Every test was re-run on today's code, and every one passes.</strong></li>
+  </ul>
+</div>
+
+<div class="note"><strong>Why the same question used to give "not fixed".</strong>
+  <ul>
+    <li><strong>Open questions.</strong> The earlier checks asked an open question: "is anything missing anywhere?". Each run read further than the last, and a platform this size always turns up something new, so each run reported <em>new</em> items. They were not the old items coming back.</li>
+    <li><strong>A fixed list instead.</strong> Report 18 replaced the open question with a fixed checklist taken from the platform plan, so it has a definite end. This report then re-runs every test on today's code and lists the status of every item ever reported.</li>
+    <li><strong>What would change the answer.</strong> Only a new requirement, or a change to the code after this date.</li>
+  </ul>
+</div>
+
+<h2>1. Every list ever reported, and its status today</h2>
+<table>
+<tr><th>Report</th><th>What it listed</th><th>Items</th><th>Status today</th><th>Where it was verified</th></tr>
+<tr><td><code>11-completeness-check</code></td><td>First check: Broken, Missing and Partial items</td><td>45</td><td class="B">All fixed</td><td>Fixed in <code>12</code>; checked independently in <code>15</code>; re-checked in <code>18</code></td></tr>
+<tr><td><code>13-completeness-check</code></td><td>Second check: follow-on gaps</td><td>42</td><td class="B">All fixed</td><td>Fixed in <code>14</code>, with five remaining pieces closed in <code>16</code> and <code>17</code>; re-checked in <code>18</code></td></tr>
+<tr><td><code>16-remaining-changes</code></td><td>13 side effects of the earlier fixes. Its other 4 changes finished items already counted above, so they are not counted twice.</td><td>13</td><td class="B">All done</td><td>Each change checked independently in <code>17</code>; re-checked in <code>18</code></td></tr>
+<tr><td><code>17-closing-report</code> §4</td><td>A bundle exported right after a key switch failed its key check</td><td>1</td><td class="B">Fixed</td><td>Test scripts at L1, L2, the L1→L2 upgrade and onboarding; re-run today</td></tr>
+<tr><td><code>18-completeness-answer</code></td><td>Partial items against the plan's checklist</td><td>2</td><td class="B">Both fixed</td><td>Checked in the running app at L1</td></tr>
+<tr><td colspan="2"><strong>Total reported problems</strong></td><td><strong>103</strong></td><td class="B"><strong>103 fixed · 0 open</strong></td><td></td></tr>
+</table>
+
+<h2>2. The plan's checklist (L1, L2, L3, Sovereign)</h2>
+<table>
+<tr><th>Area</th><th>Requirements</th><th>Built</th></tr>
+<tr><td>Work: sign-in, onboarding, Today, approvals, alerts, incidents, demo accounts, journeys 1, 2 and 4</td><td>22</td><td class="B">22</td></tr>
+<tr><td>Records: activity, rulebooks, connectors, inventory, assessments, compliance, packs, erasure, consent, journeys 3 and 6</td><td>30</td><td class="B">30</td></tr>
+<tr><td>Agents: agents, settings, keys, tokens, autonomy, Sovereign deployment, path to production</td><td>35</td><td class="B">35</td></tr>
+<tr><td>Assurance: evidence, billing, levels and upgrade, auditor, timestamps, profiles, counterparties, disclosure, journeys 5 and 7</td><td>31</td><td class="B">31</td></tr>
+<tr><td>Outside the doors: /verify, developer portal, Ask Govern, system pages, status, legal, portals, links, README</td><td>33</td><td class="B">33</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>151</strong></td><td class="B"><strong>151</strong></td></tr>
+</table>
+<p class="small">The full item-by-item list, with the file and line for each, is in <code>18-completeness-answer</code> §5.</p>
+
+<h2>3. Tests re-run on today's code</h2>
+<div class="grid">
+  <div class="card"><div class="n B">0</div><div class="l">Type or build errors</div></div>
+  <div class="card"><div class="n B">78 / 78</div><div class="l">Scripted checks pass</div></div>
+  <div class="card"><div class="n B">64 / 64</div><div class="l">Seal v6 vectors</div></div>
+  <div class="card"><div class="n B">30 / 30</div><div class="l">Demo sign-ins as designed</div></div>
+  <div class="card"><div class="n B">0</div><div class="l">Crawl problems</div></div>
+</div>
+<table>
+<tr><th>Test</th><th>Result</th></tr>
+<tr><td>Type-check and production build</td><td class="B">Both pass.</td></tr>
+<tr><td>Verifier and evidence (78 scripted checks)</td><td class="B"><strong>All pass, 0 failures.</strong>
+  <ul>
+    <li><strong>Seal v6:</strong> 64 of 64 vectors pass, and both implementations agree.</li>
+    <li><strong>Bundles:</strong> they verify for Northbank, Kaveri and Deccan; a bundle right after a key switch passes; and the L1 pack verifies, while an edited one fails.</li>
+    <li><strong>Exports:</strong> the pinned export range stays covered, split parts are collected byte for byte, and swapped parts are refused.</li>
+    <li><strong>Seats:</strong> past months are never rewritten.</li>
+    <li><strong>Auditors:</strong> their writes are refused.</li>
+    <li><strong>Keys:</strong> the L2 two-person key switch works, the first key at onboarding signs at once, and the L1 rotation passes.</li>
+  </ul></td></tr>
+<tr><td>Demo sign-ins (in the running app)</td><td class="B"><strong>30 of 30 behave as designed.</strong>
+  <ul>
+    <li>26 console accounts sign in: 22 with a two-step code, and the 4 viewers without.</li>
+    <li>Deepak (L2) is refused as suspended, which is the seeded case.</li>
+    <li>The 3 portal accounts (counterparty, regulator, partner) reach their portal.</li>
+  </ul></td></tr>
+<tr><td>Live link crawl, signed in at each level</td><td><span class="B">0 problems</span> (broken links, error pages, script errors). L1: 161 pages, 23,853 links. L2: 320 pages, 27,684 links. L3: 185 pages, 19,451 links. Sovereign: 187 pages, 19,059 links. A static check of the code also found 0 dead links across all 80 routes.</td></tr>
+</table>
+
+<h2>4. What "complete" covers, and what it does not</h2>
+<ul>
+  <li><strong>Covered.</strong> Every screen, page, button, demo sign-in, journey and per-level feature in the platform plan and in the app's own list of features per level. The console, the receipt verifier, the developer portal, the counterparty, regulator and partner portals, and the status, legal, fingerprint, maintenance and offline pages are all included.</li>
+  <li><strong>By design.</strong>
+    <ul>
+      <li>This is the front end. Every backend call is served by a typed mock API that a real backend replaces later, as the approved plan says.</li>
+      <li>Timestamp authorities, KMS and HSMs are simulated.</li>
+      <li>Your rulings stay as you confirmed them, including the refusal rate and the bundle file names.</li>
+    </ul></li>
+  <li><strong>Not covered.</strong>
+    <ul>
+      <li>The public site, which is already built.</li>
+      <li>Single-use approval and portal links were not opened, because opening one uses it up.</li>
+      <li>Installing on a real phone was not tested.</li>
+    </ul></li>
+</ul>
+
+</body></html>

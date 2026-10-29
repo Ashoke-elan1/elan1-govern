@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><title>Closing report — the 17 changes</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+  :root { --ink: #14161f; --muted: #5b5f6b; --line: #d9d6cf; --paper: #fbfaf7; --clay: #c2552d; --ok: #2f6b3d; --held: #8a5a00; --bad: #a3271f; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color: var(--ink); font-size: 9.6pt; line-height: 1.42; margin: 0; background: #fff; }
+  h1 { font-size: 20pt; margin: 0 0 4pt; letter-spacing: -0.3pt; }
+  h2 { font-size: 13pt; margin: 18pt 0 6pt; padding-top: 6pt; border-top: 2px solid var(--ink); page-break-after: avoid; }
+  p { margin: 0 0 6pt; }
+  .kicker { color: var(--clay); font-weight: 700; letter-spacing: 1pt; font-size: 8pt; text-transform: uppercase; }
+  .lead { color: var(--muted); font-size: 10pt; }
+  table { width: 100%; border-collapse: collapse; margin: 4pt 0 8pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid var(--line); padding: 4pt 5pt; text-align: left; vertical-align: top; }
+  th { background: #f1efe9; font-size: 8.4pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+  td.n { width: 22pt; font-weight: 700; }
+  td.s { width: 44pt; white-space: nowrap; font-weight: 600; }
+  td.i { width: 150pt; }
+  .B { color: var(--ok); } .P { color: var(--held); }
+  code { font-family: Consolas, monospace; font-size: 8.2pt; background: #f4f2ec; padding: 0 2pt; }
+  .grid { display: flex; gap: 6pt; margin: 6pt 0 10pt; }
+  .card { flex: 1; border: 1px solid var(--line); padding: 6pt 8pt; background: var(--paper); }
+  .card .n { font-size: 16pt; font-weight: 700; }
+  .card .l { font-size: 8pt; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4pt; }
+  .answer { border: 2px solid var(--ink); padding: 8pt 10pt; margin: 8pt 0 10pt; background: var(--paper); font-size: 10.2pt; }
+  .note { border-left: 3px solid var(--clay); padding: 4pt 8pt; background: var(--paper); margin: 6pt 0 10pt; }
+  ul { margin: 0 0 6pt 14pt; padding: 0; } li { margin: 0 0 2pt; }
+  .small { font-size: 8.4pt; color: var(--muted); }
+</style></head><body>
+
+<p class="kicker">Elan1 Govern · front end · closing report</p>
+<h1>The 17 changes — done and verified</h1>
+<p class="lead">28 October 2026. This report covers every change in <code>16-remaining-changes</code>, which includes the 5 partly fixed items from <code>15-fix-verification</code>. It covers L1, L2, L3 and Sovereign. No public-site pages were touched, and pricing was not changed.</p>
+
+<div class="answer"><strong>Answer:</strong> all 17 changes are made, and an independent check confirmed each one in the code. The 5 partly fixed items are now fully fixed.
+  <ul>
+    <li>Two changes (7 and 16) were incomplete after the first pass. The check caught them and a second pass finished them.</li>
+    <li>Two small side effects the check found were fixed too.</li>
+    <li>One more empty refusal class of the same kind ("Counterparty not verified") was removed.</li>
+  </ul>
+  The type-check, build, Seal v6 test vectors, bundle checks and link crawl all pass. <strong>All 87 items listed in reports 11 and 13 are now fixed.</strong>
+</div>
+
+<div class="note"><strong>How it was done.</strong>
+  <ul>
+    <li>Four fixers worked in parallel, each on its own files.</li>
+    <li>For each area, a separate read-only checker traced every change through the code, from screen to API to mock, and graded it Fixed, Partly fixed or Not fixed. Where it found a gap or a side effect, a third agent finished the work.</li>
+    <li>An integrator then ran the type-check, the build and the verifier check scripts.</li>
+    <li>I fixed the leftovers myself, corrected the README, checked the main fixes in the browser and crawled all four levels.</li>
+  </ul>
+</div>
+
+<h2>1. Summary</h2>
+<div class="grid">
+  <div class="card"><div class="n B">17 / 17</div><div class="l">Changes verified fixed</div></div>
+  <div class="card"><div class="n B">87 / 87</div><div class="l">Items from reports 11 and 13 now fixed</div></div>
+  <div class="card"><div class="n B">0</div><div class="l">Type or build errors</div></div>
+  <div class="card"><div class="n B">64 / 64</div><div class="l">Seal v6 vectors</div></div>
+  <div class="card"><div class="n B">0</div><div class="l">Crawl problems</div></div>
+</div>
+
+<h2>2. Each change, and how it was verified</h2>
+<table>
+<tr><th>#</th><th>Change</th><th>Status</th><th>What was done and how it was verified</th></tr>
+<tr><td class="n">1</td><td class="i">"Erased data" class on Not done (items 11 #16, 13 #17)</td><td class="s B">Fixed</td><td>Removed from Not done, Activity and the type. Searching the code finds no "Erased data" text, and in the browser neither Not done nor Refusals shows it.</td></tr>
+<tr><td class="n">2</td><td class="i">"Signed" in L1 developer copy (13 #3)</td><td class="s B">Fixed</td><td>Every rulebook mention in the developer portal now says it is published, and that from L2 each version is also signed. The checker searched every remaining "signed" in the portal; all are explicitly L2+ or L3.</td></tr>
+<tr><td class="n">3</td><td class="i">Receipt page and Refusals misread guard refusals (13 #36)</td><td class="s B">Fixed</td><td>The guard-rule list now has <code>tool-disabled</code>, the four consent ids, <code>RECEIPT_WRITE_FAILED</code> and <code>POLICY.TENANT_STOPPED</code>; <code>counterparty-unverified</code> is removed. The receipt page and Refusals use the same list. In the browser, a real consent refusal (Kaveri #1416) shows the consent explanation, not the wrong "not held" banner. A side effect in the decision trace, found by the check, was fixed.</td></tr>
+<tr><td class="n">4</td><td class="i">Bundle file names (11 #31)</td><td class="s B">Fixed</td><td>Option (a): the names are kept. The developer-docs table now maps all 9 members to the specification's names, including the optional <code>lexicon.json</code>. Bundles already exported stay valid.</td></tr>
+<tr><td class="n">5</td><td class="i">Onboarding locked keys for 30 days (L3, Sovereign)</td><td class="s B">Fixed</td><td>Onboarding now runs a first-key ceremony: the organisation's first customer-held key signs at once and no successor is left waiting, so key and level changes are not blocked. A guard allows this only for the first ceremony at L3 or Sovereign. Later rotations keep the 30-day overlap.</td></tr>
+<tr><td class="n">6</td><td class="i">Agents › Keys offered a refused rotation (L2)</td><td class="s B">Fixed</td><td>It uses the same pending and successor checks as Proof › Keys, and Withdraw goes through the checked path.</td></tr>
+<tr><td class="n">7</td><td class="i">Withdrawing someone else's token request</td><td class="s B">Fixed</td><td>Only the requester can withdraw, and only while the request is waiting. The store and the screen both enforce this. The first pass was partial; the check caught it and the token docs were corrected to match.</td></tr>
+<tr><td class="n">8</td><td class="i">"Clauses" in the developer docs</td><td class="s B">Fixed</td><td>The docs say "Clause results", and Scope lists write types in the verifier's order. Searching the code finds no "Clauses" left.</td></tr>
+<tr><td class="n">9</td><td class="i">First close-out bundle not tied to its export (L2)</td><td class="s B">Fixed</td><td>The file's digest must equal the recorded export's digest, or it is refused, the same as evidence requests.</td></tr>
+<tr><td class="n">10</td><td class="i">Billing-desk credit trusted the screen</td><td class="s B">Fixed</td><td>The credit is read from the invoice line and capped at that amount, less any earlier credits. The seeded settlement still works.</td></tr>
+<tr><td class="n">11</td><td class="i">Autonomy could release a pack's named-person hold (latent)</td><td class="s B">Fixed</td><td>Such holds are marked <code>pack_hold_required</code>, and autonomy at any level can't turn them into an allow. Confirmed with a scripted check.</td></tr>
+<tr><td class="n">12</td><td class="i">Wrong control number on People</td><td class="s B">Fixed</td><td>It now says EG-20, confirmed in the browser.</td></tr>
+<tr><td class="n">13</td><td class="i">Cookie table missing a key</td><td class="s B">Fixed</td><td><code>eg:evidence:sent:…</code> is listed. The checker confirmed every storage key and cookie the code writes is now in the table.</td></tr>
+<tr><td class="n">14</td><td class="i">Privacy notice: WhatsApp number</td><td class="s B">Fixed</td><td>It now says the number can also be used to approve or reject with chat buttons, and is recorded with that decision.</td></tr>
+<tr><td class="n">15</td><td class="i">L3 receipt-code pages contradicted themselves</td><td class="s B">Fixed</td><td>Both now say a received receipt that fails is not added to your chain, and that the check is recorded. The API description for the same endpoint was aligned too, a side effect found by the check.</td></tr>
+<tr><td class="n">16</td><td class="i">Out-of-date WhatsApp line</td><td class="s B">Fixed</td><td>The YAML reference is fixed. The check then found the same wrong line in four more console screens: the rule dialog, Notifications, You, and Channels (with onboarding). All of them were fixed in the second pass.</td></tr>
+<tr><td class="n">17</td><td class="i">README overstated the fixes</td><td class="s B">Fixed</td><td>The README now describes the history accurately (11, 13, 15, 16 and this report) and lists what the 17 changes did.</td></tr>
+</table>
+<p class="small">Also removed: the "Counterparty not verified" refusal class in Activity, Not done and Refusals. Like "Erased data", nothing produces it, so it was always empty. A received receipt that fails its checks is simply not accepted; no agent call is refused.</p>
+
+<h2>3. Checks after the changes</h2>
+<table>
+<tr><th>Check</th><th>Result</th></tr>
+<tr><td>Type-check and production build</td><td class="B">Both pass, after every pass and after my last edits.</td></tr>
+<tr><td>Verifier and bundles (scripted)</td><td class="B">
+  <ul>
+    <li><strong>Seal v6 vectors:</strong> 64 of 64 pass, and both implementations agree.</li>
+    <li><strong>Bundles:</strong> they verify for Northbank (PASS), Kaveri (PASS_PAYLOAD_UNBOUND) and Deccan (PASS).</li>
+    <li><strong>Report:</strong> it shows "Clause results" with write types.</li>
+    <li><strong>L1 pack:</strong> a new pack passes, and an edited one fails.</li>
+    <li><strong>Exports:</strong> the pinned range stays covered by the integrity check.</li>
+    <li><strong>Evidence requests:</strong> swapped parts are refused.</li>
+    <li><strong>Seats:</strong> past months are unchanged.</li>
+    <li><strong>Auditors:</strong> their writes are refused.</li>
+    <li><strong>Keys:</strong> the L2 two-person confirm works.</li>
+  </ul></td></tr>
+<tr><td>In the browser (L3)</td><td class="B">
+  <ul>
+    <li>Not done and Refusals show neither empty class.</li>
+    <li>A consent refusal's receipt page explains the consent check.</li>
+    <li>People cites EG-20.</li>
+  </ul></td></tr>
+<tr><td>Live crawl</td><td><strong class="B">0 problems</strong> (broken links, error pages, script errors), signed in as an admin at each level: L1 320 pages, 34,258 links; L2 146 pages, 14,646 links; L3 320 pages, 29,773 links; Sovereign 320 pages, 27,595 links. L2 was smaller this run because some tables load after the crawl's short wait, so it found fewer links to follow; the pages themselves are fine (Northbank Records was checked by hand and its rows link correctly).</td></tr>
+</table>
+
+<h2>4. Known and outside these 17</h2>
+<ul>
+  <li><strong>Right after a key switch — now fixed (added after this report was first issued).</strong> An exported bundle used to fail its key check until the new key had signed a record, because the switch receipt is signed by the outgoing key.
+    <ul>
+      <li><strong>The change.</strong> Every ordinary rotation (L1, L2 KMS, L3 and Sovereign ceremonies, the first key at onboarding) now has the new key sign a <code>key.signing_started</code> record straight after the switch. The outgoing key still attests the handover, and the newest record is always signed by the organisation's current key.</li>
+      <li><strong>Not affected.</strong> The verifier was not loosened. The L1 → L2 upgrade is unchanged, because its signing-on record already comes first from the new key, at the sequence named before the switch.</li>
+      <li><strong>Verified.</strong>
+        <ul>
+          <li>The Northbank bundle straight after the rotations now passes with the new fingerprint pinned; it used to fail.</li>
+          <li>An L1 rotation's pack passes with the new fingerprint (PASS_L1_INTERNAL).</li>
+          <li>The L1 → L2 close-out still starts signing at the named sequence, and the first ten records all verify.</li>
+          <li>The onboarding first-key checks all pass.</li>
+          <li>The 64 Seal v6 vectors pass, and the type-check and build pass.</li>
+        </ul></li>
+    </ul></li>
+  <li><strong>The pilot in the four demo organisations</strong> and the time stamps on seeded events are as before.</li>
+</ul>
+
+</body></html>

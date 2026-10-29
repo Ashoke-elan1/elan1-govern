@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><title>Completeness check — after the fixes</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+  :root { --ink: #14161f; --muted: #5b5f6b; --line: #d9d6cf; --paper: #fbfaf7; --clay: #c2552d; --ok: #2f6b3d; --held: #8a5a00; --bad: #a3271f; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color: var(--ink); font-size: 9.6pt; line-height: 1.42; margin: 0; background: #fff; }
+  h1 { font-size: 20pt; margin: 0 0 4pt; letter-spacing: -0.3pt; }
+  h2 { font-size: 13pt; margin: 18pt 0 6pt; padding-top: 6pt; border-top: 2px solid var(--ink); page-break-after: avoid; }
+  h3 { font-size: 10.5pt; margin: 12pt 0 4pt; page-break-after: avoid; }
+  p { margin: 0 0 6pt; }
+  .kicker { color: var(--clay); font-weight: 700; letter-spacing: 1pt; font-size: 8pt; text-transform: uppercase; }
+  .lead { color: var(--muted); font-size: 10pt; }
+  table { width: 100%; border-collapse: collapse; margin: 4pt 0 8pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid var(--line); padding: 3pt 5pt; text-align: left; vertical-align: top; }
+  th { background: #f1efe9; font-size: 8.4pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+  td.s { white-space: nowrap; font-weight: 600; width: 46pt; }
+  td.l { white-space: nowrap; width: 44pt; }
+  td.n { width: 18pt; color: var(--muted); }
+  .B { color: var(--ok); } .P { color: var(--held); } .M { color: var(--bad); } .X { color: var(--bad); }
+  code { font-family: Consolas, monospace; font-size: 8.2pt; background: #f4f2ec; padding: 0 2pt; }
+  .grid { display: flex; gap: 6pt; margin: 6pt 0 10pt; }
+  .card { flex: 1; border: 1px solid var(--line); padding: 6pt 8pt; background: var(--paper); }
+  .card .n { font-size: 16pt; font-weight: 700; }
+  .card .l { font-size: 8pt; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4pt; }
+  .note { border-left: 3px solid var(--clay); padding: 4pt 8pt; background: var(--paper); margin: 6pt 0 10pt; }
+  ul { margin: 0 0 6pt 14pt; padding: 0; } li { margin: 0 0 2pt; }
+  .small { font-size: 8.4pt; color: var(--muted); }
+  .ev { font-size: 7.8pt; color: var(--muted); display: block; margin-top: 2pt; }
+</style></head><body>
+
+<p class="kicker">Elan1 Govern · front end · read-only check</p>
+<h1>Completeness check — after the fixes</h1>
+<p class="lead">28 October 2026, late night. Nothing was built or changed for this check. It is the second check of the night, run after the 45 fixes in <code>12-fix-report</code>. It covers the console, the receipt verifier, the developer portal, the counterparty, regulator and partner portals, and the status, legal, fingerprint, maintenance and offline pages, plus every demo sign-in, at L1, L2, L3 and Sovereign. The public site is not included: it is already built.</p>
+
+<div class="note">
+  <strong>How it was checked.</strong>
+  <ul>
+    <li><strong>Code reviews.</strong> Five reviewers each read one area against the platform plan and the four document digests. The areas were: Work and access; Records; Agents and Sovereign; Assurance and billing; and the developer portal with journeys and links. Each reviewer did two things: (a) confirmed the previous findings in their area were really fixed, and (b) looked for anything still missing or newly wrong. I re-checked the most important findings in the code myself.</li>
+    <li><strong>Sign-in check.</strong> Every demo account was tried in the running app with its published password.</li>
+    <li><strong>Links.</strong> A static check matched every link target against the routes. The live crawl run after the fixes still applies, because the app code has not changed since.</li>
+  </ul>
+  <strong>Not counted:</strong>
+  <ul>
+    <li>the rulings in <code>08-conflict-decisions.md</code>, and the choices in §4 of <code>10-build-report</code> and §4 of <code>12-fix-report</code>, all confirmed by you;</li>
+    <li>items the memorandum marks LATER;</li>
+    <li>the public site;</li>
+    <li>backend internals.</li>
+  </ul>
+</div>
+
+<h2>1. Summary</h2>
+<div class="grid">
+  <div class="card"><div class="n B">~290</div><div class="l">Items verified as built</div></div>
+  <div class="card"><div class="n X">12</div><div class="l">Broken</div></div>
+  <div class="card"><div class="n M">1</div><div class="l">Missing</div></div>
+  <div class="card"><div class="n P">29</div><div class="l">Partial</div></div>
+  <div class="card"><div class="n B">0</div><div class="l">Dead links</div></div>
+</div>
+<p>All screens exist, all links resolve and all 30 demo sign-ins work. Of the 45 earlier findings, the reviewers confirmed 34 as fully fixed. The other 11 are fixed in their main place but left a follow-on gap: findings 5, 13, 14, 16, 18, 24, 30, 32, 33, 38 and 41.</p>
+<p>Most of the 42 findings this round are second-order: places the night's fixes didn't reach, or side effects of a fix. The ones that matter most:</p>
+<ul>
+  <li><strong>Pack checks refuse held calls.</strong> An admitted pack's check refuses a call that the rulebook has already held for a named person, instead of leaving it for that person to decide. It also ignores the pack's configured values.</li>
+  <li><strong>"Everything" exports at L2+.</strong> They can't clear the new integrity-run requirement while live traffic flows: every new call puts the newest record beyond the last check.</li>
+  <li><strong>Proof › Keys at L2.</strong> An approved KMS rotation shows as still waiting, with an approve button that fails. This is a side effect of fix 24.</li>
+  <li><strong>L2 seals.</strong> Every L2 record is sealed with autonomy level A3, although no level exists below L3.</li>
+  <li><strong>Sovereign egress.</strong> SAML, connectors (public MCP servers, Gmail, Zoho cloud) and Elan1's hosted maintenance banner still reach outside the network.</li>
+  <li><strong>Counterparty seats.</strong> Past invoices are rewritten when seats change.</li>
+  <li><strong>The legal sub-processor page.</strong> It now says something false about WhatsApp.</li>
+</ul>
+
+<h2>2. Sign-ins, links and build</h2>
+<table>
+<tr><th>Check</th><th>Result</th></tr>
+<tr><td>Demo sign-ins (30 accounts)</td><td class="B"><strong>30 of 30 behave as designed.</strong>
+  <ul>
+    <li>26 console accounts sign in: 22 with a two-step code, and the 4 viewers without.</li>
+    <li>Deepak Jain (L2) is refused as suspended, which is the seeded case.</li>
+    <li>The 3 portal accounts reach their portal.</li>
+    <li>Every account has a matching user, membership, organisation and level, and the README table matches.</li>
+  </ul></td></tr>
+<tr><td>Static links</td><td class="B"><strong>0 dead.</strong> Checked: every link, navigation, nav entry, the 12 settings redirects, 37 <code>?tab=</code> values, 13 anchors, and every developer section and refusal-code page.</td></tr>
+<tr><td>Live crawl (after the fixes)</td><td class="B"><strong>0 problems.</strong> L1: 320 pages, 28,705 links. L2: 277 pages, 20,703 links. L3: 181 pages, 18,385 links. Sovereign: 183 pages, 19,982 links. The public 404 and the sign-in redirect were also checked.</td></tr>
+<tr><td>Type-check, build, verifier</td><td class="B">Type-check and production build pass, and the Seal v6 vectors pass 64 of 64.</td></tr>
+<tr><td>Journeys</td><td class="B">Every README journey step was traced to a screen, an action and a receipt: L1 11, L2 9, L3 7, Sovereign 5, auditor 4, portals 1. The 14 items in the README's new "fixed" section were traced the same way.</td></tr>
+</table>
+
+<h2>3. Findings</h2>
+<p class="small">Status key:</p>
+<ul class="small">
+  <li><strong class="X">Broken</strong>: the screen exists but does the wrong thing.</li>
+  <li><strong class="M">Missing</strong>: not built.</li>
+  <li><strong class="P">Partial</strong>: built but a step or detail short.</li>
+</ul>
+<p class="small">"(fix N)" marks a gap left by, or caused by, that fix in <code>12-fix-report</code>.</p>
+
+<h3>3.1 Work door and access</h3>
+<table>
+<tr><th>#</th><th>Level</th><th>Item</th><th>Status</th><th>What is wrong or missing</th></tr>
+<tr><td class="n">1</td><td class="l">Sov</td><td>Elan1 maintenance at Sovereign</td><td class="s X">Broken</td><td>Deccan sees Elan1's hosted maintenance banner and due date, both linking to the public status page, which doesn't list Sovereign. An owner can "Start it now", which closes Deccan's console. The notices code already sends Sovereign no maintenance.<span class="ev">today/TodayPage.tsx:133; today/DueDatesPanel.tsx:96; today/dueDates.ts:104; system/SystemWatch.tsx:43</span></td></tr>
+<tr><td class="n">2</td><td class="l">L1–L3</td><td>Chat buttons for people with no linked chat (fix 6)</td><td class="s X">Broken</td><td>A Slack or WhatsApp link sent by hand to someone outside the routing, such as the owner on a Finance approval, carries Approve and Reject buttons. Pressing them always fails with "no longer has a linked Slack account".<span class="ev">approvals/ApprovalDetail.tsx:599; mock/approvalNotify.ts:134; approvals/chat.ts:24</span></td></tr>
+<tr><td class="n">3</td><td class="l">L1</td><td>"Signed" in L1 copy</td><td class="s X">Broken</td><td>Several places say "signed" at every level, with no level check:
+  <ul>
+    <li>the erasure message in Reviews ("the organisation signed what is left");</li>
+    <li>onboarding and sign-up ("a signed rulebook");</li>
+    <li>the sign-in page, the maintenance page and the developer intro ("a signed rulebook").</li>
+  </ul>
+  L1 must say "sealed", or "published" for rulebooks.<span class="ev">work/ReviewsPage.tsx:294; onboarding/OnboardingPage.tsx:506,855,862; auth/SignupPage.tsx:57; auth/LoginPage.tsx:208; system/MaintenancePage.tsx:83; developers/sections/Start.tsx:43</span></td></tr>
+<tr><td class="n">4</td><td class="l">L2+</td><td>Same-person "Send to" (fix 5)</td><td class="s P">Partial</td><td>It sends no message to the outbox and writes no receipt, yet the confirmation says "Sent by email".<span class="ev">approvals/DecidePanels.tsx:188</span></td></tr>
+<tr><td class="n">5</td><td class="l">All</td><td>Escalation and re-route (fix 5)</td><td class="s P">Partial</td><td>When an approval escalates or is re-routed, the new group gets no single-use link and no outbox message. Only the first hold notifies.<span class="ev">mock/platform.ts:1762; mock/db.ts:1319–1339</span></td></tr>
+<tr><td class="n">6</td><td class="l">All</td><td>"Widen the stop from its incident"</td><td class="s P">Partial</td><td>The stop dialog says to widen an engaged stop from its incident, but no widen action exists. Adding agents means lifting the stop first, which needs two people from L2.<span class="ev">shell/StopDialog.tsx:106; mock/db.ts:1385</span></td></tr>
+<tr><td class="n">7</td><td class="l">Sov</td><td>Phone links at Sovereign</td><td class="s P">Partial</td><td>Channels lists phone links as available at Sovereign, but the approval page offers only internal email, so a phone link can't be issued.<span class="ev">work/ChannelsPage.tsx:103,222; approvals/ApprovalDetail.tsx:603</span></td></tr>
+</table>
+
+<h3>3.2 Records door</h3>
+<table>
+<tr><th>#</th><th>Level</th><th>Item</th><th>Status</th><th>What is wrong or missing</th></tr>
+<tr><td class="n">8</td><td class="l">L2+</td><td>Pack checks on held calls (fix 14)</td><td class="s X">Broken</td><td>The check isn't told the rulebook's decision. From L2, a write that a pack says needs a named person (above the ledger threshold, or always-held write types) is refused outright, even when the rulebook already held it for that person. At L1 the same calls are logged as "would refuse".<span class="ev">mock/packChecks.ts:65–69,87–106</span></td></tr>
+<tr><td class="n">9</td><td class="l">All</td><td>Pack configuration (fix 14)</td><td class="s X">Broken</td><td>Configure says the checks use the new values from the next call. The live check uses fixed values (₹2,00,000, 08:00–19:00, 3 contacts a day) and always stamps declaration v1. Configured versions and withdrawals have no effect.<span class="ev">mock/packChecks.ts:41,61,67–81; packs/config.ts:29–48</span></td></tr>
+<tr><td class="n">10</td><td class="l">All</td><td>Decision trace: pack step</td><td class="s P">Partial</td><td>The trace recomputes pack checks from a tool match. It ignores admission and the receipt's pack result, and draws the pack step after autonomy, which is the wrong order.<span class="ev">activity/DecisionTrace.tsx:42–58,85</span></td></tr>
+<tr><td class="n">11</td><td class="l">L1</td><td>Pack rules in rulebooks</td><td class="s P">Partial</td><td>Locked pack rule sections can be added only from L2 ("start at Attested"). At L1 only the dry-run declaration check runs.<span class="ev">rulebooks/RulesTab.tsx:297,329</span></td></tr>
+<tr><td class="n">12</td><td class="l">L1</td><td>Agent page "Starts at L2" (fix 13)</td><td class="s P">Partial</td><td>The agent's Regulatory packs panel says "Starts at Attested" below L2, though admission works at L1 as a dry run.<span class="ev">agents/AgentDetailPage.tsx:353</span></td></tr>
+<tr><td class="n">13</td><td class="l">L1</td><td>L1 pack compliance map (fixes 16, 18)</td><td class="s P">Partial</td><td>The pack's compliance map uses the saved framework mappings. EG-15 is missing because the saved control list doesn't have it, and EG-18 to EG-20 are counted but mapped to no requirement. So DPDP s.8(7) and s.12 still show "no mapped control" in the pack file.<span class="ev">mock/evidence.ts:179–185</span></td></tr>
+<tr><td class="n">14</td><td class="l">All</td><td>Coverage on Today and the AI system page</td><td class="s P">Partial</td><td>Both read the stored coverage, which lacks EG-14 to EG-20 and the level mappings, so their percentages disagree with <code>/compliance</code>.<span class="ev">mock/db.ts:538–568; today/TodayPage.tsx:661; inventory/AiSystemPage.tsx:72</span></td></tr>
+<tr><td class="n">15</td><td class="l">All</td><td>"Controls" on the receipt page</td><td class="s P">Partial</td><td>It uses its own control table, which differs from Coverage's, and its framework links miss EG-15 and EG-18 to EG-20. A shared helper exists but is unused.<span class="ev">activity/assurance.ts:131–148; ReceiptPage.tsx:201; compliance/evidence.ts:152</span></td></tr>
+<tr><td class="n">16</td><td class="l">L2+</td><td>EG-18 note (fix 18)</td><td class="s P">Partial</td><td>It says self-approval is allowed and two-person approval is "not enforced yet". From L2, same-person approval is forbidden and two-person approval is enforced.<span class="ev">compliance/evidence.ts:141; mock/governance.ts:90</span></td></tr>
+<tr><td class="n">17</td><td class="l">All</td><td>"Erased data" refusal class</td><td class="s P">Partial</td><td>Nothing produces the <code>payload-erased</code> refusal, so the class and its documented id are always empty.<span class="ev">activity/shared.tsx:106,149</span></td></tr>
+<tr><td class="n">18</td><td class="l">Sov</td><td>Connectors under deny-all egress</td><td class="s X">Broken</td><td>At Deccan, a public https MCP server is accepted, and Gmail or Zoho cloud can be connected. None of this is refused or recorded as <code>egress.blocked</code>, unlike Slack, WhatsApp, single sign-on and webhooks.<span class="ev">connectors/parts.tsx:87–105; connectors/ops.ts:181,277; connectors/dialogs.tsx:35</span></td></tr>
+<tr><td class="n">19</td><td class="l">All</td><td>Checks on the approval screen</td><td class="s P">Partial</td><td>The retention check says "Kept 3 years", below the 8-year floor. The consent check (G1) is always shown as passed or not applicable and never reads the consent ledger, which the live check does use.<span class="ev">approvals/decide.ts:188–194</span></td></tr>
+</table>
+
+<h3>3.3 Agents door and Sovereign</h3>
+<table>
+<tr><th>#</th><th>Level</th><th>Item</th><th>Status</th><th>What is wrong or missing</th></tr>
+<tr><td class="n">20</td><td class="l">L2</td><td>Proof › Keys after an approved rotation (fix 24)</td><td class="s X">Broken</td><td>The page's own pending check doesn't stop at <code>key.rotation.approved</code>. For the 30-day overlap it shows "waiting for a second person" with an Approve button that fails. It also offers the requester a Withdraw that writes a stray receipt, and hides "Request a KMS rotation". Agents › Keys is correct.<span class="ev">evidence/KeysCustody.tsx:22–30,97–105; compare agentsdoor/KeysPage.tsx:121</span></td></tr>
+<tr><td class="n">21</td><td class="l">L2</td><td>Every L2 record sealed with A3</td><td class="s X">Broken</td><td>Seal field F11 (autonomy level) is "A3" for every decision before L3. It shows on the Seal tab and in evidence bundles, which contradicts the graduation-only ruling.<span class="ev">mock/platform.ts:402–408</span></td></tr>
+<tr><td class="n">22</td><td class="l">Sov</td><td>SAML and onboarding under deny-all egress (fix 25)</td><td class="s X">Broken</td><td>The single sign-on guard covers OIDC only. A Deccan owner can save Okta, Entra or Google SAML metadata and require it, with no refusal. Sovereign onboarding defaults to Okta and gives a hosted <code>govern.elan1.ai</code> entity id.<span class="ev">mock/platform.ts:2080–2087; settings/sections/Sso.tsx:380; onboarding/state.ts:58; OnboardingPage.tsx:594</span></td></tr>
+<tr><td class="n">23</td><td class="l">L2</td><td>One person can rotate the KMS key</td><td class="s P">Partial</td><td>"Publish a successor" lets one owner or admin bind a new KMS key. After the overlap the switch happens automatically, so no second person is involved, though Keys says a KMS rotation needs two.<span class="ev">keys/KeyWindows.tsx:92; mock/keys.ts:481–503,564</span></td></tr>
+<tr><td class="n">24</td><td class="l">L2+</td><td>Rotation copy (fix 24)</td><td class="s P">Partial</td><td>The request dialog and the signing-key help still say the old key is retired at once. They don't mention the successor and the 30-day overlap.<span class="ev">evidence/KeysCustody.tsx:239; settings/sections/SigningKeys.tsx:53,90</span></td></tr>
+<tr><td class="n">25</td><td class="l">L2+</td><td>"L1: signed and chained"</td><td class="s P">Partial</td><td>The agent overview calls records from before the boundary "signed and chained". Under the L1 ruling they are "sealed in a hash chain".<span class="ev">agents/AgentDetailPage.tsx:304</span></td></tr>
+<tr><td class="n">26</td><td class="l">All</td><td>Sandbox key help (fix 27)</td><td class="s P">Partial</td><td>"Sandbox keys rotate at once" is wrong. They keep the grace period too; they only skip the review.<span class="ev">settings/sections/ApiKeys.tsx:93</span></td></tr>
+</table>
+
+<h3>3.4 Assurance door and billing</h3>
+<table>
+<tr><th>#</th><th>Level</th><th>Item</th><th>Status</th><th>What is wrong or missing</th></tr>
+<tr><td class="n">27</td><td class="l">L2+</td><td>Integrity check on "Everything" exports (fix 30)</td><td class="s X">Broken</td><td>"Everything" and "Last 7 days" export up to the newest record at the click. A run covers only up to its own receipt, so with live traffic (a call every few seconds) "Run the integrity check now" never clears these exports. Only the clean range works.<span class="ev">mock/evidenceGuards.ts:69–82; evidence/ExportPackDialog.tsx:154,274</span></td></tr>
+<tr><td class="n">28</td><td class="l">L3, Sov</td><td>Counterparty seat invoice line</td><td class="s X">Broken</td><td>Every month is billed at today's seat count for a full month, with no pro rata. Changing seats rewrites amounts on past invoices, paid ones included.<span class="ev">billing/chainMeter.ts:453; mock/platform.ts:1088</span></td></tr>
+<tr><td class="n">29</td><td class="l">All</td><td>Nine-section report (fix 32)</td><td class="s P">Partial</td><td>Three gaps remain:
+  <ul>
+    <li>The console says "Clauses" where the specification and <code>/verify</code> say "Clause results".</li>
+    <li>Scope doesn't list write types.</li>
+    <li>The console's Claim always says "Profile claimed: none", because the manifest isn't passed in.</li>
+  </ul><span class="ev">lib/verify6.ts:54; activity/VerifyResult.tsx:128,175</span></td></tr>
+<tr><td class="n">30</td><td class="l">L1, L2+</td><td>Exit codes outside Proof (fix 38)</td><td class="s P">Partial</td><td>The pack's own README and PDF summary, the Overview, Exports and the export dialog's last step list only exit codes 0 and 1. They leave out 3 INCOMPLETE and 5 USAGE, and the L2 list leaves out PASS_L1_INTERNAL.<span class="ev">mock/evidence.ts:228,275; AssuranceHomePage.tsx:267; ExportsPage.tsx:284; ExportPackDialog.tsx:461</span></td></tr>
+<tr><td class="n">31</td><td class="l">L2+</td><td>What the auditor collects for an evidence request (fix 29)</td><td class="s P">Partial</td><td>For a split export, or after a reload, the auditor collects one bundle rebuilt over the whole range. It can be over the size limit, lacks the export checks, names the auditor as creator, and has a different digest from the export that was recorded and billed.<span class="ev">mock/keys.ts:867,901–911</span></td></tr>
+<tr><td class="n">32</td><td class="l">L2+</td><td>Timestamps › Anchor now</td><td class="s P">Partial</td><td>On-demand batches never reach an export's timestamp file, so those records still count as the unanchored tail. The owner-or-admin check is on screen only.<span class="ev">anchors/anchorLocal.ts:95–116; mock/platform.ts:532–549</span></td></tr>
+<tr><td class="n">33</td><td class="l">All</td><td>Other auditor writes (fix 33)</td><td class="s P">Partial</td><td>Profiles are fixed, but an auditor can still write pack pilot steps (necessity, air-gap run, verdict, reconciliation, auditor reading, acceptance tests), and also integrity runs, to the client's chain. The Information Memorandum gives some pilot steps to the auditor (J9), so this needs your ruling.<span class="ev">mock/packsFactory.ts:820–1156; ExportPackDialog.tsx:235</span></td></tr>
+</table>
+
+<h3>3.5 Developer portal, legal and pages outside the doors</h3>
+<table>
+<tr><th>#</th><th>Level</th><th>Item</th><th>Status</th><th>What is wrong or missing</th></tr>
+<tr><td class="n">34</td><td class="l">L1–L3</td><td>Legal: the WhatsApp sub-processor (fix 6)</td><td class="s X">Broken</td><td>The page says WhatsApp carries only a link, "never an approval inside the message". Since fix 6, WhatsApp messages carry Approve and Reject buttons.<span class="ev">legal/LegalPage.tsx:163</span></td></tr>
+<tr><td class="n">35</td><td class="l">All</td><td>Developer docs for control and operations tokens (fix 22)</td><td class="s M">Missing</td><td>No developer section covers <code>gctl_</code> and <code>gops_</code>: what each can call, and the second person needed from L2.<span class="ev">only keys/PlatformTokens.tsx, keys/tokenStore.ts</span></td></tr>
+<tr><td class="n">36</td><td class="l">All</td><td>Errors page: system refusal ids (fix 41)</td><td class="s P">Partial</td><td>Three gaps:
+  <ul>
+    <li>The page leaves out ids the code now produces: <code>pack-gate</code>, <code>pack-declaration</code>, the four consent ids (G1_*) and <code>autonomy-a0</code>.</li>
+    <li>The consent check runs from L1, but the register lists its codes from L2.</li>
+    <li>The receipt page shows a different list of ids.</li>
+  </ul><span class="ev">developers/sections/More.tsx:147; mock/records.ts:583; activity/ReceiptPage.tsx:698</span></td></tr>
+<tr><td class="n">37</td><td class="l">All</td><td>Code pages for define and L3 codes (fix 43)</td><td class="s P">Partial</td><td>Each code page shows an agent-call example with a receipt. The register itself says the define codes come from publishing and the L3 codes from receiving a receipt.<span class="ev">developers/sections/Register.tsx:106,131</span></td></tr>
+<tr><td class="n">38</td><td class="l">L2+</td><td>Bundle table and changelog</td><td class="s P">Partial</td><td>The "8-member evidence bundle" table leaves out <code>lexicon.json</code>. The changelog has no entry for tonight's changes.<span class="ev">developers/sections/Platform.tsx:50; More.tsx:167</span></td></tr>
+<tr><td class="n">39</td><td class="l">Sov</td><td>Ask Govern on rules at Sovereign</td><td class="s P">Partial</td><td>For rules approvable in chat, the explanation says approvers can approve in chat, but chat is refused at Sovereign. It also ignores the cases elsewhere where buttons are suppressed.<span class="ev">shell/AskPanel.tsx:231</span></td></tr>
+<tr><td class="n">40</td><td class="l">Sov</td><td>Maintenance page at Sovereign</td><td class="s P">Partial</td><td>It says approvers decide from Slack and WhatsApp buttons, which Sovereign refuses. Its L1 wording is covered in #3.<span class="ev">system/MaintenancePage.tsx:88</span></td></tr>
+<tr><td class="n">41</td><td class="l">L1</td><td>Journey: deciding outside your group (Arjun)</td><td class="s P">Partial</td><td>The attempt is refused on screen but writes no receipt. This may be deliberate.<span class="ev">mock/db.ts:1280; work/backend.ts:227</span></td></tr>
+<tr><td class="n">42</td><td class="l">All</td><td>README route list</td><td class="s P">Partial</td><td>What it lists is accurate, but the sign-in routes, <code>/approve/:token</code>, <code>/403</code> and most detail routes (<code>/agents/:slug</code>, <code>/approvals/:id</code> and others) aren't listed.<span class="ev">README.md:44–53</span></td></tr>
+</table>
+
+<h2>4. What this check could not cover</h2>
+<ul>
+  <li><strong>Reading, not clicking.</strong> The reviews read the code; they didn't click through the app. The race on "Everything" exports and the pack-check behaviour were traced in the code and confirmed by me, but not reproduced in the browser.</li>
+  <li><strong>Single-use links.</strong> These were not opened, because opening one uses it up.</li>
+  <li><strong>Pack admissions.</strong> The demo has none seeded, so the pack-check findings (#8, #9) appear only after an admission is run by hand.</li>
+  <li><strong>Partial reads.</strong> Some large screens were read in part: the counterparty drawers, disclosure, upgrade stages and Path to production.</li>
+</ul>
+
+</body></html>

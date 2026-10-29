@@ -1,0 +1,43 @@
+{
+  "name": "elan1-govern-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Elan1 Govern — console, verifier and developer portal (front end, mock API)",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b --pretty",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@codemirror/lang-yaml": "^6.1.1",
+    "@codemirror/merge": "^6.7.4",
+    "@fontsource/ibm-plex-mono": "^5.1.0",
+    "@fontsource/ibm-plex-sans": "^5.1.0",
+    "@fontsource/schibsted-grotesk": "^5.1.0",
+    "@noble/ed25519": "^2.1.0",
+    "@noble/hashes": "^1.5.0",
+    "@tanstack/react-table": "^8.20.5",
+    "@uiw/react-codemirror": "^4.23.6",
+    "clsx": "^2.1.1",
+    "cmdk": "^1.0.4",
+    "lucide-react": "^0.460.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0",
+    "recharts": "^2.13.3",
+    "yaml": "^2.6.1",
+    "zustand": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "typescript": "~5.6.3",
+    "vite": "^5.4.11"
+  }
+}

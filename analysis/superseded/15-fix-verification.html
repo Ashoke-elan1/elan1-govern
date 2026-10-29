@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><title>Fix verification — are they really fixed?</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+  :root { --ink: #14161f; --muted: #5b5f6b; --line: #d9d6cf; --paper: #fbfaf7; --clay: #c2552d; --ok: #2f6b3d; --held: #8a5a00; --bad: #a3271f; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color: var(--ink); font-size: 9.6pt; line-height: 1.42; margin: 0; background: #fff; }
+  h1 { font-size: 20pt; margin: 0 0 4pt; letter-spacing: -0.3pt; }
+  h2 { font-size: 13pt; margin: 18pt 0 6pt; padding-top: 6pt; border-top: 2px solid var(--ink); page-break-after: avoid; }
+  h3 { font-size: 10.5pt; margin: 12pt 0 4pt; page-break-after: avoid; }
+  p { margin: 0 0 6pt; }
+  .kicker { color: var(--clay); font-weight: 700; letter-spacing: 1pt; font-size: 8pt; text-transform: uppercase; }
+  .lead { color: var(--muted); font-size: 10pt; }
+  table { width: 100%; border-collapse: collapse; margin: 4pt 0 8pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid var(--line); padding: 3pt 5pt; text-align: left; vertical-align: top; }
+  th { background: #f1efe9; font-size: 8.4pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+  td.n { width: 22pt; color: var(--muted); white-space: nowrap; }
+  td.s { white-space: nowrap; font-weight: 600; width: 46pt; }
+  .B { color: var(--ok); } .P { color: var(--held); } .X { color: var(--bad); }
+  code { font-family: Consolas, monospace; font-size: 8.2pt; background: #f4f2ec; padding: 0 2pt; }
+  .grid { display: flex; gap: 6pt; margin: 6pt 0 10pt; }
+  .card { flex: 1; border: 1px solid var(--line); padding: 6pt 8pt; background: var(--paper); }
+  .card .n { font-size: 16pt; font-weight: 700; }
+  .card .l { font-size: 8pt; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4pt; }
+  .answer { border: 2px solid var(--ink); padding: 8pt 10pt; margin: 8pt 0 10pt; background: var(--paper); font-size: 10.2pt; }
+  .note { border-left: 3px solid var(--clay); padding: 4pt 8pt; background: var(--paper); margin: 6pt 0 10pt; }
+  ul { margin: 0 0 6pt 14pt; padding: 0; } li { margin: 0 0 2pt; }
+  .small { font-size: 8.4pt; color: var(--muted); }
+  .ev { font-size: 7.8pt; color: var(--muted); display: block; margin-top: 2pt; }
+  .cols { columns: 2; column-gap: 10pt; }
+  .cols table { break-inside: auto; }
+</style></head><body>
+
+<p class="kicker">Elan1 Govern · front end · independent verification</p>
+<h1>Are all the reported items really fixed?</h1>
+<p class="lead">28 October 2026, late night. This check was read-only; nothing was built or changed. It covers every Broken, Missing and Partial item listed in <code>11-completeness-check</code> (45 items) and <code>13-completeness-check</code> (42 items), at L1, L2, L3 and Sovereign. The public site is not included.</p>
+
+<div class="answer">
+  <strong>Short answer: not completely.</strong>
+  <ul>
+    <li><strong>82 of the 87 items are fully fixed</strong> in the code as it stands now.</li>
+    <li><strong>5 are only partly fixed</strong>: their main problem is gone, but a piece remains (§3).</li>
+    <li><strong>None is still unfixed.</strong></li>
+    <li><strong>The fixes caused 13 smaller side effects</strong> (§4). Most are wording and documentation; one (onboarding at L3 and Sovereign) affects a real flow.</li>
+    <li><strong><code>14-fix-report</code> overstated one fix.</strong> It said the empty "Erased data" class was removed "including from Not done". It was not removed from Not done. That was my error.</li>
+  </ul>
+</div>
+
+<div class="note"><strong>How this was checked.</strong>
+  <ul>
+    <li><strong>Independent checkers.</strong> Five checkers each took one area and examined every listed item in the current code. They did not rely on the fix reports. For each item they read the original finding and traced the actual code path, from screen to API to mock, not just the wording. Each item got a verdict of Fixed, Partly fixed or Not fixed, with the file and line as evidence.</li>
+    <li><strong>My own re-checks.</strong> I re-checked every Partly verdict and the main side effects myself.</li>
+    <li><strong>Earlier evidence.</strong> These results build on the tests already run tonight: the type-check and build pass, the 64 Seal v6 test vectors pass, bundles verify at three levels, and the live crawl of all four levels found 0 problems.</li>
+  </ul>
+</div>
+
+<h2>1. Summary</h2>
+<div class="grid">
+  <div class="card"><div class="n">87</div><div class="l">Items checked</div></div>
+  <div class="card"><div class="n B">82</div><div class="l">Fully fixed</div></div>
+  <div class="card"><div class="n P">5</div><div class="l">Partly fixed</div></div>
+  <div class="card"><div class="n B">0</div><div class="l">Not fixed</div></div>
+  <div class="card"><div class="n P">13</div><div class="l">Side effects of the fixes</div></div>
+</div>
+<table>
+<tr><th>Area</th><th>Items</th><th>Fully fixed</th><th>Partly fixed</th></tr>
+<tr><td>Work door and access</td><td>19</td><td class="B">18</td><td class="P">1 (13 #3)</td></tr>
+<tr><td>Records door and packs</td><td>23</td><td class="B">21</td><td class="P">2 (11 #16, 13 #17)</td></tr>
+<tr><td>Agents, keys and seals</td><td>12</td><td class="B">12</td><td>0</td></tr>
+<tr><td>Assurance and billing</td><td>18</td><td class="B">17</td><td class="P">1 (11 #31)</td></tr>
+<tr><td>Developer portal, legal, README</td><td>15</td><td class="B">14</td><td class="P">1 (13 #36)</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>87</strong></td><td class="B"><strong>82</strong></td><td class="P"><strong>5</strong></td></tr>
+</table>
+
+<h2>2. Why each new check found more items</h2>
+<p>Each check was asked an open question: is anything missing or partial anywhere? It was not asked whether last time's items were fixed. That is why every round produced a new list, even though most earlier items were in fact fixed.</p>
+<table>
+<tr><th>Round</th><th>What it found</th><th>How many earlier items were really still open</th></tr>
+<tr><td>First check (report 11)</td><td>45 items</td><td>—</td></tr>
+<tr><td>Second check (report 13)</td><td>42 items</td><td><strong>34 of the 45 were confirmed fully fixed.</strong> 11 had a remaining piece. The other 31 items were new.</td></tr>
+<tr><td>This verification (report 15)</td><td>Only the 87 listed items, plus side effects seen while checking</td><td><strong>82 of 87 are fully fixed</strong>; 5 have a remaining piece.</td></tr>
+</table>
+<p>The new items came from three sources:</p>
+<ul>
+  <li><strong>Deeper reading.</strong> Each round's reviewers start fresh and read further into areas the last round only skimmed: the developer docs, cookie and legal text, billing edge cases.</li>
+  <li><strong>Side effects of large fixes.</strong> Each fix round changed about 100 files. A change in one place can leave a neighbouring screen out of step. For example, the key-rotation fix left Proof › Keys showing an approved rotation as still waiting.</li>
+  <li><strong>A long tail.</strong> The platform is checked against several hundred pages of documents across four levels, so an open-ended hunt keeps finding something.</li>
+</ul>
+<p>The severity has fallen sharply:</p>
+<ul>
+  <li><strong>The first round</strong> found things like a broken emergency-stop confirmation and packs that could not be installed.</li>
+  <li><strong>This round's</strong> remaining items are mostly wording, documentation and edge cases.</li>
+</ul>
+<p>The way to reach "done" is a closed list: fix the items below, then verify only those, as this report does, rather than running another open-ended hunt.</p>
+
+<h2>3. The 5 items that are only partly fixed</h2>
+<table>
+<tr><th>Item</th><th>Level</th><th>What is fixed</th><th>What remains</th></tr>
+<tr><td>11 #16 and 13 #17 — the "Erased data" refusal class</td><td>L1 / All</td><td>Erasure counts in Coverage from L1, and DPDP s.8(7) and s.12 are mapped. The class is gone from Activity.</td><td>The Not done page still lists "Erased data" as a class "starting at L2". It is always empty, because nothing produces it. <code>14-fix-report</code> wrongly said it was removed there.<span class="ev">work/notDone.ts:45; work/NotDonePage.tsx:142–145</span></td></tr>
+<tr><td>13 #3 — "signed" in L1 copy</td><td>L1</td><td>The places the report named (the Reviews erasure message, onboarding, sign-up, sign-in, the maintenance page, the developer intro) now depend on the level.</td><td>Other developer-portal copy still says the rulebook is "signed with your organisation's key" at every level: the quickstart note, the Rulebook YAML page heading and text, and the glossary.<span class="ev">developers/sections/Start.tsx:91; developers/sections/Rules.tsx:5,47,109,115; mock/devpathData.ts:290</span></td></tr>
+<tr><td>13 #36 — system refusal ids</td><td>All</td><td>The Errors page lists all 17 ids the guard writes, and the consent codes are from L1 in the register.</td><td>The receipt page's table of guard rules has no entry for <code>tool-disabled</code>, the four <code>G1_*</code> consent ids, <code>RECEIPT_WRITE_FAILED</code> or <code>POLICY.TENANT_STOPPED</code>. It still lists <code>counterparty-unverified</code>, which nothing writes. So a consent or disabled-tool refusal shows a wrong "rulebook version not held" banner, and Refusals doesn't mark it as refused by the guard itself.<span class="ev">activity/shared.tsx:134–151; activity/ReceiptPage.tsx:707; assurancedoor/RefusalsPage.tsx:76–84</span></td></tr>
+<tr><td>11 #31 — bundle member names</td><td>L2+</td><td><code>lexicon.json</code> is now a signed member and the verifier checks it.</td><td>Member file names still differ from the specification (<code>receipts.jsonl</code> rather than <code>chain.json</code>, and so on). They are only mapped in a developer-docs table. This was deliberate, because renaming would break bundles already exported, but it was never put to you for a ruling.<span class="ev">mock/platform.ts:979–986; lib/verify6.ts:57,65; developers/sections/Evidence.tsx:192</span></td></tr>
+</table>
+<p class="small">11 #16 and 13 #17 have the same root cause, so §3 has four rows for five items.</p>
+
+<h2>4. Side effects the fixes introduced</h2>
+<p>These are not among the 87 items. Checkers saw them while verifying and confirmed them in the code; I re-checked those marked ✓.</p>
+<table>
+<tr><th>#</th><th>Level</th><th>Side effect</th><th>Effect</th></tr>
+<tr><td class="n">S1 ✓</td><td>L3, Sov</td><td><strong>Onboarding a new L3 or Sovereign organisation</strong> runs the key ceremony, which now binds a successor key that switches only after the 30-day overlap. While it is bound, further key changes and level changes are refused (and recorded), unless someone turns signing on early.<span class="ev">onboarding/complete.ts:104; api/index.ts:686; mock/platform.ts:768; mock/keys.ts:353</span></td><td class="P">Medium</td></tr>
+<tr><td class="n">S2 ✓</td><td>L2</td><td>Agents › Keys still offers "Request a KMS rotation" while a successor is bound; pressing it records a refusal. Proof › Keys correctly hides the button.<span class="ev">agentsdoor/KeysPage.tsx:168</span></td><td>Low</td></tr>
+<tr><td class="n">S3</td><td>All</td><td>Withdrawing a token request doesn't check that you made the request. Withdraw is shown on approved rows to any owner or admin.<span class="ev">keys/tokenStore.ts:170–181; keys/PlatformTokens.tsx:80</span></td><td>Low</td></tr>
+<tr><td class="n">S4 ✓</td><td>All</td><td>The developer docs still use the old section name "Clauses" in the changelog and the sample output, and their Scope line has no write types.<span class="ev">developers/sections/More.tsx:183; Platform.tsx:114,122</span></td><td>Low</td></tr>
+<tr><td class="n">S5</td><td>L2</td><td>The first close-out bundle's recorded verification isn't tied to the exported file's digest, unlike evidence requests.<span class="ev">mock/upgrade.ts:638–642</span></td><td>Low</td></tr>
+<tr><td class="n">S6</td><td>All</td><td>The demo billing desk's credit amount comes from the screen, not from the invoice line.<span class="ev">mock/billing.ts:291,351</span></td><td>Low (demo only)</td></tr>
+<tr><td class="n">S7</td><td>L3</td><td>When a rulebook hold meets a pack's "named person" rule, a future A4 or A5 grant could let the call run without a person. This can't happen today, because A4 and A5 are not available.<span class="ev">mock/packChecks.ts:162–165; mock/db.ts:1061</span></td><td>Latent</td></tr>
+<tr><td class="n">S8 ✓</td><td>All</td><td>The People page says member changes are "control EG-11" (the AI inventory control). It should say EG-20.<span class="ev">settings/sections/Members.tsx:193</span></td><td>Low</td></tr>
+<tr><td class="n">S9</td><td>L2+</td><td>The cookie table doesn't list <code>eg:evidence:sent:…</code>, the browser storage that now holds the files of a fulfilled evidence request.<span class="ev">mock/keys.ts:903; legal/LegalPage.tsx</span></td><td>Low</td></tr>
+<tr><td class="n">S10</td><td>L1–L3</td><td>The privacy notice still gives the WhatsApp number's only purpose as sending links. It doesn't mention deciding with chat buttons.<span class="ev">legal/LegalPage.tsx:82</span></td><td>Low</td></tr>
+<tr><td class="n">S11</td><td>All</td><td>On the 5 L3 receipt-code pages, the facts table says "a refusal receipt on the chain", but the text says the receipt is not bound into the chain.<span class="ev">mock/devpathData.ts:156; developers/sections/Register.tsx:152</span></td><td>Low</td></tr>
+<tr><td class="n">S12 ✓</td><td>All</td><td>The Rulebook YAML reference says WhatsApp "always sends a signed link to the decision page". WhatsApp now also carries Approve and Reject buttons.<span class="ev">developers/sections/Rules.tsx:72</span></td><td>Low</td></tr>
+<tr><td class="n">S13</td><td>All</td><td>The README says every finding in reports 11 and 13 is fixed. Given §3, that is not accurate.<span class="ev">README.md:72,90</span></td><td>Low</td></tr>
+</table>
+<p class="small">Also noted, but not counted as faults:</p>
+<ul class="small">
+  <li>An "Everything" export's manifest now says its scope is a range, because the range is pinned at the head. That is accurate, but it is a change.</li>
+  <li>A held-by-stop approval could write a notice receipt naming 0 people. Whether that can happen is unproven.</li>
+  <li>Right after a key switch, an exported bundle fails its key check until the new key signs a record. This predates tonight's fixes.</li>
+</ul>
+
+<h2>5. Every item, with its verdict</h2>
+<div class="cols">
+<table>
+<tr><th>#</th><th>Report 11 item</th><th>Verdict</th></tr>
+<tr><td class="n">1</td><td>STOP / RESUME confirmation</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">2</td><td>Sovereign approval links</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">3</td><td>Approvers resolve alerts</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">4</td><td>Approvers draft assessments</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">5</td><td>Approver notified</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">6</td><td>Approve in chat</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">7</td><td>Incident report PDF</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">8</td><td>Stop banner, selected agents</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">9</td><td>Approval queue filters</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">10</td><td>Regulator runs a profile</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">11</td><td>Install pack from Coverage at L1</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">12</td><td>Admit an agent at L1</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">13</td><td>"Packs start at L2" wording</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">14</td><td>Pack checks on live calls</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">15</td><td>Read-only counterparty register</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">16</td><td>Erasure in coverage at L1</td><td class="s P">Partly</td></tr>
+<tr><td class="n">17</td><td>"Signed" in L1 erasure copy</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">18</td><td>Control set</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">19</td><td>Next review</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">20</td><td>Replay store off</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">21</td><td>Autonomy page below L3</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">22</td><td>Control and operations tokens</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">23</td><td>Rotating a production key</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">24</td><td>Rotation overlap</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">25</td><td>Sovereign OIDC sign-on</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">26</td><td>Who revokes a graduation</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">27</td><td>Agent keys help text</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">28</td><td>Two invoice builders</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">29</td><td>Exports that skipped checks</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">30</td><td>Integrity run before export</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">31</td><td>Bundle lexicon and member names</td><td class="s P">Partly</td></tr>
+<tr><td class="n">32</td><td>Nine-section report</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">33</td><td>Auditor writes (profiles)</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">34</td><td>Requests to Elan1</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">35</td><td>Dispute role</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">36</td><td>Enforcement per write type</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">37</td><td>Retention of at least 8 years</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">38</td><td>Exit-code tables on Proof</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">39</td><td>Ask Govern: assessment, incident</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">40</td><td>Ask Govern: rule</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">41</td><td>System refusal ids in docs</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">42</td><td>L1 pack members in docs</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">43</td><td>Refusal register</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">44</td><td>Cookie table</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">45</td><td>Public 404</td><td class="s B">Fixed</td></tr>
+</table>
+<table>
+<tr><th>#</th><th>Report 13 item</th><th>Verdict</th></tr>
+<tr><td class="n">1</td><td>Elan1 maintenance at Sovereign</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">2</td><td>Chat buttons for unlinked people</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">3</td><td>"Signed" in L1 copy</td><td class="s P">Partly</td></tr>
+<tr><td class="n">4</td><td>Same-person "Send to"</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">5</td><td>Escalation and re-route notices</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">6</td><td>Widen the stop</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">7</td><td>Phone links at Sovereign</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">8</td><td>Pack checks on held calls</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">9</td><td>Pack configuration</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">10</td><td>Decision trace pack step</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">11</td><td>Pack rules at L1</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">12</td><td>Agent page "Starts at L2"</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">13</td><td>L1 pack compliance map</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">14</td><td>Coverage on Today and AI systems</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">15</td><td>Receipt "Controls"</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">16</td><td>EG-18 note</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">17</td><td>"Erased data" class</td><td class="s P">Partly</td></tr>
+<tr><td class="n">18</td><td>Connectors at Sovereign</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">19</td><td>Approval-screen checks</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">20</td><td>Proof › Keys after approval</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">21</td><td>L2 records sealed with A3</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">22</td><td>SAML and onboarding at Sovereign</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">23</td><td>One-person KMS rotation</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">24</td><td>Rotation copy</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">25</td><td>"L1: signed and chained"</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">26</td><td>Sandbox key help</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">27</td><td>Integrity check on "Everything"</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">28</td><td>Counterparty seat line</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">29</td><td>Nine-section naming (console)</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">30</td><td>Exit codes outside Proof</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">31</td><td>What the auditor collects</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">32</td><td>Anchor now</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">33</td><td>Other auditor writes</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">34</td><td>Legal: WhatsApp sub-processor</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">35</td><td>Token documentation</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">36</td><td>System refusal ids (Errors, receipt page)</td><td class="s P">Partly</td></tr>
+<tr><td class="n">37</td><td>Define and L3 code pages</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">38</td><td>Bundle table and changelog</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">39</td><td>Ask Govern rule at Sovereign</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">40</td><td>Maintenance page at Sovereign</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">41</td><td>Outside-group attempt receipt</td><td class="s B">Fixed</td></tr>
+<tr><td class="n">42</td><td>README routes</td><td class="s B">Fixed</td></tr>
+</table>
+</div>
+
+<h2>6. What it would take to close this out</h2>
+<ul>
+  <li><strong>The 5 partly fixed items and the 13 side effects</strong> are all small and local, except S1, which is about onboarding. Together they are a closed list of 17 changes (two of the partly fixed items share a cause); one agent working through the list is enough.</li>
+  <li><strong>11 #31 needs your ruling.</strong> Keep today's member file names with the documented mapping, or rename them to the specification's names. Renaming means bundles exported before the change no longer match.</li>
+  <li><strong>After those fixes, verify only that closed list</strong>, as this report does. Another open-ended "check everything" will always find something new in a platform of this size.</li>
+</ul>
+
+<h2>7. Limits of this check</h2>
+<ul>
+  <li><strong>Code, not clicks.</strong> This round traced code; it didn't click through the app. The live crawl and the scripted checks run earlier tonight cover rendering, links, the verifier and the main flows.</li>
+  <li><strong>Pack checks.</strong> No pack admissions are seeded, so the pack-check paths were traced in code and scripts, not seen on a real demo receipt.</li>
+</ul>
+
+</body></html>

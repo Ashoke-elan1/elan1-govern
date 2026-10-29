@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><title>Is the platform completely built?</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+  :root { --ink: #14161f; --muted: #5b5f6b; --line: #d9d6cf; --paper: #fbfaf7; --clay: #c2552d; --ok: #2f6b3d; --held: #8a5a00; --bad: #a3271f; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color: var(--ink); font-size: 9.6pt; line-height: 1.42; margin: 0; background: #fff; }
+  h1 { font-size: 20pt; margin: 0 0 4pt; letter-spacing: -0.3pt; }
+  h2 { font-size: 13pt; margin: 18pt 0 6pt; padding-top: 6pt; border-top: 2px solid var(--ink); page-break-after: avoid; }
+  h3 { font-size: 10.5pt; margin: 12pt 0 4pt; page-break-after: avoid; }
+  p { margin: 0 0 6pt; }
+  .kicker { color: var(--clay); font-weight: 700; letter-spacing: 1pt; font-size: 8pt; text-transform: uppercase; }
+  .lead { color: var(--muted); font-size: 10pt; }
+  table { width: 100%; border-collapse: collapse; margin: 4pt 0 8pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid var(--line); padding: 3pt 5pt; text-align: left; vertical-align: top; }
+  th { background: #f1efe9; font-size: 8.4pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+  td.s { white-space: nowrap; font-weight: 600; width: 44pt; }
+  td.l { white-space: nowrap; width: 70pt; color: var(--muted); font-size: 8.6pt; }
+  .B { color: var(--ok); } .P { color: var(--held); }
+  code { font-family: Consolas, monospace; font-size: 8.2pt; background: #f4f2ec; padding: 0 2pt; }
+  .grid { display: flex; gap: 6pt; margin: 6pt 0 10pt; }
+  .card { flex: 1; border: 1px solid var(--line); padding: 6pt 8pt; background: var(--paper); }
+  .card .n { font-size: 16pt; font-weight: 700; }
+  .card .l { font-size: 8pt; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4pt; }
+  .answer { border: 2px solid var(--ink); padding: 8pt 10pt; margin: 8pt 0 10pt; background: var(--paper); font-size: 10.2pt; }
+  .note { border-left: 3px solid var(--clay); padding: 4pt 8pt; background: var(--paper); margin: 6pt 0 10pt; }
+  ul { margin: 0 0 6pt 14pt; padding: 0; } li { margin: 0 0 2pt; }
+  .small { font-size: 8.4pt; color: var(--muted); }
+  .ev { font-size: 7.8pt; color: var(--muted); display: block; margin-top: 2pt; }
+</style></head><body>
+
+<p class="kicker">Elan1 Govern · front end · completeness answer</p>
+<h1>Is the platform completely built?</h1>
+<p class="lead">28 October 2026. Read-only check; nothing was built or changed. It covers every screen, page, button, demo sign-in and journey for L1, L2, L3 and Sovereign. The public site is excluded, because it is already built.</p>
+
+<div class="answer">
+  <strong>Answer: yes. All 151 requirements are now fully built.</strong>
+  <ul>
+    <li><strong>The checklist.</strong> All <strong>151 requirements</strong> in the platform plan and the per-level capability list are built and work end to end at every level they apply to. The check first found 149 built and 2 partial; <strong>both partial items were then fixed and verified in the app</strong> (§3). <strong>None is missing.</strong></li>
+    <li><strong>The earlier fixes.</strong> All 87 Broken, Partial and Missing items from the earlier checks were re-checked, together with the 17 follow-up changes. <strong>Every one is still fixed</strong>; none has come back.</li>
+    <li><strong>The basics.</strong> All 30 demo sign-ins work, there are 0 dead links, and the type-check, build and verifier tests pass.</li>
+  </ul>
+  No earlier check found the two partial items, because none compared the platform against the plan's exact list of required items. This one did, which is also why you get a definite answer this time.
+</div>
+
+<div class="note"><strong>Why this check gives a final answer.</strong> The earlier checks asked an open question, "is anything missing anywhere?", which on a platform this size always turns up something new. This check used a <strong>fixed checklist</strong> taken from the platform plan:
+  <ul>
+    <li>every console area and its listed screens, the verifier, the developer portal and the system pages (§3);</li>
+    <li>the 7 end-to-end journeys (§4);</li>
+    <li>the demo accounts and role rights (§5);</li>
+    <li>every per-level capability in the app's own capability list (<code>src/lib/levels.ts</code>).</li>
+  </ul>
+  Five independent checkers each took one area. For every item they traced the screen, the button handler, the API and the mock data through to the record it writes. I re-checked the two partial items in the code myself. The confirmed rulings and pricing were not counted against any item.</div>
+
+<h2>1. Summary</h2>
+<div class="grid">
+  <div class="card"><div class="n">151</div><div class="l">Requirements checked</div></div>
+  <div class="card"><div class="n B">151</div><div class="l">Fully built</div></div>
+  <div class="card"><div class="n B">0</div><div class="l">Partial (2 fixed)</div></div>
+  <div class="card"><div class="n B">0</div><div class="l">Missing</div></div>
+  <div class="card"><div class="n B">0</div><div class="l">Earlier fixes regressed</div></div>
+</div>
+<table>
+<tr><th>Area</th><th>Requirements</th><th>Built</th><th>Partial</th><th>Missing</th><th>Earlier items re-checked</th></tr>
+<tr><td>Work: sign-in, onboarding, Today, approvals, alerts, incidents, demo accounts, journeys 1, 2 and 4</td><td>22</td><td class="B">22</td><td class="B">0 (2 fixed)</td><td>0</td><td class="B">all still fixed</td></tr>
+<tr><td>Records: activity, rulebooks, connectors, inventory, assessments, compliance, packs, erasure, consent, journeys 3 and 6</td><td>30</td><td class="B">30</td><td>0</td><td>0</td><td class="B">all still fixed</td></tr>
+<tr><td>Agents: agents, settings, keys, tokens, autonomy, Sovereign deployment, path to production</td><td>35</td><td class="B">35</td><td>0</td><td>0</td><td class="B">all still fixed</td></tr>
+<tr><td>Assurance: evidence, billing, levels and upgrade, auditor, timestamps, profiles, counterparties, disclosure, journeys 5 and 7</td><td>31</td><td class="B">31</td><td>0</td><td>0</td><td class="B">all still fixed</td></tr>
+<tr><td>Outside the doors: /verify, developer portal, Ask Govern, system pages, status, legal, portals, links, README</td><td>33</td><td class="B">33</td><td>0</td><td>0</td><td class="B">all still fixed</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>151</strong></td><td class="B"><strong>151</strong></td><td class="B"><strong>0 (2 fixed)</strong></td><td><strong>0</strong></td><td class="B"><strong>87 items and 17 changes: none regressed</strong></td></tr>
+</table>
+
+<h2>2. By level</h2>
+<table>
+<tr><th>Level</th><th>Result</th></tr>
+<tr><td>L1 Guarded</td><td>Everything required is built. This includes the free auditor pack, packs as a dry run, erasure, the read-only counterparty register, and dual control recorded. The 2 items that were partial at every level are now fixed.</td></tr>
+<tr><td>L2 Attested</td><td>Everything required is built: Seal v6, two timestamp authorities and Merkle batches, AWS KMS with two-person rotation, the bundle and six-code verifier, verifier profiles, live packs, dual control enforced, and the L1→L2 close-out.</td></tr>
+<tr><td>L3 Proven</td><td>Everything required is built: earned autonomy (A2 start, two-person graduation, supervision, revoke), counterparties and cross-organisation receipts, selective disclosure, the regulator portal, and customer-held HSM keys with a 3-of-5 ceremony.</td></tr>
+<tr><td>Sovereign</td><td>Everything required is built: cluster and HSM, local timestamp authorities, deny-all egress with its log and internal allow-list, air-gapped signed updates with rollback, usage statements, local status, and notices. Approvals, chat, single sign-on, connectors and webhooks are all refused outside the network.</td></tr>
+</table>
+
+<h2>3. The 2 partial items — now fixed</h2>
+<p>Both were fixed after the check and verified in the running app. The type-check and production build pass, and there are no console errors.</p>
+<table>
+<tr><th>Item</th><th>Status</th><th>What was done, and how it was verified</th></tr>
+<tr><td><strong>"Similar past decisions"</strong></td><td class="s B">Fixed</td><td>The three numbers are now counted from the organisation's own approvals held by the same rule and decided in the last 30 days. They count approved, rejected, and approved-then-reversed, and the page says "Last 30 days". Ask Govern uses the same numbers.
+  <ul>
+    <li><strong>Verified at L1</strong> (rule <code>pay-large</code>): the page shows 6 approved, 2 rejected and 1 reversed, the same as a recount of the records.</li>
+  </ul></td></tr>
+<tr><td><strong>Journey #4 starts from a refusal-surge alert</strong></td><td class="s B">Fixed</td><td>Two changes:
+  <ul>
+    <li><strong>An open alert to start from.</strong> Each demo organisation now has an open, high-severity refusal-surge alert. Browsers with demo data saved earlier get one on the agent with the most refusals.</li>
+    <li><strong>A drill.</strong> Owners and admins have a <strong>"Simulate a refusal surge"</strong> drill on the Alerts page. It sends 14 calls that the rulebook refuses, through the real guard, so the real detector raises the alert. The drill is recorded on the chain, and nothing runs.</li>
+  </ul>
+  <strong>Verified at L1:</strong>
+  <ul>
+    <li>the open alert is listed;</li>
+    <li>the drill raised "Refusals at 42% of devops-assistant's calls this hour" and opened it;</li>
+    <li>the alert links to the agent's activity and its refused records, and offers "Pause agent" and "Open emergency stop".</li>
+  </ul>
+  So the journey now runs as the plan describes: alert, Activity, stop, banner, incident, resume.</td></tr>
+</table>
+<p class="small">The table below is the original finding, kept for the record.</p>
+<table>
+<tr><th>Item</th><th>Levels</th><th>What was partial</th><th>The fix proposed</th></tr>
+<tr><td><strong>Approval detail: "similar past decisions"</strong> (plan §3D, Approvals)</td><td>All</td><td>The approval page shows how many similar past calls were approved, rejected or reversed. For live held calls these three numbers are random. The real list of similar decisions below them is built from actual records, so the numbers can disagree with the list.<span class="ev">mock/db.ts:1095 (random counts for live holds); mock/chain.ts:183 (seeded); the real list is in api/index.ts:201</span></td><td>Count the three numbers from the same real decisions the list uses. A small change in one place.</td></tr>
+<tr><td><strong>Journey #4 "Something goes wrong" starts from a refusal-surge alert</strong> (plan §4)</td><td>All</td><td>The refusal-surge detector is built and works. But the demo's own traffic refuses too few calls to raise one (it needs at least 10 calls an hour, with the refused share rising by 30 points). The only seeded example is low and already resolved. The rest of the journey works: open the alert, investigate in Activity, stop, banner, incident, guided resume. It can be walked today from the open amount alert instead.<span class="ev">work/backend.ts:774–779 (detector threshold); mock/db.ts:506 (only seeded surge, resolved); mock/scenarios.ts (traffic mix)</span></td><td>Seed an open refusal-surge alert on one demo agent, or add a "simulate a refusal surge" drill, so the journey starts exactly as the plan describes.</td></tr>
+</table>
+
+<h2>4. Sign-ins, links and tests</h2>
+<table>
+<tr><th>Check</th><th>Result</th></tr>
+<tr><td>Demo sign-ins (tested in the running app)</td><td class="B"><strong>30 of 30 behave as designed.</strong>
+  <ul>
+    <li>26 console accounts sign in: 22 with a two-step code, and the 4 viewers without.</li>
+    <li>Deepak (L2) is refused as suspended, which is the seeded case.</li>
+    <li>The 3 portal accounts reach their portal.</li>
+    <li>Every level has an owner, an admin, approvers and a viewer, and the auditor covers all four organisations.</li>
+    <li>Role rights match the plan's role table, and the README table matches the code.</li>
+  </ul></td></tr>
+<tr><td>Links (static check)</td><td class="B"><strong>0 dead.</strong> All 80 routes were matched, along with 12 settings redirects, 35 tab values, 27 developer sections, the refusal-code pages and every anchor.</td></tr>
+<tr><td>Live crawl (after the last changes)</td><td class="B"><strong>0 problems</strong> (broken links, error pages, script errors).</td></tr>
+<tr><td>Type-check, build, verifier</td><td class="B">The type-check and production build pass, and the 64 of 64 Seal v6 vectors pass. Bundles verify for L2, L3 and Sovereign, and the L1 pack verifies.</td></tr>
+</table>
+
+<h2>5. Everything that was checked</h2>
+<p class="small">Each line below was traced in the code from screen to API to mock data, and is fully built unless marked otherwise.</p>
+
+<h3>Work door and sign-in</h3>
+<ul>
+  <li><strong>Sign-in:</strong>
+    <ul>
+      <li>password, two-step code (TOTP) and single sign-on (SAML, OIDC, accounts created at first sign-on);</li>
+      <li>sign-up, forgot and reset password, accepting an invitation;</li>
+      <li>the demo accounts panel.</li>
+    </ul></li>
+  <li><strong>Onboarding</strong>, from company details to a checklist that completes from real events.</li>
+  <li><strong>Today</strong>, with every panel the plan lists.</li>
+  <li><strong>Approvals:</strong>
+    <ul>
+      <li>the inbox with J/K, A and R keys, and the history;</li>
+      <li>the detail page: headline, why held, what happens if approved, the argument diff, expiry countdown and channel. <span class="B">The similar-decisions counts were partial and are now fixed (§3).</span></li>
+      <li>approving by link on a phone, backup re-routing, and "approve and draft a rule".</li>
+    </ul></li>
+  <li><strong>Alerts:</strong> 6 detectors, alert detail, detector settings, and auto-pause off by default.</li>
+  <li><strong>Incidents:</strong> the stop flow, widening a stop, the banner, guided resume, and the incident record with a PDF report.</li>
+  <li><strong>Demo accounts:</strong> users, memberships, organisations, levels, role rights and the README table.</li>
+  <li><strong>Journeys:</strong>
+    <ul>
+      <li>#1 First governed call;</li>
+      <li>#2 A held payment;</li>
+      <li>#4 Something goes wrong. <span class="B">This one was partial and is now fixed (§3).</span></li>
+    </ul></li>
+  <li><strong>Capabilities:</strong> named approvers and dual control.</li>
+</ul>
+
+<h3>Records door</h3>
+<ul>
+  <li><strong>Activity:</strong> the receipt log with filters and a shared time range, live tail, receipt detail (decision trace, signed JSON, neighbouring records, rule version, the arguments the rules inspected), and the chain explorer.</li>
+  <li><strong>Rulebooks:</strong>
+    <ul>
+      <li>the list, and the visual builder kept in step with YAML;</li>
+      <li>Try an action, and Test on past actions (7 or 30 days, with a semantic diff);</li>
+      <li>versions and diffs, dual control, and publishing;</li>
+      <li>rule suggestions.</li>
+    </ul></li>
+  <li><strong>Connectors:</strong> Gmail, Zoho Books, your own MCP servers (add, sync, risk tags, switch on), and credential custody.</li>
+  <li><strong>AI inventory</strong>, and <strong>assessments</strong> with three templates, the scoring explained and second-person sign-off.</li>
+  <li><strong>Compliance:</strong> 10 frameworks, a crosswalk and exports.</li>
+  <li><strong>Packs:</strong> a dry run at L1 and live from L2, plus the portfolio.</li>
+  <li><strong>Data protection:</strong> erasure from L1, the consent ledger, declarations, and retention of at least 8 years.</li>
+  <li><strong>Journeys:</strong> #3 Tighten a rulebook safely, and #6 Governance chain.</li>
+  <li><strong>Capabilities:</strong> signed receipts, DPDP erasure, packs as a dry run and live, and dual control.</li>
+</ul>
+
+<h3>Agents door, settings and Sovereign</h3>
+<ul>
+  <li><strong>Agents:</strong> the registry, the 3-step wizard with Claude, Cursor, LangChain and OpenAI snippets, agent detail, and the agent map.</li>
+  <li><strong>Settings:</strong> organisation, members and roles, single sign-on with DNS verification, channels, webhooks with a delivery log, API and signing keys, sessions, preferences, the replay store and retention, and old <code>/settings</code> links redirecting.</li>
+  <li><strong>Keys:</strong>
+    <ul>
+      <li><code>gk_</code> agent keys come only through review, and <code>gctl_</code> / <code>gops_</code> platform tokens can be issued;</li>
+      <li>custody at each level, successors with the 30-day overlap, and key compromise;</li>
+      <li>fingerprint publishing, and the first key at onboarding;</li>
+      <li>after a key switch, the new key signs straight away.</li>
+    </ul></li>
+  <li><strong>Autonomy (L3+):</strong> start at A2, two-person graduation, supervision, revoke, breach report, cooldown, and A4 and A5 not available. Below L3 there is no level in force.</li>
+  <li><strong>Sovereign:</strong> cluster and HSM, local timestamp authorities, deny-all egress, the egress log and internal allow-list, updates and rollback, usage statements, local status and notices.</li>
+  <li><strong>Path to production:</strong> sandbox, conformance tests C1 to C14, review and promotion.</li>
+  <li><strong>Capabilities:</strong> all 10 in this area.</li>
+</ul>
+
+<h3>Assurance door and billing</h3>
+<ul>
+  <li><strong>Proof:</strong> chain status and checkpoints; the L1 auditor pack with counts shown before it is made; the L2+ evidence bundle with its export checks, split into parts and verified first; the six result codes; the offline verify walkthrough; and keys and rotation.</li>
+  <li><strong>Billing:</strong> the meter and plan, invoices that open the records behind each line, the forecast, add-ons, disputes and the billing desk, and the pilot.</li>
+  <li><strong>Assurance:</strong> the ladder of levels, the upgrade wizard, the L1→L2 close-out, and the overview tiles.</li>
+  <li><strong>Auditor workspace:</strong> switching clients, sample receipts, verifying, working papers, evidence requests, and suspension per organisation.</li>
+  <li><strong>From L2:</strong> timestamps (including Anchor now), verifier profiles, refusal analytics, and exports and webhooks.</li>
+  <li><strong>From L3:</strong> counterparties (issue, seats, receive, verify, accept, dispute, revoke) and selective disclosure.</li>
+  <li><strong>Journeys:</strong> #5 The audit, and #7 The CFO view.</li>
+  <li><strong>Capabilities:</strong> all 19 in this area.</li>
+</ul>
+
+<h3>Outside the doors</h3>
+<ul>
+  <li><strong><code>/verify</code>:</strong> dropping or pasting a receipt or pack; checks run in the browser; the three-valued result and the 5-line checklist; the six codes; a tampered sample; and the "nothing was sent" note.</li>
+  <li><strong>Developer portal:</strong>
+    <ul>
+      <li>quickstart, the MCP guide, and the REST reference with a try-it panel;</li>
+      <li>SDKs, the rulebook YAML reference, webhooks and the CLI;</li>
+      <li>examples, errors and the refusal register, the changelog, sandbox keys, and token docs.</li>
+    </ul></li>
+  <li><strong>Ask Govern</strong> explains receipts, refusals, rules, assessments and incidents.</li>
+  <li><strong>System pages:</strong> 403, 404 (signed in and public), maintenance, offline, approvals unavailable, and the error page.</li>
+  <li><strong>Other surfaces:</strong> status, legal pages, the fingerprint page, the counterparty, regulator and partner portals, the command palette, and installing on a phone.</li>
+  <li><strong>Links and README:</strong> 0 dead links, and the README lists every route.</li>
+</ul>
+
+<h2>6. Notes, not counted as gaps</h2>
+<ul>
+  <li><strong>Slack and WhatsApp set-up at Sovereign.</strong> The calls that install Slack and send a WhatsApp code have no Sovereign check of their own; the screens simply don't offer them there. Approval delivery itself does refuse chat at Sovereign.</li>
+  <li><strong>The Autonomy page below L3.</strong> Each write type sits at the A2 mark, labelled "No level until L3 · starts at A2 at the upgrade". This is a preview of the starting level, not a level in force.</li>
+  <li><strong>Limits.</strong> Single-use approval and portal links were not opened, because opening one uses it up, and installing on a real phone was not tested. The checklist was traced in code; the live crawl and the scripted tests cover rendering and the main flows.</li>
+</ul>
+
+</body></html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><title>The 17 remaining changes</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+  :root { --ink: #14161f; --muted: #5b5f6b; --line: #d9d6cf; --paper: #fbfaf7; --clay: #c2552d; --ok: #2f6b3d; --held: #8a5a00; --bad: #a3271f; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color: var(--ink); font-size: 9.6pt; line-height: 1.42; margin: 0; background: #fff; }
+  h1 { font-size: 20pt; margin: 0 0 4pt; letter-spacing: -0.3pt; }
+  h2 { font-size: 13pt; margin: 18pt 0 6pt; padding-top: 6pt; border-top: 2px solid var(--ink); page-break-after: avoid; }
+  p { margin: 0 0 6pt; }
+  .kicker { color: var(--clay); font-weight: 700; letter-spacing: 1pt; font-size: 8pt; text-transform: uppercase; }
+  .lead { color: var(--muted); font-size: 10pt; }
+  table { width: 100%; border-collapse: collapse; margin: 4pt 0 8pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid var(--line); padding: 4pt 5pt; text-align: left; vertical-align: top; }
+  th { background: #f1efe9; font-size: 8.4pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+  td.n { width: 24pt; font-weight: 700; white-space: nowrap; }
+  td.l { width: 40pt; white-space: nowrap; }
+  td.s { width: 48pt; white-space: nowrap; font-weight: 600; }
+  .M { color: var(--bad); } .L { color: var(--held); } .D { color: var(--muted); }
+  code { font-family: Consolas, monospace; font-size: 8.2pt; background: #f4f2ec; padding: 0 2pt; }
+  .ev { font-size: 7.8pt; color: var(--muted); display: block; margin-top: 3pt; }
+  .fix { display: block; margin-top: 3pt; }
+  .grid { display: flex; gap: 6pt; margin: 6pt 0 10pt; }
+  .card { flex: 1; border: 1px solid var(--line); padding: 6pt 8pt; background: var(--paper); }
+  .card .n { font-size: 16pt; font-weight: 700; }
+  .card .l { font-size: 8pt; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4pt; }
+  .note { border-left: 3px solid var(--clay); padding: 4pt 8pt; background: var(--paper); margin: 6pt 0 10pt; }
+  ul { margin: 0 0 6pt 14pt; padding: 0; } li { margin: 0 0 2pt; }
+</style></head><body>
+
+<p class="kicker">Elan1 Govern · front end · closed list</p>
+<h1>The 17 remaining changes</h1>
+<p class="lead">28 October 2026. This is the closed list from <code>15-fix-verification</code>. Nothing has been changed yet. It contains:</p>
+<ul class="lead">
+  <li><strong>Changes 1 to 4:</strong> the four remaining pieces of the five partly fixed items (two of them share a cause).</li>
+  <li><strong>Changes 5 to 17:</strong> the 13 side effects the earlier fixes introduced.</li>
+</ul>
+<p class="lead">Each row says what is wrong, where it is in the code, and what the change would be.</p>
+
+<div class="grid">
+  <div class="card"><div class="n">17</div><div class="l">Changes</div></div>
+  <div class="card"><div class="n M">1</div><div class="l">Medium (affects a real flow)</div></div>
+  <div class="card"><div class="n L">15</div><div class="l">Low (wording, docs, edge cases)</div></div>
+  <div class="card"><div class="n D">1</div><div class="l">Needs your decision</div></div>
+</div>
+
+<div class="note"><strong>What "done" means.</strong> Make these 17 changes. Then check only these 17, plus the type-check, the build, the verifier test vectors and a link crawl at each level. Don't run another open-ended "check everything".</div>
+
+<h2>A. The 4 remaining pieces of partly fixed items</h2>
+<table>
+<tr><th>#</th><th>Level</th><th>Severity</th><th>What is wrong, and the change</th></tr>
+<tr><td class="n">1</td><td class="l">L1 / All</td><td class="s L">Low</td><td><strong>"Erased data" still listed on Not done</strong> (report 11 #16 and 13 #17). The page lists an "Erased data" refusal class tagged "starts at L2". It is always empty, because nothing produces that refusal.
+  <span class="fix"><strong>Change:</strong> remove the class from Not done, as was already done in Activity.</span>
+  <span class="ev">work/notDone.ts:45; work/NotDonePage.tsx:142–145</span></td></tr>
+<tr><td class="n">2</td><td class="l">L1</td><td class="s L">Low</td><td><strong>"Signed" in L1 developer-portal copy</strong> (report 13 #3). The quickstart note, the Rulebook YAML page and the glossary say the rulebook is "signed with your organisation's key", at every level.
+  <span class="fix"><strong>Change:</strong> word these neutrally: the rulebook is published, and from L2 each version is also signed.</span>
+  <span class="ev">developers/sections/Start.tsx:91; developers/sections/Rules.tsx:5, 47, 109, 115; mock/devpathData.ts:290</span></td></tr>
+<tr><td class="n">3</td><td class="l">All</td><td class="s L">Low</td><td><strong>Receipt page misreads some guard refusals</strong> (report 13 #36). The receipt page's table of guard rules is missing these ids: <code>tool-disabled</code>, <code>G1_NO_CONSENT</code>, <code>G1_WITHDRAWN</code>, <code>G1_EXPIRED</code>, <code>G1_CHANNEL</code>, <code>RECEIPT_WRITE_FAILED</code> and <code>POLICY.TENANT_STOPPED</code>. It still lists <code>counterparty-unverified</code>, which nothing writes. So these refusals show a wrong "rulebook version not held" banner, and Refusals doesn't mark them as refused by the guard itself.
+  <span class="fix"><strong>Change:</strong> add the 7 ids with plain explanations, remove the unused one, and use the same list in the receipt page and Refusals.</span>
+  <span class="ev">activity/shared.tsx:134–151; activity/ReceiptPage.tsx:707; assurancedoor/RefusalsPage.tsx:76–84</span></td></tr>
+<tr><td class="n">4</td><td class="l">L2+</td><td class="s D">Decision</td><td><strong>Evidence bundle file names</strong> (report 11 #31). The bundle's file names differ from the specification, for example <code>receipts.jsonl</code> rather than <code>chain.json</code>. They are mapped in a developer-docs table.
+  <span class="fix"><strong>Your choice:</strong></span>
+  <ul>
+    <li><strong>(a) Keep the names with the documented mapping.</strong> Recommended. No code change, and bundles already exported stay valid.</li>
+    <li><strong>(b) Rename to the specification's names.</strong> Bundles exported before the change would no longer match.</li>
+  </ul>
+  <span class="ev">mock/platform.ts:979–986; lib/verify6.ts:57, 65; developers/sections/Evidence.tsx:192</span></td></tr>
+</table>
+
+<h2>B. The 13 side effects of the earlier fixes</h2>
+<table>
+<tr><th>#</th><th>Level</th><th>Severity</th><th>What is wrong, and the change</th></tr>
+<tr><td class="n">5</td><td class="l">L3, Sov</td><td class="s M">Medium</td><td><strong>Onboarding locks key and level changes for 30 days.</strong> When a new L3 or Sovereign organisation is onboarded, the key ceremony now publishes a successor key that only takes over after the 30-day overlap. Until then, further key changes and level changes are refused.
+  <span class="fix"><strong>Change:</strong> the first ceremony during onboarding creates the organisation's first own key and signs with it at once. There is no earlier key to overlap with. Later rotations keep the 30-day overlap.</span>
+  <span class="ev">onboarding/complete.ts:104; api/index.ts:686; mock/platform.ts:768; mock/keys.ts:353</span></td></tr>
+<tr><td class="n">6</td><td class="l">L2</td><td class="s L">Low</td><td><strong>Agents › Keys offers a rotation that will be refused.</strong> While a successor key is waiting to take over, the "Request a KMS rotation" button still shows; pressing it is refused and recorded. Its Withdraw button also writes the receipt directly instead of through the checked path.
+  <span class="fix"><strong>Change:</strong> use the same shared pending check and withdraw path as Proof › Keys.</span>
+  <span class="ev">agentsdoor/KeysPage.tsx:160–168</span></td></tr>
+<tr><td class="n">7</td><td class="l">All</td><td class="s L">Low</td><td><strong>Anyone can withdraw someone else's token request.</strong> Withdrawing a control or operations token request doesn't check who made it, and Withdraw also shows on approved requests.
+  <span class="fix"><strong>Change:</strong> only the requester can withdraw, and only while the request is waiting.</span>
+  <span class="ev">keys/tokenStore.ts:170–181; keys/PlatformTokens.tsx:80–82</span></td></tr>
+<tr><td class="n">8</td><td class="l">All</td><td class="s L">Low</td><td><strong>Developer docs use the old report section name.</strong> They still say "Clauses" in the changelog and the sample output, and their Scope line has no write types.
+  <span class="fix"><strong>Change:</strong> use "Clause results" and add write types, to match the console and <code>/verify</code>.</span>
+  <span class="ev">developers/sections/More.tsx:183; developers/sections/Platform.tsx:114, 122</span></td></tr>
+<tr><td class="n">9</td><td class="l">L2</td><td class="s L">Low</td><td><strong>First close-out bundle isn't tied to its export.</strong> The upgrade close-out accepts the file with an export id, but doesn't check that the file's digest matches the recorded export.
+  <span class="fix"><strong>Change:</strong> compare the digests, as evidence requests already do.</span>
+  <span class="ev">mock/upgrade.ts:638–642</span></td></tr>
+<tr><td class="n">10</td><td class="l">All</td><td class="s L">Low</td><td><strong>Demo billing desk credit trusts the screen.</strong> When a dispute is settled, the credit amount comes from the screen.
+  <span class="fix"><strong>Change:</strong> read the disputed line's amount from the invoice and cap the credit at it. This affects the demo only.</span>
+  <span class="ev">mock/billing.ts:291, 351</span></td></tr>
+<tr><td class="n">11</td><td class="l">L3</td><td class="s L">Low (latent)</td><td><strong>A future autonomy grant could bypass a pack's named person.</strong> When a rulebook hold already meets a pack's "a named person decides" rule, a future A4 or A5 grant could let the call run with no person. It can't happen today, because A4 and A5 are not available.
+  <span class="fix"><strong>Change:</strong> mark such holds so autonomy can never release them.</span>
+  <span class="ev">mock/packChecks.ts:162–165; mock/db.ts:1061</span></td></tr>
+<tr><td class="n">12</td><td class="l">All</td><td class="s L">Low</td><td><strong>Wrong control number on the People page.</strong> It says member changes count towards "control EG-11", which is the AI inventory control.
+  <span class="fix"><strong>Change:</strong> say EG-20 (role-based access changes).</span>
+  <span class="ev">settings/sections/Members.tsx:193</span></td></tr>
+<tr><td class="n">13</td><td class="l">L2+</td><td class="s L">Low</td><td><strong>Cookie table is missing a storage key.</strong> It doesn't list <code>eg:evidence:sent:&lt;org&gt;:&lt;request&gt;</code>, where the files of a fulfilled evidence request are kept in the browser.
+  <span class="fix"><strong>Change:</strong> add it, saying what it holds and that "Reset demo data" clears it.</span>
+  <span class="ev">mock/keys.ts:903; legal/LegalPage.tsx</span></td></tr>
+<tr><td class="n">14</td><td class="l">L1–L3</td><td class="s L">Low</td><td><strong>Privacy notice understates the WhatsApp number's use.</strong> It says the number is used only to send approval links.
+  <span class="fix"><strong>Change:</strong> add that it can also be used to approve or reject with chat buttons, and is recorded with that decision.</span>
+  <span class="ev">legal/LegalPage.tsx:82</span></td></tr>
+<tr><td class="n">15</td><td class="l">All</td><td class="s L">Low</td><td><strong>The L3 receipt-code pages contradict themselves.</strong> The facts table says "a refusal receipt on the chain", but the text says the received receipt is rejected and not added to your chain.
+  <span class="fix"><strong>Change:</strong> make both say what the code actually does.</span>
+  <span class="ev">mock/devpathData.ts:156; developers/sections/Register.tsx:152</span></td></tr>
+<tr><td class="n">16</td><td class="l">All</td><td class="s L">Low</td><td><strong>Out-of-date WhatsApp line in the Rulebook YAML reference.</strong> It says WhatsApp "always sends a signed link to the decision page".
+  <span class="fix"><strong>Change:</strong> say that WhatsApp, like Slack, carries Approve and Reject buttons on rules approvable in chat.</span>
+  <span class="ev">developers/sections/Rules.tsx:72</span></td></tr>
+<tr><td class="n">17</td><td class="l">All</td><td class="s L">Low</td><td><strong>README overstates the fixes.</strong> It says every finding in reports 11 and 13 is fixed.
+  <span class="fix"><strong>Change:</strong> correct it once changes 1 to 16 are done and verified.</span>
+  <span class="ev">README.md:72, 90</span></td></tr>
+</table>
+
+<h2>C. How these would be done and checked</h2>
+<ul>
+  <li><strong>Size.</strong> Change 5 is a small change to onboarding. All the others are one-line to few-line edits. One agent can make all of them; they don't need parallel fixers.</li>
+  <li><strong>Afterwards:</strong>
+    <ul>
+      <li>verify each of the 17 against the code, as in <code>15-fix-verification</code>;</li>
+      <li>run the type-check, the production build and the 64 Seal v6 test vectors;</li>
+      <li>onboard a test L3 organisation to confirm change 5;</li>
+      <li>re-crawl all four levels for broken links.</li>
+    </ul>
+  </li>
+  <li><strong>Pricing.</strong> None of the 17 touches pricing, and the refusal rate stays as it is.</li>
+</ul>
+
+</body></html>

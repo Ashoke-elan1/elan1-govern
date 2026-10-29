@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><title>Fix report — 45 findings</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+  :root { --ink: #14161f; --muted: #5b5f6b; --line: #d9d6cf; --paper: #fbfaf7; --clay: #c2552d; --ok: #2f6b3d; --held: #8a5a00; --bad: #a3271f; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color: var(--ink); font-size: 9.6pt; line-height: 1.42; margin: 0; background: #fff; }
+  h1 { font-size: 20pt; margin: 0 0 4pt; letter-spacing: -0.3pt; }
+  h2 { font-size: 13pt; margin: 18pt 0 6pt; padding-top: 6pt; border-top: 2px solid var(--ink); page-break-after: avoid; }
+  h3 { font-size: 10.5pt; margin: 12pt 0 4pt; page-break-after: avoid; }
+  p { margin: 0 0 6pt; }
+  .kicker { color: var(--clay); font-weight: 700; letter-spacing: 1pt; font-size: 8pt; text-transform: uppercase; }
+  .lead { color: var(--muted); font-size: 10pt; }
+  table { width: 100%; border-collapse: collapse; margin: 4pt 0 8pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid var(--line); padding: 3pt 5pt; text-align: left; vertical-align: top; }
+  th { background: #f1efe9; font-size: 8.4pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+  td.n { width: 18pt; color: var(--muted); }
+  td.s { white-space: nowrap; font-weight: 600; width: 40pt; }
+  td.i { width: 130pt; }
+  .B { color: var(--ok); } .P { color: var(--held); }
+  code { font-family: Consolas, monospace; font-size: 8.2pt; background: #f4f2ec; padding: 0 2pt; }
+  .grid { display: flex; gap: 6pt; margin: 6pt 0 10pt; }
+  .card { flex: 1; border: 1px solid var(--line); padding: 6pt 8pt; background: var(--paper); }
+  .card .n { font-size: 16pt; font-weight: 700; }
+  .card .l { font-size: 8pt; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4pt; }
+  .note { border-left: 3px solid var(--clay); padding: 4pt 8pt; background: var(--paper); margin: 6pt 0 10pt; }
+  ul { margin: 0 0 6pt 14pt; padding: 0; } li { margin: 0 0 2pt; }
+  .small { font-size: 8.4pt; color: var(--muted); }
+</style></head><body>
+
+<p class="kicker">Elan1 Govern · front end · fix report</p>
+<h1>All 45 findings fixed</h1>
+<p class="lead">28 October 2026, night. This report covers the fixes for every finding in <code>11-completeness-check</code> (L1, L2, L3 and Sovereign; public site excluded). The finding numbers below match that report.</p>
+
+<div class="note"><strong>How it was done.</strong> Five fixers worked in parallel, one per area, each verifying its findings in the code before changing anything. I then fixed the few leftovers that sat in another fixer's files. Then came a type-check and production build, a browser check of the main fixes, and a fresh crawl of every level.</div>
+
+<h2>1. Summary</h2>
+<div class="grid">
+  <div class="card"><div class="n B">45</div><div class="l">Findings fixed</div></div>
+  <div class="card"><div class="n B">0</div><div class="l">Type or build errors</div></div>
+  <div class="card"><div class="n B">64 / 64</div><div class="l">Seal v6 test vectors pass</div></div>
+  <div class="card"><div class="n B">0</div><div class="l">Crawl problems</div></div>
+</div>
+
+<h2>2. Checks after the fixes</h2>
+<table>
+<tr><th>Check</th><th>Result</th></tr>
+<tr><td>Type-check and production build</td><td class="B">Both pass.</td></tr>
+<tr><td>Verifier</td><td class="B">The Seal v6 vectors (64 of 64) pass.
+  <ul>
+    <li>New bundles with <code>lexicon.json</code> pass. Older bundles without it pass with a note.</li>
+    <li>A missing lexicon gives INCOMPLETE; an edited one gives FAIL_INTEGRITY.</li>
+    <li>The two invoice builders now produce the same invoices.</li>
+  </ul></td></tr>
+<tr><td>In the browser</td><td class="B">
+  <ul>
+    <li><strong>Emergency stop:</strong> typing "stop" in lowercase enables the button.</li>
+    <li><strong>Sovereign:</strong> approvals offer only "Email (internal relay)". Okta is refused for single sign-on, and an internal Keycloak issuer is allowed.</li>
+    <li><strong>L1:</strong> Coverage offers "Install as a dry run". The Autonomy page shows no A3 and reads "No level until L3" on all 14 write types. The ladder counts 0 at A3.</li>
+    <li><strong>L1 Assurance and billing:</strong> the billing desk is on <code>/billing</code>, Proof lists INCOMPLETE, and the Overview has the enforcement-by-write-type table. Its counterparty tile reads "Read-only register".</li>
+    <li><strong>Ask Govern:</strong> rule rows have Ask Govern buttons.</li>
+    <li><strong>Remaining allowance:</strong> Not done and the Meter agree. They differ by one action, which is live traffic arriving between the two views.</li>
+    <li><strong>Public 404:</strong> signed out, a mistyped address (<code>/verfy</code>) shows the public 404 with links to <code>/verify</code>, <code>/developers</code> and sign-in, and a console address (<code>/agents/keys</code>) still goes to sign-in.</li>
+  </ul></td></tr>
+<tr><td>Live crawl</td><td><strong class="B">0 problems</strong> (broken links, error pages, script errors) at every level, signed in as an admin: L1 320 pages, 28,705 links; L2 277 pages, 20,703 links; L3 181 pages, 18,385 links; Sovereign 183 pages, 19,982 links. L2, L3 and Sovereign used up every page the crawl could reach. Their page counts are lower than in the earlier crawl because record and receipt pages are sampled by shape, a few per shape.</td></tr>
+</table>
+
+<h2>3. What changed, finding by finding</h2>
+
+<h3>Work door and access</h3>
+<table>
+<tr><th>#</th><th>Finding</th><th>Status</th><th>What changed</th></tr>
+<tr><td class="n">1</td><td class="i">STOP / RESUME confirmation</td><td class="s B">Fixed</td><td>Accepted in any case. A hint appears while the text doesn't match.</td></tr>
+<tr><td class="n">2</td><td class="i">Sovereign approval links</td><td class="s B">Fixed</td><td>At Sovereign only email over the internal relay is offered. Slack and WhatsApp are refused in the mock and recorded as <code>egress.blocked</code>. The link page footer depends on the level.</td></tr>
+<tr><td class="n">3</td><td class="i">Approvers resolve alerts</td><td class="s B">Fixed</td><td>A new permission, "respond to alerts" (acknowledge and resolve), covers owners, admins and approvers. Setting detectors and auto-pause stays with owners and admins.</td></tr>
+<tr><td class="n">4</td><td class="i">Approvers draft assessments</td><td class="s B">Fixed</td><td>Approvers can author and submit assessments. Sign-off is unchanged, and the submitter can't sign off their own assessment.</td></tr>
+<tr><td class="n">5</td><td class="i">Approver notified</td><td class="s B">Fixed</td><td>A held call sends each approver a single-use email link in the demo outbox, plus Slack or WhatsApp where the org allows it (never at Sovereign). This writes an <code>approval.notified</code> receipt. A link sent by hand writes <code>approval.link_sent</code>.</td></tr>
+<tr><td class="n">6</td><td class="i">Approve in chat</td><td class="s B">Fixed</td><td>Slack and WhatsApp messages in the outbox carry Approve and Reject buttons, and the receipt records the channel. The two-person, group, stop, expiry and same-person checks still apply. The Roles page copy now matches.</td></tr>
+<tr><td class="n">7</td><td class="i">Incident report PDF</td><td class="s B">Fixed</td><td>A real PDF from the in-browser PDF writer; L1 wording stays "sealed".</td></tr>
+<tr><td class="n">8</td><td class="i">Stop banner, selected agents</td><td class="s B">Fixed</td><td>The banner names up to three agents, or gives the number stopped, and adds "other agents run as normal".</td></tr>
+<tr><td class="n">9</td><td class="i">Approval queue</td><td class="s B">Fixed</td><td>New "Raised by" filter (Agent or Person); each row names who raised the call.</td></tr>
+<tr><td class="n">10</td><td class="i">Regulator runs a profile</td><td class="s B">Fixed</td><td>A signed-in regulator can run their regime's profile on what was disclosed to them. Fields that weren't disclosed show "Not measurable from what was shared", never a false pass.</td></tr>
+</table>
+
+<h3>Records door</h3>
+<table>
+<tr><th>#</th><th>Finding</th><th>Status</th><th>What changed</th></tr>
+<tr><td class="n">11</td><td class="i">Install a pack from Coverage at L1</td><td class="s B">Fixed</td><td>"Install as a dry run" with the Dry run chip; the banner says there is no regulatory claim until L2.</td></tr>
+<tr><td class="n">12</td><td class="i">Admit an agent at L1</td><td class="s B">Fixed</td><td>Admission is allowed at L1 and marked as a dry-run admission. The receipt records the mode.</td></tr>
+<tr><td class="n">13</td><td class="i">"Packs start at L2" wording</td><td class="s B">Fixed</td><td>Records, Connectors, Rulebooks and the refusal class now say "dry run until L2".</td></tr>
+<tr><td class="n">14</td><td class="i">Pack checks on live calls</td><td class="s B">Fixed</td><td>A pack check now runs on governed writes by agents admitted to an installed pack. The checks are: no deletes, write types that always need a person, the ledger dual-control threshold, and the collections contact window, template and daily cap. From L2 a failed check refuses the call; at L1 the receipt records what would have been refused.</td></tr>
+<tr><td class="n">15</td><td class="i">Read-only counterparty register</td><td class="s B">Fixed</td><td>Records and the Overview tile point to the read-only register; issuing still starts at L3.</td></tr>
+<tr><td class="n">16</td><td class="i">Erasure in coverage at L1</td><td class="s B">Fixed</td><td>EG-15 counts from L1, so DPDP s.8(7) and s.12 are covered. The erased-data refusal class is tagged L1.</td></tr>
+<tr><td class="n">17</td><td class="i">"Signed" at L1</td><td class="s B">Fixed</td><td>Erasure, data settings and Coverage say "sealed" at L1 and "signed" from L2. The assessment answers are neutral.</td></tr>
+<tr><td class="n">18</td><td class="i">Control set</td><td class="s B">Fixed</td><td>Three controls added: EG-18 (separation of duties), EG-19 (retention set and recorded) and EG-20 (role-based access changes recorded). Retention now points at EG-19. All three also count in the L1 pack's compliance map.</td></tr>
+<tr><td class="n">19</td><td class="i">Next review</td><td class="s B">Fixed</td><td>6 months for high, 12 for limited, 24 for minimal.</td></tr>
+<tr><td class="n">20</td><td class="i">Replay store off</td><td class="s B">Fixed</td><td>Test shows a disabled state that explains why. Review and publish go ahead, and the receipt records that no replay test was possible.</td></tr>
+<tr><td class="n">37</td><td class="i">Retention below 8 years</td><td class="s B">Fixed</td><td>Only 8, 10 or 12 years are offered. Anything shorter is refused with the MCA reason, and older saved values read as 8.</td></tr>
+</table>
+
+<h3>Agents door and Sovereign</h3>
+<table>
+<tr><th>#</th><th>Finding</th><th>Status</th><th>What changed</th></tr>
+<tr><td class="n">21</td><td class="i">Autonomy page below L3</td><td class="s B">Fixed</td><td>The rulebook reading no longer appears as a level. Below L3, each write type reads "No level until L3 · starts at A2 Propose at the upgrade", and the ladder never counts A3.</td></tr>
+<tr><td class="n">22</td><td class="i">Control and operations tokens</td><td class="s B">Fixed</td><td>Agents › Keys now issues, lists and revokes control tokens (<code>gctl_</code>) and read-only operations tokens (<code>gops_</code>). Owners and admins only. The secret is shown once and only a hash is kept. Each step is a receipt. From L2, a control token needs a second person.</td></tr>
+<tr><td class="n">23</td><td class="i">Rotating a production key</td><td class="s B">Fixed</td><td>Rotating a <code>gk_</code> key needs an approved path-to-production request, and the rotation uses it up. Sandbox keys rotate freely.</td></tr>
+<tr><td class="n">24</td><td class="i">Rotation overlap</td><td class="s B">Fixed</td><td>The L2 KMS rotation and the L3 and Sovereign key ceremony publish a successor with the 30-day overlap ("Key bound · signing off" until the switch). L1 still rotates at once.</td></tr>
+<tr><td class="n">25</td><td class="i">Sovereign single sign-on</td><td class="s B">Fixed</td><td>At Sovereign, Okta, Entra, Google or any outside issuer is refused and recorded as <code>egress.blocked</code>. Keycloak and internal issuers are allowed.</td></tr>
+<tr><td class="n">26</td><td class="i">Who revokes a graduation</td><td class="s B">Fixed</td><td>An approver can report a breach, but the revoke waits until an owner or admin presses "Confirm and revoke". Owners and admins still revoke at once.</td></tr>
+<tr><td class="n">27</td><td class="i">Agent keys help text</td><td class="s B">Fixed</td><td>Now describes Rotate with its grace period, and says that <code>gk_</code> keys come only through review.</td></tr>
+</table>
+
+<h3>Assurance door and billing</h3>
+<table>
+<tr><th>#</th><th>Finding</th><th>Status</th><th>What changed</th></tr>
+<tr><td class="n">28</td><td class="i">Two invoice builders</td><td class="s B">Fixed</td><td>The modelled builder is now built from the chain meter, so the two can't drift: IST months taken from the dates, Sovereign, per-pack lines and profiles. Not done uses the chain meter's figure.</td></tr>
+<tr><td class="n">29</td><td class="i">Exports that skipped the checks</td><td class="s B">Fixed</td><td>Evidence-request exports and the first close-out bundle go through the export dialog with every check. The bundle must be verified first, the ₹2,500 price is on the button, and ZIP is offered.</td></tr>
+<tr><td class="n">30</td><td class="i">Integrity run before export</td><td class="s B">Fixed</td><td>An L2+ export needs a passing integrity run over its range. The dialog offers "Run the integrity check now", or the clean range up to the last checked record.</td></tr>
+<tr><td class="n">31</td><td class="i">Lexicon member</td><td class="s B">Fixed</td><td><code>lexicon.json</code> is now a signed bundle member, optional for older bundles. Member names are unchanged; a table in the developer docs maps them to the specification's names.</td></tr>
+<tr><td class="n">32</td><td class="i">Nine-section report</td><td class="s B">Fixed</td><td>The console report uses the specification's nine sections, the same as <code>/verify</code>.</td></tr>
+<tr><td class="n">33</td><td class="i">Auditor writes</td><td class="s B">Fixed</td><td>Issuing a profile, recording the second reader and running fixtures are for owners and admins only, never the author. An auditor's profile run is not written to the client's chain.</td></tr>
+<tr><td class="n">34</td><td class="i">Requests to Elan1</td><td class="s B">Fixed</td><td>A demo "Elan1 billing desk" panel on <code>/billing</code>:
+  <ul>
+    <li>Settling a dispute writes a credit note.</li>
+    <li>A discount request can be granted (it becomes an offer) or declined.</li>
+    <li>A reopen request can be approved or declined.</li>
+  </ul>
+  Each decision is a receipt.</td></tr>
+<tr><td class="n">35</td><td class="i">Dispute role</td><td class="s B">Fixed</td><td>Opening and withdrawing a dispute go through the API with an owner check.</td></tr>
+<tr><td class="n">36</td><td class="i">Enforcement mode per write type</td><td class="s B">Fixed</td><td>An Overview table shows, for each write type over 7 days, whether it is enforced (governed run), advisory (check and record) or both.</td></tr>
+<tr><td class="n">38</td><td class="i">Exit-code tables</td><td class="s B">Fixed</td><td>L1 adds INCOMPLETE; L2 adds PASS_L1_INTERNAL and PASS_PAYLOAD_UNBOUND.</td></tr>
+</table>
+
+<h3>Developer portal, shell and public pages</h3>
+<table>
+<tr><th>#</th><th>Finding</th><th>Status</th><th>What changed</th></tr>
+<tr><td class="n">39</td><td class="i">Ask Govern: assessment, incident</td><td class="s B">Fixed</td><td>Explains the specific item.
+  <ul>
+    <li><strong>Assessment:</strong> where it stands, score and band, the answers that raised the score most, unanswered questions, and the next review.</li>
+    <li><strong>Incident:</strong> what happened, its effect and timeline, related alerts, and next steps.</li>
+  </ul></td></tr>
+<tr><td class="n">40</td><td class="i">Ask Govern: rule</td><td class="s B">Fixed</td><td>Each rule row has an Ask Govern button. The explanation covers what the rule matches, its conditions, decision, approvers, limits and recent matches.</td></tr>
+<tr><td class="n">41</td><td class="i">System refusal ids</td><td class="s B">Fixed</td><td>The Errors page lists <code>tool-disabled</code> and <code>sandbox-limit</code>; disabled tools are described correctly.</td></tr>
+<tr><td class="n">42</td><td class="i">L1 pack members in docs</td><td class="s B">Fixed</td><td>All 7 members are listed, with the sealed manifest.</td></tr>
+<tr><td class="n">43</td><td class="i">Refusal register</td><td class="s B">Fixed</td><td><code>GATE.COUNTERPARTY_UNKNOWN</code> is now a core code, and the memorandum's three define codes are added. No existing number changed, and every code page still resolves.</td></tr>
+<tr><td class="n">44</td><td class="i">Cookie table</td><td class="s B">Fixed</td><td>The defect-report counter is described correctly. The verifier-release key, the session cookie and an old papers key are added.</td></tr>
+<tr><td class="n">45</td><td class="i">Public 404</td><td class="s B">Fixed</td><td>A mistyped public address shows a public 404 with links to sign in, <code>/verify</code> and <code>/developers</code>. Console addresses still go to sign-in.</td></tr>
+</table>
+
+<h2>4. Choices made where the documents were silent</h2>
+<p>Each of these can be changed. Please confirm or overrule.</p>
+<table>
+<tr><th>#</th><th>Choice</th></tr>
+<tr><td class="n">3</td><td>Approvers acknowledge and resolve alerts. Setting detectors and auto-pause stays with owners and admins.</td></tr>
+<tr><td class="n">4</td><td>Whoever submits an assessment can't also sign it off, the same as the author.</td></tr>
+<tr><td class="n">5</td><td>Email goes out on every held call, even if the org's email routing is off ("email always goes out"). There are no notices for sandbox calls or for calls held by a stop.</td></tr>
+<tr><td class="n">6</td><td>Chat buttons decide without a password. They are not shown for deletes, access or production changes, personal data, calls that need step-up, or at Sovereign; those messages carry a link instead.</td></tr>
+<tr><td class="n">9</td><td>"Raised by a person" means the agent's declaration says it acts for a named person.</td></tr>
+<tr><td class="n">10</td><td>A regulator's profile run is an offline check and is not written to the issuer's chain.</td></tr>
+<tr><td class="n">14</td><td>The pack checks built are those listed in §3, finding 14. Refusals use the rule ids <code>pack-gate</code> (write type not admitted) and <code>pack-declaration</code> (a condition broken).</td></tr>
+<tr><td class="n">18</td><td>The new controls are numbered EG-18, EG-19 and EG-20.</td></tr>
+<tr><td class="n">19</td><td>The app has no "low" tier, so "minimal" takes the 24-month review.</td></tr>
+<tr><td class="n">20</td><td>With the replay store off, publish goes ahead and the receipt records it, rather than being blocked.</td></tr>
+<tr><td class="n">22</td><td>Prefixes are <code>gctl_</code> (control) and <code>gops_</code> (operations). From L2 a control token needs a second owner or admin. The tenant token is the existing agent key.</td></tr>
+<tr><td class="n">23</td><td>An approved production request can be used either for a new key or for a rotation, not both.</td></tr>
+<tr><td class="n">28</td><td>Credit notes stay on <code>/billing</code> and are not stored as invoices. Saved modelled invoices are rebuilt from the chain.</td></tr>
+<tr><td class="n">30</td><td>A range counts as checked when its last record is at or below the highest record a passing run reached. Calls since the 02:00 IST run therefore need a fresh check, or the clean range.</td></tr>
+<tr><td class="n">34</td><td>The demo desk can grant discounts up to the account lead's cap (20% for 12 months); beyond that needs a founder. A granted request becomes an offer that the owner accepts.</td></tr>
+<tr><td class="n">36</td><td>A write type is the tool a decision names.</td></tr>
+<tr><td class="n">43</td><td>The memorandum says 43 core codes, but its own list holds more. The register now has 47 core codes: 28 from L1 and 19 from L2, plus 5 at L3. <code>GATE.COUNTERPARTY_UNKNOWN</code> and the three define codes are active from L2.</td></tr>
+</table>
+
+</body></html>

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><title>Fix report — 42 findings</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+  :root { --ink: #14161f; --muted: #5b5f6b; --line: #d9d6cf; --paper: #fbfaf7; --clay: #c2552d; --ok: #2f6b3d; --held: #8a5a00; --bad: #a3271f; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color: var(--ink); font-size: 9.6pt; line-height: 1.42; margin: 0; background: #fff; }
+  h1 { font-size: 20pt; margin: 0 0 4pt; letter-spacing: -0.3pt; }
+  h2 { font-size: 13pt; margin: 18pt 0 6pt; padding-top: 6pt; border-top: 2px solid var(--ink); page-break-after: avoid; }
+  h3 { font-size: 10.5pt; margin: 12pt 0 4pt; page-break-after: avoid; }
+  p { margin: 0 0 6pt; }
+  .kicker { color: var(--clay); font-weight: 700; letter-spacing: 1pt; font-size: 8pt; text-transform: uppercase; }
+  .lead { color: var(--muted); font-size: 10pt; }
+  table { width: 100%; border-collapse: collapse; margin: 4pt 0 8pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid var(--line); padding: 3pt 5pt; text-align: left; vertical-align: top; }
+  th { background: #f1efe9; font-size: 8.4pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+  td.n { width: 18pt; color: var(--muted); }
+  td.s { white-space: nowrap; font-weight: 600; width: 40pt; }
+  td.i { width: 130pt; }
+  .B { color: var(--ok); } .P { color: var(--held); }
+  code { font-family: Consolas, monospace; font-size: 8.2pt; background: #f4f2ec; padding: 0 2pt; }
+  .grid { display: flex; gap: 6pt; margin: 6pt 0 10pt; }
+  .card { flex: 1; border: 1px solid var(--line); padding: 6pt 8pt; background: var(--paper); }
+  .card .n { font-size: 16pt; font-weight: 700; }
+  .card .l { font-size: 8pt; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4pt; }
+  .note { border-left: 3px solid var(--clay); padding: 4pt 8pt; background: var(--paper); margin: 6pt 0 10pt; }
+  ul { margin: 0 0 6pt 14pt; padding: 0; } li { margin: 0 0 2pt; }
+  .small { font-size: 8.4pt; color: var(--muted); }
+</style></head><body>
+
+<p class="kicker">Elan1 Govern · front end · fix report</p>
+<h1>All 42 findings fixed</h1>
+<p class="lead">28 October 2026, late night. This covers the fixes for every finding in <code>13-completeness-check</code> (L1, L2, L3 and Sovereign; public site excluded). The numbers below match that report.</p>
+
+<div class="note"><strong>How it was done.</strong> Five fixers worked in parallel, one per area, each verifying a finding in the code before changing it. I then cleared the leftovers in shared files. Then came the type-check, the build, the Seal v6 test vectors and bundle checks, a browser check of the main fixes, and a fresh crawl of every level.</div>
+
+<h2>1. Summary</h2>
+<div class="grid">
+  <div class="card"><div class="n B">42</div><div class="l">Findings fixed</div></div>
+  <div class="card"><div class="n B">0</div><div class="l">Type or build errors</div></div>
+  <div class="card"><div class="n B">64 / 64</div><div class="l">Seal v6 test vectors pass</div></div>
+  <div class="card"><div class="n B">0</div><div class="l">Crawl problems</div></div>
+</div>
+
+<h2>2. Checks after the fixes</h2>
+<table>
+<tr><th>Check</th><th>Result</th></tr>
+<tr><td>Type-check and production build</td><td class="B">Both pass.</td></tr>
+<tr><td>Verifier and bundles (scripted)</td><td class="B">
+  <ul>
+    <li><strong>Seal v6:</strong> 64 of 64 vectors pass, and both implementations agree.</li>
+    <li><strong>Bundles:</strong> Northbank PASS, Kaveri PASS_PAYLOAD_UNBOUND, Deccan PASS_UNANCHORED_TAIL. Each still verifies after two "Anchor now" batches, and a range ending at an on-demand batch has no unanchored tail.</li>
+    <li><strong>L1 pack:</strong> a new pack with the updated README passes, and an edited README fails.</li>
+    <li><strong>Seals below L3:</strong> they now carry autonomy level A0 ("no grant"), and no A3 appears before L3.</li>
+    <li><strong>Pinned export range:</strong> it stays covered by the integrity run while live traffic flows.</li>
+    <li><strong>Evidence requests:</strong> a split export is collected part by part, byte for byte, and swapped parts are refused.</li>
+    <li><strong>Seat billing:</strong> after adding 3 seats at Kaveri, the 4 past months are unchanged and this month rises pro rata.</li>
+    <li><strong>Auditors:</strong> they are refused for reconciliation, acceptance tests, the auditor's reading and "Anchor now".</li>
+  </ul></td></tr>
+<tr><td>In the browser (Sovereign)</td><td class="B">There is no Elan1 maintenance banner. Connectors say that nothing leaves the network. SAML is refused for Okta and allowed for internal Keycloak (Okta is still allowed at Northbank).</td></tr>
+<tr><td>Live crawl</td><td><strong class="B">0 problems</strong> (broken links, error pages, script errors) at every level, signed in as an admin or owner: L1 320 pages, 27,473 links; L2 310 pages, 23,137 links; L3 317 pages, 24,524 links; Sovereign 320 pages, 27,700 links. L2 and L3 visited every page the crawl could reach.</td></tr>
+</table>
+
+<h2>3. What changed, finding by finding</h2>
+
+<h3>Work door and Sovereign access</h3>
+<table>
+<tr><th>#</th><th>Finding</th><th>Status</th><th>What changed</th></tr>
+<tr><td class="n">1</td><td class="i">Elan1 maintenance at Sovereign</td><td class="s B">Fixed</td><td>The banner, the due-date entry and the maintenance redirect are gone at Sovereign. "Start it now" is refused there in the mock as well.</td></tr>
+<tr><td class="n">2</td><td class="i">Chat buttons for unlinked people</td><td class="s B">Fixed</td><td>One shared rule decides who gets Approve and Reject buttons, the same rule the chat decision checks. Anyone else gets an "Open in Elan1 Govern" message, and the approval page says so.</td></tr>
+<tr><td class="n">3</td><td class="i">"Signed" in L1 copy</td><td class="s B">Fixed</td><td>The Reviews erasure message, onboarding, sign-up, sign-in, the maintenance page and the developer intro now say "published" or "sealed" at L1, and "signed" from L2. Stale chat copy in onboarding and Channels is corrected too.</td></tr>
+<tr><td class="n">4</td><td class="i">Same-person "Send to"</td><td class="s B">Fixed</td><td>It now writes the outbox message and an <code>approval.link_sent</code> receipt.</td></tr>
+<tr><td class="n">5</td><td class="i">Escalation and re-route</td><td class="s B">Fixed</td><td>The new group gets single-use links the same way as the first hold, by any of the three escalation paths. The receipt (<code>approval.notified</code>) records the reason.</td></tr>
+<tr><td class="n">6</td><td class="i">Widen the stop</td><td class="s B">Fixed</td><td>One owner or admin can add agents, or widen to every agent, from the stop dialog or the incident. Their waiting approvals are held. This writes <code>stop.widened</code>. Lifting is unchanged.</td></tr>
+<tr><td class="n">7</td><td class="i">Phone links at Sovereign</td><td class="s B">Fixed</td><td>The approval page offers "Phone link (internal network)", which opens the bank's own console host. It is recorded as a link.</td></tr>
+<tr><td class="n">22</td><td class="i">SAML and onboarding at Sovereign</td><td class="s B">Fixed</td><td>An outside SAML identity provider is refused and recorded as <code>egress.blocked</code>. Onboarding defaults to Keycloak, offers only internal providers, and uses the bank's own domain for the entity ID and ACS URL.</td></tr>
+<tr><td class="n">40</td><td class="i">Maintenance page at Sovereign</td><td class="s B">Fixed</td><td>It describes approval links through the bank's own mail relay; there is no Slack or WhatsApp.</td></tr>
+</table>
+
+<h3>Records door and packs</h3>
+<table>
+<tr><th>#</th><th>Finding</th><th>Status</th><th>What changed</th></tr>
+<tr><td class="n">8</td><td class="i">Pack checks on held calls</td><td class="s B">Fixed</td><td>The check now sees the rulebook's decision.
+  <ul>
+    <li><strong>A named person must decide</strong> (always-held write types, or amounts above the threshold): a held call passes. From L2, an allowed call is turned into a hold for a person; at L1 the receipt records that it would have been held.</li>
+    <li><strong>Prohibitions</strong> (deletes, contact window, template, daily cap): these still refuse from L2.</li>
+  </ul></td></tr>
+<tr><td class="n">9</td><td class="i">Pack configuration</td><td class="s B">Fixed</td><td>The live check reads the configured values and the declaration version in force, and skips withdrawn versions. The receipt records the declaration version.</td></tr>
+<tr><td class="n">10</td><td class="i">Decision trace</td><td class="s B">Fixed</td><td>The pack step is drawn from the receipt's own result, in the guard's real order (decide, recorded checks, autonomy, act).</td></tr>
+<tr><td class="n">11</td><td class="i">Pack rules at L1</td><td class="s B">Fixed</td><td>Locked pack sections can be added at L1 as dry-run rules. They never decide a call; the receipt notes what they would have decided. "Try an action" and replay leave them out too.</td></tr>
+<tr><td class="n">12</td><td class="i">"Starts at L2" on the agent page</td><td class="s B">Fixed</td><td>It now says "Dry run at L1".</td></tr>
+<tr><td class="n">13</td><td class="i">L1 pack compliance map</td><td class="s B">Fixed</td><td>It uses the same control list and mappings as Coverage (one shared module), so DPDP s.8(7) and s.12 are mapped.</td></tr>
+<tr><td class="n">14</td><td class="i">Coverage on Today and AI systems</td><td class="s B">Fixed</td><td>It is computed the same way as <code>/compliance</code>.</td></tr>
+<tr><td class="n">15</td><td class="i">Receipt "Controls"</td><td class="s B">Fixed</td><td>It uses the shared helper, and its framework links include EG-15 and EG-18 to EG-20.</td></tr>
+<tr><td class="n">16</td><td class="i">EG-18 note</td><td class="s B">Fixed</td><td>The wording now depends on the level: same-person approval is forbidden from L2 and flagged at L1.</td></tr>
+<tr><td class="n">17</td><td class="i">"Erased data" refusal class</td><td class="s B">Fixed</td><td>The documents define no refusal for erased data, so the empty class and its id were removed, including from Not done.</td></tr>
+<tr><td class="n">18</td><td class="i">Connectors at Sovereign</td><td class="s B">Fixed</td><td>Public MCP addresses and live Gmail or Zoho cloud are refused and recorded as <code>egress.blocked</code>. Internal hosts are allowed.</td></tr>
+<tr><td class="n">19</td><td class="i">Approval-screen checks</td><td class="s B">Fixed</td><td>The retention check shows the policy in force (at least 8 years). The consent check reads the consent ledger as it stood when the call was held.</td></tr>
+<tr><td class="n">25</td><td class="i">"L1: signed and chained"</td><td class="s B">Fixed</td><td>Now reads "sealed in a hash chain, with no Seal v6 record and no timestamp".</td></tr>
+</table>
+
+<h3>Keys and seals</h3>
+<table>
+<tr><th>#</th><th>Finding</th><th>Status</th><th>What changed</th></tr>
+<tr><td class="n">20</td><td class="i">Proof › Keys after approval</td><td class="s B">Fixed</td><td>The page now uses the shared pending check, and after approval shows the bound successor and its switch date. Withdraw goes through the API and is refused once a request is approved.</td></tr>
+<tr><td class="n">21</td><td class="i">L2 records sealed with A3</td><td class="s B">Fixed</td><td>Below L3, seal field F11 is A0 ("no grant"), as the specification gives. Seals are rebuilt from receipts, so every check still passes.</td></tr>
+<tr><td class="n">23</td><td class="i">One-person KMS rotation</td><td class="s B">Fixed</td><td>At L2, a successor published by one person waits for a different owner or admin to press "Confirm the switch" (<code>key.bound_confirmed</code>). An approved KMS rotation already has its second person.</td></tr>
+<tr><td class="n">24</td><td class="i">Rotation copy</td><td class="s B">Fixed</td><td>From L2 the copy describes the successor and the 30-day overlap. At L1 the key still rotates at once.</td></tr>
+<tr><td class="n">26</td><td class="i">Sandbox key help</td><td class="s B">Fixed</td><td>Sandbox keys keep the grace period too; they only skip the review.</td></tr>
+</table>
+
+<h3>Assurance and billing</h3>
+<table>
+<tr><th>#</th><th>Finding</th><th>Status</th><th>What changed</th></tr>
+<tr><td class="n">27</td><td class="i">Integrity check on "Everything"</td><td class="s B">Fixed</td><td>"Everything" and "Last 7 days" are pinned to the newest record when the dialog opens. A passing integrity check moves the pin to the record it checked. The preview, the verify-first check and the export all use the pinned range; later records go in the next export.</td></tr>
+<tr><td class="n">28</td><td class="i">Counterparty seats</td><td class="s B">Fixed</td><td>Seats are worked out per month from seat-change receipts, pro rata by day. Past invoices are never rewritten.</td></tr>
+<tr><td class="n">29</td><td class="i">Nine-section report</td><td class="s B">Fixed</td><td>Section 5 is "Clause results" everywhere. Scope lists the write types. The console's Claim shows "Profile claimed" and "Profile checked", as <code>/verify</code> does.</td></tr>
+<tr><td class="n">30</td><td class="i">Exit codes outside Proof</td><td class="s B">Fixed</td><td>The pack README and PDF, Overview, Exports and the export dialog list 0, 1, 3 INCOMPLETE and 5 USAGE. The L2+ lists include PASS_L1_INTERNAL.</td></tr>
+<tr><td class="n">31</td><td class="i">What the auditor collects</td><td class="s B">Fixed</td><td>The auditor collects exactly the exported and billed files, every part, each checked against its recorded digest. If the files are gone, the auditor is told to ask for them again.</td></tr>
+<tr><td class="n">32</td><td class="i">Anchor now</td><td class="s B">Fixed</td><td>On-demand batches are carried in bundles, so those records no longer count as the unanchored tail. The owner-or-admin check is now enforced in the API and the mock.</td></tr>
+<tr><td class="n">33</td><td class="i">Auditor writes</td><td class="s B">Fixed</td><td>Auditors keep only the three pilot steps that the Information Memorandum's pilot journey (J9) names for them: the necessity statement, the air-gapped verifier run and the written verdict. Reconciliation, the auditor's reading and the acceptance tests are owners and admins only, and the buttons match. An auditor's integrity check is read-only and not recorded. The banner lists exactly what an auditor writes.</td></tr>
+</table>
+
+<h3>Developer portal, legal and README</h3>
+<table>
+<tr><th>#</th><th>Finding</th><th>Status</th><th>What changed</th></tr>
+<tr><td class="n">34</td><td class="i">Legal: WhatsApp and Slack</td><td class="s B">Fixed</td><td>The sub-processor rows say messages carry a single-use link and, on rules approvable in chat, Approve and Reject buttons. They name the data that then passes.</td></tr>
+<tr><td class="n">35</td><td class="i">Token documentation</td><td class="s B">Fixed</td><td>A new "Tokens" section covers <code>gk_</code>/<code>sk_sbx_</code>, <code>gctl_</code> and <code>gops_</code>: what each can call, who issues them, the second person from L2, the secret shown once, revoking and the receipts. It is in the nav and the changelog.</td></tr>
+<tr><td class="n">36</td><td class="i">System refusal ids</td><td class="s B">Fixed</td><td>The Errors page lists all 17 ids the guard produces, including pack, consent and autonomy. Consent codes are now from L1 in the register (30 from L1, 17 from L2; 47 in total). The receipt page's list matches.</td></tr>
+<tr><td class="n">37</td><td class="i">Define and L3 code pages</td><td class="s B">Fixed</td><td>The define codes show a refused publish. The L3 codes show a received receipt being rejected.</td></tr>
+<tr><td class="n">38</td><td class="i">Bundle table and changelog</td><td class="s B">Fixed</td><td>The table adds <code>lexicon.json</code>. Six changelog entries are dated 28 Oct 2026.</td></tr>
+<tr><td class="n">39</td><td class="i">Ask Govern on rules</td><td class="s B">Fixed</td><td>It says chat isn't available at Sovereign, and explains when buttons are withheld.</td></tr>
+<tr><td class="n">41</td><td class="i">Deciding outside your group</td><td class="s B">Fixed</td><td>The refused attempt now writes an <code>approval.decide_refused</code> receipt.</td></tr>
+<tr><td class="n">42</td><td class="i">README routes</td><td class="s B">Fixed</td><td>Every route in the app is listed, including the redirects.</td></tr>
+</table>
+
+<h2>4. Choices made where the documents were silent</h2>
+<table>
+<tr><th>#</th><th>Choice</th></tr>
+<tr><td class="n">6</td><td>One person can widen a stop, because widening only stops more agents. The password is asked again after 10 minutes, and widening is allowed while a lift request waits.</td></tr>
+<tr><td class="n">8</td><td>When a pack needs a named person and the rulebook allowed the call, the call is held for the Finance group.</td></tr>
+<tr><td class="n">17</td><td>The "Erased data" refusal was removed rather than invented, because no document defines it.</td></tr>
+<tr><td class="n">22</td><td>The internal SAML providers offered at Sovereign are Keycloak, Active Directory Federation Services and "Other internal SAML provider".</td></tr>
+<tr><td class="n">23</td><td>At L2, the second person confirms the switch, so the successor can still be published 30 days ahead, rather than approving the binding.</td></tr>
+<tr><td class="n">33</td><td>Auditors keep exactly the three pilot steps J9 names for them; everything else is owners and admins only.</td></tr>
+<tr><td class="n">36</td><td>Consent refusals count from L1, because the consent check runs from L1.</td></tr>
+</table>
+
+<h2>5. Known and left as is</h2>
+<ul>
+  <li><strong>Right after a key switch.</strong> An exported bundle fails the key check until the new key has signed one record, because the switch receipt is signed by the outgoing key. This behaviour predates tonight's fixes.</li>
+  <li><strong>Shorter overlaps.</strong> "Publish a successor" still offers 7 or 14 days besides 30, as in the confirmed build defaults.</li>
+  <li><strong>The pilot in the four demo organisations</strong>, and the time stamps on seeded events, are as before.</li>
+</ul>
+
+</body></html>

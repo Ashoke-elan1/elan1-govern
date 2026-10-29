@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><title>Does the platform change by level and by role?</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+  :root { --ink: #14161f; --muted: #5b5f6b; --line: #d9d6cf; --paper: #fbfaf7; --clay: #c2552d; --ok: #2f6b3d; --held: #8a5a00; --bad: #a3271f; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color: var(--ink); font-size: 9.6pt; line-height: 1.42; margin: 0; background: #fff; }
+  h1 { font-size: 20pt; margin: 0 0 4pt; letter-spacing: -0.3pt; }
+  h2 { font-size: 13pt; margin: 18pt 0 6pt; padding-top: 6pt; border-top: 2px solid var(--ink); page-break-after: avoid; }
+  h3 { font-size: 10.5pt; margin: 12pt 0 4pt; page-break-after: avoid; }
+  p { margin: 0 0 6pt; }
+  .kicker { color: var(--clay); font-weight: 700; letter-spacing: 1pt; font-size: 8pt; text-transform: uppercase; }
+  .lead { color: var(--muted); font-size: 10pt; }
+  table { width: 100%; border-collapse: collapse; margin: 4pt 0 8pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid var(--line); padding: 3pt 5pt; text-align: left; vertical-align: top; }
+  th { background: #f1efe9; font-size: 8.4pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+  .Y { color: var(--ok); font-weight: 600; } .N { color: var(--muted); } .P { color: var(--held); font-weight: 600; }
+  code { font-family: Consolas, monospace; font-size: 8.2pt; background: #f4f2ec; padding: 0 2pt; }
+  .answer { border: 2px solid var(--ink); padding: 8pt 10pt; margin: 8pt 0 10pt; background: var(--paper); font-size: 10.2pt; }
+  .note { border-left: 3px solid var(--clay); padding: 4pt 8pt; background: var(--paper); margin: 6pt 0 10pt; }
+  ul { margin: 0 0 6pt 14pt; padding: 0; } li { margin: 0 0 2pt; }
+  .small { font-size: 8.4pt; color: var(--muted); }
+  td.c { text-align: center; }
+</style></head><body>
+
+<p class="kicker">Elan1 Govern · front end · level and role check</p>
+<h1>Does the platform change by level and by role?</h1>
+<p class="lead">29 October 2026. This was tested in the running app: I signed in as an owner, admin, approver and viewer at each of L1, L2, L3 and Sovereign, and as the auditor in each of the four client organisations (20 sign-ins in all). For each, I recorded the menu, which pages open, the state of key buttons and the level features. Invoices were read from the same billing code the Meter page uses. Nothing was changed. The public site is excluded.</p>
+
+<div class="answer"><strong>Answer: yes, it works both ways.</strong>
+  <ul>
+    <li><strong>By level.</strong> Each organisation's assurance level changes which features are live, which screens show only a preview and upgrade path, how the platform is hosted and keys are held, and which items appear on its invoice.</li>
+    <li><strong>By role.</strong> Each person's role changes the menu, the pages they can open and the buttons they can use. This works the same way at all four levels.</li>
+    <li><strong>One problem in the demo data, now fixed.</strong> At L2, L3 and Sovereign, the Finance and Procurement approvers were also recorded as owners of their group's agents, so the same-person rule stopped them approving most of their own group's calls. Those agents are now owned by the organisation's admin, and the approvers can decide their group's calls again (§4).</li>
+  </ul>
+</div>
+
+<h2>1. What changes with the level</h2>
+<table>
+<tr><th>Item in the platform</th><th>L1 Guarded</th><th>L2 Attested</th><th>L3 Proven</th><th>Sovereign</th></tr>
+<tr><td>Features switched on (from the app's level list)</td><td>9</td><td>21</td><td>28</td><td>33</td></tr>
+<tr><td>Hosting (Agents › Deployment)</td><td>Hosted by Elan1, shared (profile 1)</td><td>Hosted by Elan1, dedicated residency domain (profile 2)</td><td>Hosted by Elan1 (profile 3)</td><td class="Y">Your own infrastructure: cluster, HSM, local timestamp authorities</td></tr>
+<tr><td>Records</td><td>Sealed in a hash chain</td><td class="Y">Signed (Seal v6, AWS KMS key)</td><td class="Y">Signed with your own HSM key (3-of-5 ceremony)</td><td class="Y">Signed in the bank's own HSM</td></tr>
+<tr><td>Timestamps (two authorities)</td><td class="N">Preview: "Starts at Attested · L2"</td><td class="Y">Live</td><td class="Y">Live</td><td class="Y">Live (local authorities)</td></tr>
+<tr><td>Verifier profiles</td><td class="N">Preview and upgrade path</td><td class="Y">Live</td><td class="Y">Live</td><td class="Y">Live</td></tr>
+<tr><td>Regulatory packs</td><td>Install as a <strong>dry run</strong> (no regulatory claim)</td><td class="Y">Live install</td><td class="Y">Live install</td><td class="Y">Live install</td></tr>
+<tr><td>Rulebook publishing</td><td>A second person's review is recorded</td><td class="Y">A second person's review is enforced</td><td class="Y">Enforced</td><td class="Y">Enforced</td></tr>
+<tr><td>Same-person approval</td><td>Flagged</td><td class="Y">Forbidden</td><td class="Y">Forbidden</td><td class="Y">Forbidden</td></tr>
+<tr><td>Autonomy (Agents › Autonomy)</td><td class="N">Preview: "No level until L3"</td><td class="N">Preview: "No level until L3"</td><td class="Y">Live: A2 start, graduation to A3</td><td class="Y">Live</td></tr>
+<tr><td>Counterparties</td><td>Register, read-only</td><td>Register, read-only</td><td class="Y">"Issue a receipt", seats, disputes</td><td class="Y">Same as L3</td></tr>
+<tr><td>Selective disclosure</td><td class="N">Upgrade path</td><td class="N">Upgrade path</td><td class="Y">Live</td><td class="Y">Live</td></tr>
+<tr><td>Outside services (Slack, WhatsApp, cloud SSO, cloud connectors)</td><td>Allowed</td><td>Allowed</td><td>Allowed</td><td class="Y">Refused: deny-all egress</td></tr>
+<tr><td>Menu tags</td><td>Autonomy L3 · Timestamps L2 · Verifier profiles L2 · Disclosure L3</td><td>Autonomy L3 · Disclosure L3</td><td>None</td><td>None</td></tr>
+</table>
+<p class="small">Screens above an organisation's level are not hidden. They carry a level tag in the menu and open on a preview of what that level adds, with an upgrade path. This was the approved design ("Screens above an organisation's level still open").</p>
+
+<h3>Invoice items by level</h3>
+<p>These are read from each demo organisation's real invoices.</p>
+<table>
+<tr><th>Invoice item</th><th>L1 Guarded</th><th>L2 Attested</th><th>L3 Proven</th><th>Sovereign</th></tr>
+<tr><td>Platform charge</td><td>Guarded floor, ₹15,000 a month</td><td>Attested floor, ₹50,000 a month</td><td>Proven floor, ₹2,00,000 a month</td><td>Yearly deployment licence, ₹1,20,00,000, invoiced in advance (July)</td></tr>
+<tr><td>The month a level changes</td><td>—</td><td class="Y">Split pro rata: L1 floor for the L1 days, L2 floor for the rest</td><td class="Y">Split pro rata: L2 and L3 floors</td><td>—</td></tr>
+<tr><td>Governed actions</td><td>Inside the allowance, then per action</td><td>Inside the allowance, then per action</td><td>Inside the allowance, then per action</td><td>Beyond the licence allowance only</td></tr>
+<tr><td>Evidence export</td><td>L1 auditor pack: <strong>free</strong> (₹0 line)</td><td>Evidence bundle, ₹2,500 each</td><td>Evidence bundle, ₹2,500 each</td><td>Evidence bundle, ₹2,500 each</td></tr>
+<tr><td>Regulatory packs (₹1,35,000 a year each)</td><td class="N">Not billed (dry run)</td><td class="Y">Billed monthly, from the day L2 starts</td><td class="Y">Billed monthly</td><td class="Y">Billed monthly</td></tr>
+<tr><td>Counterparty verification seats (₹45,000 a year each)</td><td class="N">—</td><td class="N">—</td><td class="Y">Billed pro rata by day</td><td class="Y">Billed pro rata by day</td></tr>
+</table>
+<p class="small">Examples from the demo:</p>
+<ul class="small">
+  <li><strong>Demo Traders (L1), October:</strong> ₹15,000 floor plus a free auditor-pack line.</li>
+  <li><strong>Northbank, September:</strong> the month it moved from L1 to L2. The L1 floor is charged for the L1 days and the L2 floor for the rest, and the ledger1 pack is billed from the move.</li>
+  <li><strong>Kaveri (L3), October:</strong> ₹2,00,000 floor, two packs, seats for 7 counterparties and one bundle.</li>
+  <li><strong>Deccan (Sovereign):</strong> a ₹1,20,00,000 yearly licence in July. Later months carry only actions beyond the allowance, three packs, five seats and one bundle.</li>
+</ul>
+
+<h2>2. What changes with the role</h2>
+<p>The results below were identical at L1, L2, L3 and Sovereign.</p>
+<table>
+<tr><th>What the person gets</th><th>Owner</th><th>Admin</th><th>Approver</th><th>Viewer</th><th>Auditor</th></tr>
+<tr><td>Menu items</td><td class="c">40</td><td class="c">40</td><td class="c">38</td><td class="c">38</td><td class="c">39</td></tr>
+<tr><td>Meter and invoices (<code>/billing</code>)</td><td class="c Y">Opens</td><td class="c Y">Opens</td><td class="c N">Blocked</td><td class="c N">Blocked</td><td class="c N">Blocked</td></tr>
+<tr><td>Approvers page (approver telemetry)</td><td class="c Y">Opens</td><td class="c Y">Opens</td><td class="c N">Blocked</td><td class="c N">Blocked</td><td class="c N">Blocked</td></tr>
+<tr><td>Add an agent</td><td class="c Y">Opens</td><td class="c Y">Opens</td><td class="c N">Blocked</td><td class="c N">Blocked</td><td class="c N">Blocked</td></tr>
+<tr><td>Auditor workspace in the menu</td><td class="c N">No</td><td class="c N">No</td><td class="c N">No</td><td class="c N">No</td><td class="c Y">Yes</td></tr>
+<tr><td>Emergency stop button</td><td class="c Y">Yes</td><td class="c Y">Yes</td><td class="c N">No</td><td class="c N">No</td><td class="c N">No</td></tr>
+<tr><td>Invite people (Agents › People)</td><td class="c Y">Enabled</td><td class="c Y">Enabled</td><td class="c N">Disabled</td><td class="c N">Disabled</td><td class="c N">Disabled</td></tr>
+<tr><td>Export evidence</td><td class="c Y">Enabled</td><td class="c Y">Enabled</td><td class="c N">Disabled</td><td class="c N">Disabled</td><td class="c Y">Enabled</td></tr>
+<tr><td>Approve a held call</td><td class="c Y">Yes</td><td class="c Y">Yes</td><td class="c Y">Yes, in their own group</td><td class="c N">No</td><td class="c N">No</td></tr>
+</table>
+<ul>
+  <li><strong>Blocked pages.</strong> These show "Your role cannot open this", with the reason.</li>
+  <li><strong>Disabled buttons.</strong> Each says why it is disabled. For example, an approver opening another group's item sees "Only members of Finance decide this; ask an owner to re-route it".</li>
+  <li><strong>Owner versus admin.</strong> Owners also hold billing actions (order and cancel), signing keys and single sign-on, which admins do not.</li>
+  <li><strong>The auditor.</strong> The auditor switches between all four client organisations and gets the same read-only menu in each.</li>
+</ul>
+
+<h2>3. Two things you may notice</h2>
+<table>
+<tr><th>What you see</th><th>Why</th><th>Working as designed?</th></tr>
+<tr><td>At Northbank (L2), owners and admins see "Stop is on. Open the incident to lift it" instead of the emergency stop button, and Finance payments say "Held by the emergency stop".</td><td>The Northbank demo has an emergency stop engaged on purpose: an agent key was exposed in a build log. Only one stop can be open at a time, and a stop holds the approvals of the agents it covers.</td><td class="Y">Yes</td></tr>
+<tr><td>A viewer or approver can open <code>/auditor</code> by typing the address.</td><td>It is not in their menu. If opened, it says "Built for external auditors", shows only their own organisation, and works only with their own permissions. They can change nothing they couldn't change before.</td><td class="Y">Yes</td></tr>
+</table>
+
+<h2>4. The one problem found — fixed on 29 October</h2>
+<p><strong>What was changed.</strong> The Finance agents (<code>invoice-bot</code>, <code>collections-agent</code>) and the Procurement agent (<code>vendor-onboarding</code>) are now owned by each organisation's admin:</p>
+<ul>
+  <li>Rahul Menon at Demo Traders;</li>
+  <li>Neha Bhatia at Northbank;</li>
+  <li>Arvind Swamy at Kaveri;</li>
+  <li>Anjali Kulkarni at Deccan.</li>
+</ul>
+<p>Before, they were owned by a Finance or Procurement approver. Demo data already saved in a browser is updated once, when it loads. The same-person rule is unchanged.</p>
+<p><strong>Re-tested in the running app.</strong> These counts are of the waiting approvals each approver opened in the test:</p>
+<table>
+<tr><th>Approver</th><th>Organisation</th><th>Could approve, before</th><th>Can approve, now</th><th>Still blocked, and why</th></tr>
+<tr><td>Revathi Natarajan (Finance)</td><td>Kaveri (L3)</td><td>1 of 12</td><td class="Y">7 of 12</td><td>Items for the Owners group only</td></tr>
+<tr><td>Prakash Deshpande (Finance)</td><td>Deccan (Sovereign)</td><td>1 of 11</td><td class="Y">6 of 12</td><td>Items for the Owners group only</td></tr>
+<tr><td>Gaurav Sethi (Finance)</td><td>Northbank (L2)</td><td>1</td><td class="Y">2</td><td>The rest are held by Northbank's engaged emergency stop (by design)</td></tr>
+<tr><td>Procurement approvers (Imran, Rafi, Farhan)</td><td>L2, L3, Sovereign</td><td>Blocked on their own group's items</td><td class="Y">Their Procurement items are open to them</td><td>Finance and Owners items (not their group)</td></tr>
+</table>
+<p class="small">No approver now sees "You own the agent that proposed this". The type-check and build pass, and the 78 scripted checks pass with 0 failures. The original finding is kept below for the record.</p>
+<div class="note">
+  <p><strong>At L2, L3 and Sovereign, Finance approvers cannot approve most of their own group's payments.</strong></p>
+  <ul>
+    <li><strong>What happens.</strong> In the demo data, the Finance approvers own their organisation's Finance agents:
+      <ul>
+        <li>Gaurav owns ap-agent and receivables-agent (Northbank);</li>
+        <li>Revathi owns supplier-payments and patient-billing (Kaveri);</li>
+        <li>Prakash owns ap-processor and loan-collections (Deccan).</li>
+      </ul>
+      From L2 the same-person rule forbids approving a call from an agent you own. So these approvers see "You own the agent that proposed this, so you cannot also approve it" on most Finance payments.</li>
+    <li><strong>Tested.</strong> Revathi could approve 1 of 12 waiting items, and Prakash 1 of 11. Gaurav could approve 1; at Northbank most of the rest are also held by the stop. At L1 the same overlap only raises a flag, so Venkat can still approve.</li>
+    <li><strong>Why it matters.</strong> The rule itself is right and was confirmed by you. But it makes the README's "decide held payments" journey hard to walk for those three demo approvers.</li>
+    <li><strong>Suggested fix (demo data only).</strong> Make an owner or admin the owner of those Finance agents, for example the organisation's admin, rather than the Finance approver. The rule stays unchanged, and the approvers can then decide their group's payments as the journey describes.</li>
+  </ul>
+</div>
+
+</body></html>

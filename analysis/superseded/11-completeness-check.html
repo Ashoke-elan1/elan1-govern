@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><title>Completeness check — after the build</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+  :root { --ink: #14161f; --muted: #5b5f6b; --line: #d9d6cf; --paper: #fbfaf7; --clay: #c2552d; --ok: #2f6b3d; --held: #8a5a00; --bad: #a3271f; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color: var(--ink); font-size: 9.6pt; line-height: 1.42; margin: 0; background: #fff; }
+  h1 { font-size: 20pt; margin: 0 0 4pt; letter-spacing: -0.3pt; }
+  h2 { font-size: 13pt; margin: 18pt 0 6pt; padding-top: 6pt; border-top: 2px solid var(--ink); page-break-after: avoid; }
+  h3 { font-size: 10.5pt; margin: 12pt 0 4pt; page-break-after: avoid; }
+  p { margin: 0 0 6pt; }
+  .kicker { color: var(--clay); font-weight: 700; letter-spacing: 1pt; font-size: 8pt; text-transform: uppercase; }
+  .lead { color: var(--muted); font-size: 10pt; }
+  table { width: 100%; border-collapse: collapse; margin: 4pt 0 8pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid var(--line); padding: 3pt 5pt; text-align: left; vertical-align: top; }
+  th { background: #f1efe9; font-size: 8.4pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+  td.s { white-space: nowrap; font-weight: 600; width: 52pt; }
+  td.l { white-space: nowrap; width: 46pt; }
+  td.n { width: 18pt; color: var(--muted); }
+  .B { color: var(--ok); } .P { color: var(--held); } .M { color: var(--bad); } .X { color: var(--bad); }
+  code { font-family: Consolas, monospace; font-size: 8.2pt; background: #f4f2ec; padding: 0 2pt; }
+  .grid { display: flex; gap: 6pt; margin: 6pt 0 10pt; }
+  .card { flex: 1; border: 1px solid var(--line); padding: 6pt 8pt; background: var(--paper); }
+  .card .n { font-size: 16pt; font-weight: 700; }
+  .card .l { font-size: 8pt; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4pt; }
+  .note { border-left: 3px solid var(--clay); padding: 4pt 8pt; background: var(--paper); margin: 6pt 0 10pt; }
+  ul { margin: 0 0 6pt 14pt; padding: 0; } li { margin: 0 0 2pt; }
+  .small { font-size: 8.4pt; color: var(--muted); }
+  .ev { font-size: 7.8pt; color: var(--muted); display: block; margin-top: 2pt; }
+</style></head><body>
+
+<p class="kicker">Elan1 Govern · front end · read-only check</p>
+<h1>Completeness check — after the build</h1>
+<p class="lead">28 October 2026, night. Nothing was built or changed for this check. It covers the console, the receipt verifier, the developer portal, the counterparty, regulator and partner portals, the status, legal, fingerprint, maintenance and offline pages, and every demo sign-in, at L1, L2, L3 and Sovereign. The public site is not included: it is already built.</p>
+
+<div class="note">
+  <strong>How it was checked.</strong>
+  <ul>
+    <li><strong>Code reviews.</strong> Five reviewers each read one area against the platform plan and the digests of the Information Memorandum, Technology Memorandum, Architecture Atlas and financial model. The five areas were: Work and access; Records; Agents and Sovereign; Assurance and billing; and the developer portal with the end-to-end journeys. Each finding comes with a file and line. I re-checked the most important findings in the code myself.</li>
+    <li><strong>Sign-in check.</strong> Every demo account was tried in the running app with its published password.</li>
+    <li><strong>Link checks.</strong>
+      <ul>
+        <li>Static: every link target in the code was matched against the routes, including tab values and anchors.</li>
+        <li>Live: every link was followed in the running app at each level. The live crawl was run earlier tonight on the same code.</li>
+      </ul>
+    </li>
+  </ul>
+  <strong>Not counted:</strong> the decisions in <code>08-conflict-decisions.md</code>, the defaults listed in §4 of <code>10-build-report</code>, items the memorandum marks LATER, the public site and backend internals.
+</div>
+
+<h2>1. Summary</h2>
+<div class="grid">
+  <div class="card"><div class="n B">~220</div><div class="l">Items verified as built</div></div>
+  <div class="card"><div class="n X">11</div><div class="l">Broken</div></div>
+  <div class="card"><div class="n M">3</div><div class="l">Missing</div></div>
+  <div class="card"><div class="n P">31</div><div class="l">Partial</div></div>
+  <div class="card"><div class="n B">0</div><div class="l">Dead links</div></div>
+</div>
+<p>All the screens exist, all the links resolve, and all the demo sign-ins work. The 45 findings are mostly details inside screens that already exist:</p>
+<ul>
+  <li>a level gate or a line of copy that disagrees with the 28 Oct decisions;</li>
+  <li>a role permission that differs from the Technology Memorandum's role table;</li>
+  <li>a flow that stops one step short.</li>
+</ul>
+<p>Five matter most:</p>
+<ul>
+  <li><strong>Emergency stop confirmation.</strong> Typing "stop" in lowercase leaves the button disabled, with no message.</li>
+  <li><strong>Packs at L1.</strong> Packs can't be installed from the Coverage page, and no agent can be admitted to a pack.</li>
+  <li><strong>Pack checks on live calls.</strong> An installed pack's checks never decide a live call.</li>
+  <li><strong>Sovereign egress.</strong> Approval links and single sign-on can still reach outside services, despite deny-all egress.</li>
+  <li><strong>Auditor writes.</strong> An auditor can write receipts to a client's chain.</li>
+</ul>
+
+<h3>By level</h3>
+<table>
+<tr><th>Level</th><th>Screens and journeys</th><th>Findings that apply</th><th>Specific to this level</th></tr>
+<tr><td>L1 Guarded</td><td>All built; 12 journey steps traced to a receipt</td><td>35</td><td>Pack install and admission blocked; "signed" copy; erasure not counted in coverage; Autonomy page shows A3; retention can drop below 8 years</td></tr>
+<tr><td>L2 Attested</td><td>All built; 9 journey steps traced</td><td>34</td><td>Export without the nightly integrity run; bundle member set; evidence-request export skips the export checks; auditor writes; Autonomy page shows A3</td></tr>
+<tr><td>L3 Proven</td><td>All built; 7 journey steps traced</td><td>33</td><td>An approver can revoke a graduation; key ceremony swaps keys with no overlap; regulator profile run not in the portal</td></tr>
+<tr><td>Sovereign</td><td>All built; 5 journey steps traced</td><td>35</td><td>Approval links offer WhatsApp and Slack; single sign-on can point at Okta, Entra or Google under deny-all egress</td></tr>
+</table>
+<p class="small">25 findings apply at every level, so the per-level counts overlap.</p>
+
+<h2>2. Sign-ins, links and build</h2>
+<table>
+<tr><th>Check</th><th>Result</th></tr>
+<tr><td>Demo sign-ins (30 accounts)</td><td class="B"><strong>30 of 30 behave as designed.</strong>
+  <ul>
+    <li>26 console accounts sign in: 22 with a two-step code, and the 4 viewers, one per level, without.</li>
+    <li>Deepak Jain (L2) is refused as suspended, which is the seeded case.</li>
+    <li>The 3 portal accounts (counterparty, regulator, partner) reach their portal.</li>
+    <li>Every account has a matching user, membership, organisation and level, and the README table matches.</li>
+  </ul></td></tr>
+<tr><td>Static links</td><td class="B"><strong>0 dead.</strong> This covers every link, navigation, nav entry, settings redirect, <code>?tab=</code> value, developer section and anchor.</td></tr>
+<tr><td>Live crawl</td><td class="B"><strong>0 problems.</strong> L1: 400 pages, 31,227 links. L2: 400 pages, 37,044 links. L3: 320 pages, 27,567 links. Sovereign: 320 pages, 30,403 links. The 17 pages outside the doors also load cleanly.</td></tr>
+<tr><td>Type-check and production build</td><td class="B">Both pass.</td></tr>
+<tr><td>Placeholders</td><td class="B">No "coming soon" text, toast-only buttons or buttons without a handler. The only "not yet available" text is for A4 and A5, as decided.</td></tr>
+</table>
+
+<h2>3. Findings</h2>
+<p class="small">Status key:</p>
+<ul class="small">
+  <li><strong class="X">Broken</strong>: the screen exists but does the wrong thing.</li>
+  <li><strong class="M">Missing</strong>: not built.</li>
+  <li><strong class="P">Partial</strong>: built but a step or detail short.</li>
+</ul>
+
+<h3>3.1 Work door and access</h3>
+<table>
+<tr><th>#</th><th>Level</th><th>Item</th><th>Status</th><th>What is wrong or missing</th></tr>
+<tr><td class="n">1</td><td class="l">All</td><td>Typing STOP or RESUME to confirm</td><td class="s X">Broken</td><td>The field shows capitals, but the check compares the exact text <code>STOP</code>. Typing "stop" shows STOP on screen, yet the button stays disabled with no message. RESUME works the same way.<span class="ev">shell/StopDialog.tsx:44,147; incidents/ResumeFlows.tsx:68,162,193,267</span></td></tr>
+<tr><td class="n">2</td><td class="l">Sov</td><td>Single-use approval links under deny-all egress</td><td class="s X">Broken</td><td>At Deccan, an approval still offers WhatsApp, and Slack where chat is allowed. The link is issued with no Sovereign check, and the link page says approvals arrive in WhatsApp and Slack.<span class="ev">approvals/ApprovalDetail.tsx:651; mock/platform.ts:1768–1790; ApproveByLinkPage.tsx:301</span></td></tr>
+<tr><td class="n">3</td><td class="l">All</td><td>Approvers acknowledge and resolve alerts</td><td class="s X">Broken</td><td>The Technology Memorandum role table gives this to approvers. The approver role lacks it, and the screen and the API both refuse.<span class="ev">lib/permissions.ts:40; alerts/AlertPage.tsx:27,116</span></td></tr>
+<tr><td class="n">4</td><td class="l">All</td><td>Approvers draft and submit assessments</td><td class="s X">Broken</td><td>Flow F12 says an approver or admin drafts from a template. Approvers cannot author assessments, so the buttons stay disabled.<span class="ev">lib/permissions.ts:40; assessments/backend.ts:90</span></td></tr>
+<tr><td class="n">5</td><td class="l">All</td><td>Approver notified by email or WhatsApp</td><td class="s P">Partial</td><td>A held call records only channel names. No link is sent automatically and nothing reaches the demo outbox. A link issued by hand writes no receipt.<span class="ev">mock/db.ts:1135–1156; mock/platform.ts:1768–1790</span></td></tr>
+<tr><td class="n">6</td><td class="l">All</td><td>Approve in chat</td><td class="s P">Partial</td><td>The documents have in-chat buttons. The build sends a link that needs sign-in, and the Roles page still says chat buttons don't ask for a password.<span class="ev">settings/sections/Roles.tsx:96</span></td></tr>
+<tr><td class="n">7</td><td class="l">All</td><td>Incident report as PDF</td><td class="s P">Partial</td><td>It produces printable HTML ("print to save a PDF") and doesn't use the in-browser PDF writer that packs and framework reports use.<span class="ev">incidents/IncidentPage.tsx:102</span></td></tr>
+<tr><td class="n">8</td><td class="l">All</td><td>Stop banner for a stop on selected agents</td><td class="s P">Partial</td><td>The banners on every page and on Today say "every agent call is refused" even when only some agents were stopped.<span class="ev">shell/AppShell.tsx:144; today/TodayPage.tsx:89</span></td></tr>
+<tr><td class="n">9</td><td class="l">All</td><td>Approval queue filters and rows</td><td class="s P">Partial</td><td>There is no "raised by" filter, and rows don't show whether an agent or a person proposed the call.<span class="ev">approvals/ApprovalsPage.tsx:57,313</span></td></tr>
+<tr><td class="n">10</td><td class="l">L3, Sov</td><td>Regulator runs the profile for their regime</td><td class="s P">Partial</td><td>The portal roles promise it, but no portal page runs a verifier profile.<span class="ev">settings/permissions.ts:76; features/portal/*</span></td></tr>
+</table>
+
+<h3>3.2 Records door</h3>
+<table>
+<tr><th>#</th><th>Level</th><th>Item</th><th>Status</th><th>What is wrong or missing</th></tr>
+<tr><td class="n">11</td><td class="l">L1</td><td>Install a pack from Coverage</td><td class="s X">Broken</td><td>At L1 the Coverage page shows "Upgrade to install" and a banner saying "packs start at L2". This contradicts the L1 dry-run decision. <code>/records/packs</code> does allow the install.<span class="ev">compliance/CompliancePage.tsx:179,224</span></td></tr>
+<tr><td class="n">12</td><td class="l">L1</td><td>Admit an agent to a pack</td><td class="s X">Broken</td><td>The pack admission assessment is refused below L2. A pack's rules apply only after admission, so a dry-run pack can never cover an agent at L1.<span class="ev">assessments/templates.ts:148; StartAssessmentDialog.tsx:93</span></td></tr>
+<tr><td class="n">13</td><td class="l">L1</td><td>Pack level wording</td><td class="s P">Partial</td><td>"Packs start at L2" is left on Records and Connectors, and the pack refusal class is tagged L2.<span class="ev">records/RecordsPage.tsx:330; connectors/ConnectorsPage.tsx:96; activity/shared.tsx:103</span></td></tr>
+<tr><td class="n">14</td><td class="l">All</td><td>Pack checks on live calls</td><td class="s P">Partial</td><td>The pack pages say the declaration "runs before every governed write". Only the consent check (G1) is registered, so an installed pack's checks and write-type limits never decide a call, and the "Regulatory pack" refusal class stays empty.<span class="ev">mock/db.ts:1105; mock/records.ts:585; packs/PacksPage.tsx:40</span></td></tr>
+<tr><td class="n">15</td><td class="l">L1, L2</td><td>Read-only counterparty register</td><td class="s P">Partial</td><td>The register is built on the Assurance page. But Records and the Assurance overview tile still say "starts at L3" and link to the upgrade.<span class="ev">records/RecordsPage.tsx:184,213; assurancedoor/AssuranceHomePage.tsx:230</span></td></tr>
+<tr><td class="n">16</td><td class="l">L1</td><td>Erasure in coverage and refusal analytics</td><td class="s P">Partial</td><td>Erasure works from L1, but at L1 its receipts don't count towards coverage, DPDP s.8(7) and s.12 show as gaps, and the erased-data refusal class is tagged L2.<span class="ev">compliance/evidence.ts:52,65; activity/shared.tsx:105</span></td></tr>
+<tr><td class="n">17</td><td class="l">L1</td><td>L1 copy says "signed"</td><td class="s X">Broken</td><td>The erasure page and plan, the data settings and two assessment answers say "signed" at every level, including L1.<span class="ev">erasure/ErasurePage.tsx:145,248,311; erasure/plan.tsx:52; settings/sections/Data.tsx:91; assessments/templates.ts:51,134</span></td></tr>
+<tr><td class="n">18</td><td class="l">All</td><td>Control set</td><td class="s P">Partial</td><td>Three documented controls are missing: separation of duties, retention set and recorded, and role changes. Retention is labelled "control EG-10", but EG-10 is the emergency stop. Retention changes count towards no control.<span class="ev">mock/governance.ts:76; compliance/evidence.ts:28; settings/sections/Data.tsx:67</span></td></tr>
+<tr><td class="n">19</td><td class="l">All</td><td>Next review after sign-off</td><td class="s P">Partial</td><td>The build uses 6 months for high-risk systems and 12 for everything else. The documents give 24 months for low and minimal risk.<span class="ev">assessments/templates.ts:259</span></td></tr>
+<tr><td class="n">20</td><td class="l">All</td><td>Rulebooks with the replay store off</td><td class="s X">Broken</td><td>With the replay store switched off, Test can't run, so no version can be reviewed or published. Suggestions can't be published either. The documents want a disabled state, not a dead end.<span class="ev">api/index.ts:311; rulebooks/TestTab.tsx:93; PublishTab.tsx:144</span></td></tr>
+</table>
+
+<h3>3.3 Agents door and Sovereign</h3>
+<table>
+<tr><th>#</th><th>Level</th><th>Item</th><th>Status</th><th>What is wrong or missing</th></tr>
+<tr><td class="n">21</td><td class="l">L1, L2</td><td>Autonomy page below L3</td><td class="s P">Partial</td><td>Below L3 the page shows a level read from the rulebook, so any allow rule appears as "A3 Act reversible" with no graduation. The agent's own Autonomy tab says "A3 by graduation", so the two screens disagree.<span class="ev">agentsdoor/AutonomyPage.tsx:105–107,147</span></td></tr>
+<tr><td class="n">22</td><td class="l">All</td><td>Control token and read-only operations token</td><td class="s M">Missing</td><td>The memorandum names three token classes. Only agent keys (<code>gk_</code> / <code>sk_sbx_</code>) exist, and Keys has nowhere to issue the other two.<span class="ev">analysis/01 digest lines 80, 458</span></td></tr>
+<tr><td class="n">23</td><td class="l">All</td><td>Production keys never self-serve</td><td class="s P">Partial</td><td>Issuing a <code>gk_</code> key goes through the review. Rotating one issues a new production secret at once, with no review.<span class="ev">agents/backend.ts:220,247</span></td></tr>
+<tr><td class="n">24</td><td class="l">L2, L3, Sov</td><td>Signing-key rotation with a published successor</td><td class="s P">Partial</td><td>"Publish a successor" keeps the 30-day overlap. The key ceremony (L3, Sovereign) and the approved KMS rotation (L2) swap keys at once with no overlap.<span class="ev">agentsdoor/KeysPage.tsx:168,323; mock/db.ts:1640</span></td></tr>
+<tr><td class="n">25</td><td class="l">Sov</td><td>Single sign-on under deny-all egress</td><td class="s X">Broken</td><td>An owner at Deccan can switch to Okta, Entra or Google, and "Test connection" reports the discovery document "answered 200". This should be blocked and logged like Slack, WhatsApp and webhooks.<span class="ev">settings/orgApi.ts:153–170; settings/sections/Sso.tsx:19</span></td></tr>
+<tr><td class="n">26</td><td class="l">L3, Sov</td><td>Who can revoke a graduation</td><td class="s P">Partial</td><td>Through "Report a breach", an approver can trigger an immediate revoke. The permission matrix allows owners and admins only.<span class="ev">agentsdoor/AutonomyBreaches.tsx:23,95; mock/l3autonomy.ts:103</span></td></tr>
+<tr><td class="n">27</td><td class="l">All</td><td>Agent keys guidance text</td><td class="s P">Partial</td><td>The help text says to replace a key by issuing a new one by hand. A Rotate action with a grace period now exists.<span class="ev">settings/sections/ApiKeys.tsx:93</span></td></tr>
+</table>
+
+<h3>3.4 Assurance door and billing</h3>
+<table>
+<tr><th>#</th><th>Level</th><th>Item</th><th>Status</th><th>What is wrong or missing</th></tr>
+<tr><td class="n">28</td><td class="l">All</td><td>The two invoice builders</td><td class="s P">Partial</td><td>The two builders agree on every rule from the 28 Oct decisions. The modelled builder still differs from the chain meter in seven ways:
+  <ul>
+    <li>it uses modelled volumes;</li>
+    <li>it bills Sovereign as a monthly floor;</li>
+    <li>it makes one combined pack line;</li>
+    <li>it can bill a re-ordered profile twice;</li>
+    <li>it has no discount, held, credit, pilot or sandbox lines;</li>
+    <li>it uses UTC month edges;</li>
+    <li>its months are fixed to April–October 2026, so it stops on 1 November.</li>
+  </ul>
+  <code>/billing</code> uses the chain meter. But <code>/work/not-done</code> takes its "remaining this year" figure from the modelled builder, so it disagrees with <code>/billing</code>.<span class="ev">mock/db.ts:573–655; billing/chainMeter.ts; work/NotDonePage.tsx:240</span></td></tr>
+<tr><td class="n">29</td><td class="l">L2+</td><td>Evidence-request export and the first close-out bundle</td><td class="s P">Partial</td><td>Both call the export directly and skip the export checks: size split, chain-break check, and the residency, consent and declarations checks. They also don't verify the bundle first, and they don't show the ₹2,500 charge before the click.<span class="ev">mock/keys.ts:794; mock/upgrade.ts:634; api/index.ts:392</span></td></tr>
+<tr><td class="n">30</td><td class="l">L2+</td><td>Export needs a completed nightly integrity run</td><td class="s M">Missing</td><td>Nothing checks for an integrity run over the range; "Not checked" appears only as a chip.<span class="ev">evidence/ExportGuards.tsx:33</span></td></tr>
+<tr><td class="n">31</td><td class="l">L2+</td><td>Evidence bundle members</td><td class="s P">Partial</td><td>The specification lists a lexicon member, which the bundle doesn't have. Member names also differ from the specification (<code>chain.json</code>, <code>anchors/</code>, <code>declarations/</code>).<span class="ev">lib/verify6.ts:54</span></td></tr>
+<tr><td class="n">32</td><td class="l">All</td><td>The nine-section report</td><td class="s P">Partial</td><td>The console and the public verifier name different nine sections. Only the public verifier's set matches the specification: Verdict, Claim, Scope, Integrity, Clauses, First failure, Notes, Limits, Reproduction.<span class="ev">assurancedoor/AssuranceHomePage.tsx:257; verify/ResultView.tsx:99</span></td></tr>
+<tr><td class="n">33</td><td class="l">L2+</td><td>Auditor writing to the client's chain</td><td class="s X">Broken</td><td>An auditor can issue a verifier profile, record the second reader and run fixtures. Each writes a receipt on the client's chain, which contradicts the read-only auditor role and the banner "You cannot change the client's records".<span class="ev">mock/packsFactory.ts:622,663,676; profiles/LifecyclePanel.tsx:39,92</span></td></tr>
+<tr><td class="n">34</td><td class="l">All</td><td>Requests to Elan1: dispute, discount, reopen</td><td class="s P">Partial</td><td>A disputed line can only be withdrawn. No settlement can be recorded from the console; only the seed settles one. "Ask for a discount" and "Ask to reopen" stay with Elan1 for ever.<span class="ev">billing/InvoiceDrawer.tsx:168; mock/billing.ts:281,633</span></td></tr>
+<tr><td class="n">35</td><td class="l">All</td><td>Who can open a dispute</td><td class="s P">Partial</td><td>"Owners only" is enforced on screen, not in the API.<span class="ev">billing/InvoiceDrawer.tsx:64,240</span></td></tr>
+<tr><td class="n">36</td><td class="l">L2+</td><td>Enforcement mode per write type</td><td class="s P">Partial</td><td>Shown only as a 7-day total and an agent count, not per write type.<span class="ev">assurancedoor/AssuranceHomePage.tsx:144</span></td></tr>
+<tr><td class="n">37</td><td class="l">L1</td><td>Retention below 8 years</td><td class="s P">Partial</td><td>Without a write-once lock, 3 or 5 years can be set. The Atlas keeps proof for at least 8 years (MCA).<span class="ev">settings/sections/Data.tsx:93; settings/orgApi.ts:518</span></td></tr>
+<tr><td class="n">38</td><td class="l">L1, L2</td><td>Exit-code tables on Proof</td><td class="s P">Partial</td><td>The L1 table leaves out INCOMPLETE. The L2 table leaves out PASS_PAYLOAD_UNBOUND and PASS_L1_INTERNAL.<span class="ev">evidence/EvidencePage.tsx:319,374</span></td></tr>
+</table>
+
+<h3>3.5 Developer portal, shell and pages outside the doors</h3>
+<table>
+<tr><th>#</th><th>Level</th><th>Item</th><th>Status</th><th>What is wrong or missing</th></tr>
+<tr><td class="n">39</td><td class="l">All</td><td>Ask Govern on an assessment or incident</td><td class="s X">Broken</td><td>The drawer opens with a specific title but shows only the five general questions. The context passed in is ignored.<span class="ev">shell/AskPanel.tsx:98; assessments/AssessmentPage.tsx:145; incidents/IncidentPage.tsx:159</span></td></tr>
+<tr><td class="n">40</td><td class="l">All</td><td>Ask Govern explains a rule</td><td class="s M">Missing</td><td>The plan says Ask Govern explains a receipt, a refusal or a rule. Receipts and refusals work; rules have no entry point and no explainer.<span class="ev">store/ui.ts:7</span></td></tr>
+<tr><td class="n">41</td><td class="l">All</td><td>Developer docs: system refusal ids</td><td class="s P">Partial</td><td>The Errors page leaves out <code>tool-disabled</code> and <code>sandbox-limit</code>, which the code produces. It also says a disabled tool refuses with <code>default</code>.<span class="ev">developers/sections/More.tsx:148; Start.tsx:10,141</span></td></tr>
+<tr><td class="n">42</td><td class="l">L1</td><td>Developer docs: auditor pack members</td><td class="s P">Partial</td><td>The docs list 4 members. The pack has 7: it adds the PDF summary, the compliance map and the README.<span class="ev">developers/sections/Evidence.tsx:170</span></td></tr>
+<tr><td class="n">43</td><td class="l">All</td><td>Refusal register compared with the memorandum</td><td class="s P">Partial</td><td><code>GATE.COUNTERPARTY_UNKNOWN</code> is a core check in the memorandum but L3-only in the register. Three codes the memorandum names are absent: <code>POLICY.DECLARATION_INVALID</code>, <code>VERSION_NOT_SEQUENTIAL</code>, <code>NOT_CERTIFIED</code>.<span class="ev">mock/devpathData.ts:61–75,113</span></td></tr>
+<tr><td class="n">44</td><td class="l">All</td><td>Cookie policy table</td><td class="s P">Partial</td><td>One entry describes the wrong thing: <code>eg:dr-count</code> is the defect-report counter, not drill requests. The verifier-release key isn't listed.<span class="ev">legal/LegalPage.tsx:138</span></td></tr>
+<tr><td class="n">45</td><td class="l">All</td><td>404 for signed-out visitors</td><td class="s P">Partial</td><td>The catch-all route sits inside the sign-in guard. A mistyped public address sends a signed-out visitor to sign-in instead of the 404 page.<span class="ev">App.tsx:136,207</span></td></tr>
+</table>
+
+<h2>4. Known and accepted</h2>
+<ul>
+  <li><strong>The pilot in the demo organisations.</strong> The pilot invoice line and the Today tile appear only in organisations created by sign-up. This is already noted in <code>10-build-report</code>.</li>
+  <li><strong>Seeded demo events.</strong> They carry the time the seed ran, not a back-dated time, so the chain's timestamps keep running forward.</li>
+  <li><strong>Single-authority batches.</strong> The verifier handles a batch with only one timestamp authority ("degraded") in code. But every seeded batch has two, so it can't be shown in the demo.</li>
+</ul>
+
+<h2>5. What this check could not cover</h2>
+<ul>
+  <li><strong>Reviews.</strong> The five code reviews read the code; they did not click through the app. The live crawl covers rendering, links and script errors, but not every button's result.</li>
+  <li><strong>Single-use links.</strong> Single-use approval and portal links were not opened, because opening one uses it up or records a view.</li>
+  <li><strong>Devices.</strong> Phone layouts at 360 px and installing the app on a real phone were not tested.</li>
+  <li><strong>Read in part.</strong> Some large screens were checked by targeted search rather than read line by line: the counterparty drawers, disclosure, bundles and the later part of the close-out page.</li>
+</ul>
+
+</body></html>

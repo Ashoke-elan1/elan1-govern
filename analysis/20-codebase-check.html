@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><title>Is the final code in the codebase?</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+  :root { --ink: #14161f; --muted: #5b5f6b; --line: #d9d6cf; --paper: #fbfaf7; --clay: #c2552d; --ok: #2f6b3d; --held: #8a5a00; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color: var(--ink); font-size: 9.6pt; line-height: 1.42; margin: 0; background: #fff; }
+  h1 { font-size: 20pt; margin: 0 0 4pt; letter-spacing: -0.3pt; }
+  h2 { font-size: 13pt; margin: 18pt 0 6pt; padding-top: 6pt; border-top: 2px solid var(--ink); page-break-after: avoid; }
+  p { margin: 0 0 6pt; }
+  .kicker { color: var(--clay); font-weight: 700; letter-spacing: 1pt; font-size: 8pt; text-transform: uppercase; }
+  .lead { color: var(--muted); font-size: 10pt; }
+  table { width: 100%; border-collapse: collapse; margin: 4pt 0 8pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid var(--line); padding: 3pt 5pt; text-align: left; vertical-align: top; }
+  th { background: #f1efe9; font-size: 8.4pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+  td.n { width: 18pt; color: var(--muted); }
+  .B { color: var(--ok); font-weight: 600; } .P { color: var(--held); font-weight: 600; }
+  code { font-family: Consolas, monospace; font-size: 8.2pt; background: #f4f2ec; padding: 0 2pt; }
+  .answer { border: 2px solid var(--ink); padding: 8pt 10pt; margin: 8pt 0 10pt; background: var(--paper); font-size: 10.2pt; }
+  .note { border-left: 3px solid var(--clay); padding: 4pt 8pt; background: var(--paper); margin: 6pt 0 10pt; }
+  ul { margin: 0 0 6pt 14pt; padding: 0; } li { margin: 0 0 2pt; }
+  .small { font-size: 8.4pt; color: var(--muted); }
+  .cols { columns: 2; column-gap: 10pt; }
+</style></head><body>
+
+<p class="kicker">Elan1 Govern · front end · codebase check</p>
+<h1>Is the final code in the codebase folder?</h1>
+<p class="lead">28 October 2026. This check was read-only; nothing in the code or the reports was changed.</p>
+
+<div class="answer"><strong>Answer: yes.</strong> The final, fixed code is in the codebase folder <code>E:\elan1 govern Final\elan1-govern-web</code>. It is the only copy of this platform on the machine, and every fix is in it.
+  <ul>
+    <li><strong>Every fix is present.</strong> All 42 items of the second check (report 13) are fixed in the code on disk, and so are the fixes from every other report checked.</li>
+    <li><strong>Where "42 issues" comes from.</strong> Report 13 (<code>analysis\13-completeness-check</code>) lists exactly 42 issues, and it is still in the <code>analysis</code> folder next to the code. It is a snapshot written <em>before</em> those issues were fixed, so it still describes them as open. An audit that reads the project folder picks up that old report and repeats its 42 issues.</li>
+  </ul>
+</div>
+
+<h2>1. Where the code is, and that it is current</h2>
+<table>
+<tr><th>Check</th><th>Result</th></tr>
+<tr><td>Codebase location</td><td><code>E:\elan1 govern Final\elan1-govern-web</code> (package <code>elan1-govern-web</code>)</td></tr>
+<tr><td>Other copies on this machine</td><td class="B">None. I searched drive E: and the user folder for any folder or <code>package.json</code> named after this platform, and found only this one. The zip files on the drive are older September projects, not this platform.</td></tr>
+<tr><td>Version control</td><td>Not a git repository, so there is no older committed version that could differ. The files on disk are the code.</td></tr>
+<tr><td>Code files</td><td>368 TypeScript files. 298 of them were changed on 28 October with the fixes; the last change was at 19:07.</td></tr>
+<tr><td>Built app (<code>dist</code>)</td><td class="B">Built at 19:13, after the last code change, so it contains every fix.</td></tr>
+<tr><td>Tests on this code</td><td class="B">Type-check and production build pass. 78 scripted checks pass with 0 failures, including the 64 of 64 Seal v6 vectors. All 30 demo sign-ins behave as designed. A link crawl at all four levels found 0 problems (report 19).</td></tr>
+</table>
+
+<h2>2. The 42 items of report 13, checked in the code today</h2>
+<p>Each item was checked for its fix in the source file where it lives.</p>
+<p><strong>Result: 42 of 42 fixed.</strong></p>
+<div class="cols">
+<table>
+<tr><th>#</th><th>Item</th><th>Status</th></tr>
+<tr><td class="n">1</td><td>Elan1 maintenance refused at Sovereign</td><td class="B">Fixed</td></tr>
+<tr><td class="n">2</td><td>Chat buttons only for linked people</td><td class="B">Fixed</td></tr>
+<tr><td class="n">3</td><td>L1 wording: "published rulebook"</td><td class="B">Fixed</td></tr>
+<tr><td class="n">4</td><td>Same-person "Send to" writes outbox and receipt</td><td class="B">Fixed</td></tr>
+<tr><td class="n">5</td><td>Escalation and re-route notify the new group</td><td class="B">Fixed</td></tr>
+<tr><td class="n">6</td><td>Widen the emergency stop</td><td class="B">Fixed</td></tr>
+<tr><td class="n">7</td><td>Phone links at Sovereign</td><td class="B">Fixed</td></tr>
+<tr><td class="n">8</td><td>Pack holds a call instead of refusing</td><td class="B">Fixed</td></tr>
+<tr><td class="n">9</td><td>Pack checks use configured values</td><td class="B">Fixed</td></tr>
+<tr><td class="n">10</td><td>Decision trace uses the receipt's pack result</td><td class="B">Fixed</td></tr>
+<tr><td class="n">11</td><td>Pack rules at L1 as a dry run</td><td class="B">Fixed</td></tr>
+<tr><td class="n">12</td><td>Agent page: "Dry run at L1"</td><td class="B">Fixed</td></tr>
+<tr><td class="n">13</td><td>L1 pack compliance map</td><td class="B">Fixed</td></tr>
+<tr><td class="n">14</td><td>Coverage on Today matches /compliance</td><td class="B">Fixed</td></tr>
+<tr><td class="n">15</td><td>Receipt "Controls" use the shared helper</td><td class="B">Fixed</td></tr>
+<tr><td class="n">16</td><td>EG-18 note follows the level</td><td class="B">Fixed</td></tr>
+<tr><td class="n">17</td><td>"Erased data" class removed</td><td class="B">Fixed</td></tr>
+<tr><td class="n">18</td><td>Connectors refused at Sovereign</td><td class="B">Fixed</td></tr>
+<tr><td class="n">19</td><td>Approval checks: retention and consent</td><td class="B">Fixed</td></tr>
+<tr><td class="n">20</td><td>Proof › Keys after an approved rotation</td><td class="B">Fixed</td></tr>
+<tr><td class="n">21</td><td>Seals below L3 carry A0, not A3</td><td class="B">Fixed</td></tr>
+</table>
+<table>
+<tr><th>#</th><th>Item</th><th>Status</th></tr>
+<tr><td class="n">22</td><td>SAML refused at Sovereign</td><td class="B">Fixed</td></tr>
+<tr><td class="n">23</td><td>L2 key switch needs a second person</td><td class="B">Fixed</td></tr>
+<tr><td class="n">24</td><td>Rotation wording: successor and overlap</td><td class="B">Fixed</td></tr>
+<tr><td class="n">25</td><td>L1 records described as sealed</td><td class="B">Fixed</td></tr>
+<tr><td class="n">26</td><td>Sandbox key help: grace period</td><td class="B">Fixed</td></tr>
+<tr><td class="n">27</td><td>"Everything" export range pinned</td><td class="B">Fixed</td></tr>
+<tr><td class="n">28</td><td>Seats billed pro rata; past months kept</td><td class="B">Fixed</td></tr>
+<tr><td class="n">29</td><td>Report section "Clause results"</td><td class="B">Fixed</td></tr>
+<tr><td class="n">30</td><td>Exit codes 3 and 5 listed in the pack</td><td class="B">Fixed</td></tr>
+<tr><td class="n">31</td><td>Auditor collects the exact exported files</td><td class="B">Fixed</td></tr>
+<tr><td class="n">32</td><td>"Anchor now" checked in the API</td><td class="B">Fixed</td></tr>
+<tr><td class="n">33</td><td>Auditor writes limited to the J9 steps</td><td class="B">Fixed</td></tr>
+<tr><td class="n">34</td><td>Legal page: WhatsApp buttons</td><td class="B">Fixed</td></tr>
+<tr><td class="n">35</td><td>Token documentation</td><td class="B">Fixed</td></tr>
+<tr><td class="n">36</td><td>Errors page lists all guard ids</td><td class="B">Fixed</td></tr>
+<tr><td class="n">37</td><td>Define-code pages show a refused publish</td><td class="B">Fixed</td></tr>
+<tr><td class="n">38</td><td>Bundle table lists <code>lexicon.json</code></td><td class="B">Fixed</td></tr>
+<tr><td class="n">39</td><td>Ask Govern: no chat at Sovereign</td><td class="B">Fixed</td></tr>
+<tr><td class="n">40</td><td>Maintenance page at Sovereign</td><td class="B">Fixed</td></tr>
+<tr><td class="n">41</td><td>Outside-group attempt writes a receipt</td><td class="B">Fixed</td></tr>
+<tr><td class="n">42</td><td>README lists every route</td><td class="B">Fixed</td></tr>
+</table>
+</div>
+<p class="small">Fixes from the other reports were spot-checked the same way: 25 of 25 present. That covers report 11 (the first 45 items), report 16 (the remaining changes), the key-switch fix (report 17) and the two items from report 18. Leftovers that should be gone are gone: no "Erased data" class, no <code>counterparty-unverified</code> id, and no case-sensitive STOP check.</p>
+
+<h2>3. Why an audit still says "42 issues"</h2>
+<div class="note">
+  <ul>
+    <li><strong>The old reports are still in the folder.</strong> <code>E:\elan1 govern Final\analysis</code> keeps every report from the day, 00 to 19. Reports 09, 11, 13, 15 and 16 are snapshots that list problems as they stood <em>at the time</em>; they were never edited after the fixes. Report 13 has exactly 42 findings.</li>
+    <li><strong>An audit reads those snapshots.</strong> An audit pointed at <code>E:\elan1 govern Final</code> reads them as current and reports their problems again. The code, as checked above, already has every one fixed.</li>
+    <li><strong>An open-ended audit also finds new items.</strong> An audit that asks "is anything missing anywhere?" will usually find <em>new</em> items each time, not the old ones. If your audit lists items that are not in report 13, send me its list and I will check each one against the code.</li>
+  </ul>
+</div>
+
+<h2>4. How to stop the old reports being reported again</h2>
+<p class="B">Done on 28 October: the superseded snapshots (06, 07, 09, 11, 13, 15 and 16) are now in <code>analysis\superseded</code>. That folder's <code>README.md</code> says they are historical and that every item in them is fixed. The README's links now point to the new location. Nothing was deleted.</p>
+<ul>
+  <li><strong>Move the old reports out of the way.</strong> Put the superseded snapshots (06, 07, 09, 11, 13, 15, 16) in a subfolder, <code>analysis\superseded</code>, with a short note saying "historical, all items fixed; current status in 19-final-confirmation". Keep 19 and this report at the top level. Nothing is deleted.</li>
+  <li><strong>Or point the audit at the code only.</strong> Run it on <code>E:\elan1 govern Final\elan1-govern-web</code> rather than the whole <code>E:\elan1 govern Final</code> folder.</li>
+</ul>
+
+</body></html>

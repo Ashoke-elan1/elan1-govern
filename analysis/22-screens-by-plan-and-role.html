@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><title>Screens by plan and role</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+  :root { --ink: #14161f; --muted: #5b5f6b; --line: #d9d6cf; --paper: #fbfaf7; --clay: #c2552d; --ok: #2f6b3d; --bad: #a3271f; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color: var(--ink); font-size: 9.6pt; line-height: 1.42; margin: 0; background: #fff; }
+  h1 { font-size: 20pt; margin: 0 0 4pt; letter-spacing: -0.3pt; }
+  h2 { font-size: 13pt; margin: 18pt 0 6pt; padding-top: 6pt; border-top: 2px solid var(--ink); page-break-after: avoid; }
+  p { margin: 0 0 6pt; }
+  .kicker { color: var(--clay); font-weight: 700; letter-spacing: 1pt; font-size: 8pt; text-transform: uppercase; }
+  .lead { color: var(--muted); font-size: 10pt; }
+  table { width: 100%; border-collapse: collapse; margin: 4pt 0 8pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid var(--line); padding: 3pt 5pt; text-align: left; vertical-align: top; }
+  th { background: #f1efe9; font-size: 8.4pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+  td.c { text-align: center; }
+  .Y { color: var(--ok); font-weight: 600; } .N { color: var(--bad); }
+  code { font-family: Consolas, monospace; font-size: 8.2pt; background: #f4f2ec; padding: 0 2pt; }
+  .answer { border: 2px solid var(--ink); padding: 8pt 10pt; margin: 8pt 0 10pt; background: var(--paper); font-size: 10.2pt; }
+  ul { margin: 0 0 6pt 14pt; padding: 0; } li { margin: 0 0 2pt; }
+  .small { font-size: 8.4pt; color: var(--muted); }
+</style></head><body>
+
+<p class="kicker">Elan1 Govern · front end · change report</p>
+<h1>Screens now change by plan and by role</h1>
+<p class="lead">29 October 2026. Built with a multi-agent workflow: a shared core, four page areas in parallel, an independent check of each area with every gap fixed, and a final type-check, build and test run. Then verified by signing in to the running app. The public site was not touched, and pricing is unchanged.</p>
+
+<div class="answer"><strong>What is different now</strong>
+  <ul>
+    <li><strong>The menu follows the plan.</strong> Screens the organisation's plan doesn't include are no longer in the menu: no tags, no previews. An upgrade makes them appear at once. The plan chip (for example "Guarded · L1") shows in the top bar on every page.</li>
+    <li><strong>The menu follows the role.</strong> An approver sees 14–15 screens, a viewer 25–29 and an auditor 22–26, against 37–41 for an owner. Typing the address of a hidden screen shows "Your role cannot open this".</li>
+    <li><strong>Pages follow both.</strong>
+      <ul>
+        <li>Buttons a role can't use are now hidden, not greyed out.</li>
+        <li>Sections of higher plans are removed.</li>
+        <li>Links to screens the person can't open become plain text.</li>
+        <li>Upgrade prompts appear only to the owner, as one short "Change plan" line.</li>
+      </ul>
+    </li>
+    <li><strong>Today follows the role.</strong> An approver's Today starts with "Waiting for you": the approvals for their groups. The auditor lands on the Auditor workspace.</li>
+  </ul>
+</div>
+
+<h2>1. Menu size by plan and role (tested in the app)</h2>
+<table>
+<tr><th>Plan</th><th>Owner</th><th>Admin</th><th>Approver</th><th>Viewer</th><th>Auditor</th></tr>
+<tr><td>L1 Guarded</td><td class="c">37</td><td class="c">37</td><td class="c">14</td><td class="c">25</td><td class="c">22</td></tr>
+<tr><td>L2 Attested (+ Timestamps, Verifier profiles)</td><td class="c">39</td><td class="c">39</td><td class="c">14</td><td class="c">27</td><td class="c">24</td></tr>
+<tr><td>L3 Proven (+ Autonomy, Disclosure)</td><td class="c">41</td><td class="c">41</td><td class="c">15</td><td class="c">29</td><td class="c">26</td></tr>
+<tr><td>Sovereign</td><td class="c">41</td><td class="c">41</td><td class="c">15</td><td class="c">29</td><td class="c">26</td></tr>
+</table>
+<p class="small">Counts are menu items, not counting section headings and the footer. Higher plans add screens; they never take any away.</p>
+
+<h2>2. What each role sees</h2>
+<table>
+<tr><th>Role</th><th>Menu (L1 example)</th><th>Not in their menu</th></tr>
+<tr><td><strong>Owner</strong></td><td>Everything in the plan, including Meter, People and roles, Keys, Organisation, Deployment and Assurance levels</td><td>Higher-plan screens only</td></tr>
+<tr><td><strong>Admin</strong></td><td>The same menu as the owner</td><td>Billing actions (order, cancel, change plan) are hidden on the Meter page</td></tr>
+<tr><td><strong>Approver</strong></td><td>Today, Approvals, Reviews, Not done, Alerts, Incidents · Records, Activity, Rulebooks, AI inventory, Assessments · Agents, Agent map (+ Autonomy at L3) · Refusals</td><td>Approvers, Channels, Connectors, packs, erasure, consent, declarations, Keys, People, Organisation, Deployment, Path to production, Notices, and every Assurance screen except Refusals</td></tr>
+<tr><td><strong>Viewer</strong></td><td>Read-only: Work queues, Records, Agents, Agent map, Overview, Proof, Chain, Refusals, Coverage, Counterparties, Assurance levels</td><td>Approvers, Channels, Keys, People, Organisation, Deployment, Path to production, Notices, Meter, Exports, Evidence requests</td></tr>
+<tr><td><strong>Auditor</strong></td><td>Lands on the Auditor workspace · Records door · Agents, Agent map, Keys (read-only) · the Assurance door without the Meter</td><td>The whole Work door, People, Organisation, Deployment, Path to production, Notices, Meter</td></tr>
+</table>
+
+<h2>3. Checks</h2>
+<table>
+<tr><th>Check</th><th>Result</th></tr>
+<tr><td>In the running app: 8 sign-ins (L1 owner, admin, approver, viewer, auditor; L2, L3 and Sovereign owners)</td><td class="Y">
+  <ul>
+    <li><strong>Menus:</strong> they match the table above.</li>
+    <li><strong>Keys:</strong> typing the address of the Keys page as an approver or viewer gives "Your role cannot open this".</li>
+    <li><strong>Disclosure:</strong> for an L1 admin, viewer or auditor it gives "Not part of this organisation's plan"; L1 owners see the preview.</li>
+    <li><strong>"Add agent":</strong> hidden for the approver, viewer and auditor.</li>
+  </ul></td></tr>
+<tr><td>Independent check of each page area</td><td class="Y">33 gaps found across the four areas, all fixed.</td></tr>
+<tr><td>Type-check, production build, 78 scripted checks, link check (726 link targets)</td><td class="Y">All pass; 0 dead links.</td></tr>
+</table>
+
+<h2>4. How to see it yourself</h2>
+<ul>
+  <li><strong>Open the app.</strong> In the browser panel, choose the tab whose address starts with <code>localhost:5190</code>, not a PDF tab. Reload it if it was already open.</li>
+  <li><strong>Switch person.</strong> Open the account menu at the top right and choose Sign out. On the sign-in page, pick a demo account from the <strong>Demo accounts by assurance level</strong> list; one click fills it in. Try:
+    <ul>
+      <li>Venkat Iyer (approver, L1);</li>
+      <li>Meera Shah (viewer, L1);</li>
+      <li>Kavita Desai (auditor);</li>
+      <li>Dr Lakshmi Pillai (owner, L3).</li>
+    </ul></li>
+  <li><strong>Compare.</strong> Look at the left-hand menu and the plan chip in the top bar. They change with each person and each organisation.</li>
+</ul>
+
+</body></html>

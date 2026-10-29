@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Elan1 Govern front end — completeness check, 28 October 2026 (evening)</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+  :root { --ink: #14161f; --muted: #5b5f6b; --line: #d9d6cf; --paper: #fbfaf7; --clay: #c2552d; --ok: #2f6b3d; --held: #8a5a00; --bad: #a3271f; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color: var(--ink); font-size: 9.6pt; line-height: 1.42; margin: 0; background: #fff; }
+  h1 { font-size: 20pt; margin: 0 0 4pt; letter-spacing: -0.3pt; }
+  h2 { font-size: 13pt; margin: 18pt 0 6pt; padding-top: 6pt; border-top: 2px solid var(--ink); page-break-after: avoid; }
+  h3 { font-size: 10.5pt; margin: 12pt 0 4pt; page-break-after: avoid; }
+  p { margin: 0 0 6pt; }
+  .kicker { color: var(--clay); font-weight: 700; letter-spacing: 1pt; font-size: 8pt; text-transform: uppercase; }
+  .lead { color: var(--muted); font-size: 10pt; }
+  table { width: 100%; border-collapse: collapse; margin: 4pt 0 8pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid var(--line); padding: 3pt 5pt; text-align: left; vertical-align: top; }
+  th { background: #f1efe9; font-size: 8.4pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+  td.s { white-space: nowrap; font-weight: 600; width: 58pt; }
+  .B { color: var(--ok); } .P { color: var(--held); } .M { color: var(--bad); } .W { color: var(--bad); }
+  code { font-family: Consolas, monospace; font-size: 8.4pt; background: #f4f2ec; padding: 0 2pt; }
+  .grid { display: flex; gap: 6pt; margin: 6pt 0 10pt; }
+  .card { flex: 1; border: 1px solid var(--line); padding: 6pt 8pt; background: var(--paper); }
+  .card .n { font-size: 16pt; font-weight: 700; }
+  .card .l { font-size: 8pt; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4pt; }
+  .note { border-left: 3px solid var(--clay); padding: 4pt 8pt; background: var(--paper); margin: 6pt 0 10pt; }
+  ul { margin: 0 0 6pt 14pt; padding: 0; } li { margin: 0 0 2pt; }
+  .new { font-size: 7.5pt; font-weight: 700; color: var(--clay); }
+  .small { font-size: 8.4pt; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<p class="kicker">Elan1 Govern · front end · read-only check</p>
+<h1>Completeness check — L1, L2, L3 and Sovereign</h1>
+<p class="lead">28 October 2026, evening. Nothing was built or changed for this check. It covers the console, the receipt verifier, the developer portal, the counterparty, regulator and partner portals and the status page. The public site is not included: it is already built.</p>
+
+<div class="note">
+  <strong>How it was checked.</strong>
+  <ul>
+    <li><strong>Code reviews.</strong> Five reviewers each read one area of the code against the approved plan and the digests of the Information Memorandum, Technology Memorandum, Architecture Atlas and financial model. Each re-checked the gaps listed in the morning check (<code>07-completeness-check.md</code>).</li>
+    <li><strong>Static link check.</strong> Every link target in the code was matched against the routes.</li>
+    <li><strong>Live crawl.</strong> Every link was followed in the running app, signed in as each level's owner.</li>
+  </ul>
+  <strong>Not counted:</strong>
+  <ul>
+    <li>The refusal price. 40% of the per-action rate is the rule. It is deliberate and is not stated in the documents.</li>
+    <li>The decisions in <code>08-conflict-decisions.md</code>. They are built, and are not reported as conflicts.</li>
+    <li>Items the memorandum marks LATER.</li>
+    <li>The partner programme, backend internals and separate products.</li>
+  </ul>
+</div>
+
+<h2>1. Summary</h2>
+<div class="grid">
+  <div class="card"><div class="n">68</div><div class="l">Routes in the app</div></div>
+  <div class="card"><div class="n">1,151</div><div class="l">Pages loaded in the live crawl</div></div>
+  <div class="card"><div class="n">0</div><div class="l">Broken links</div></div>
+  <div class="card"><div class="n">0</div><div class="l">Buttons with no action</div></div>
+  <div class="card"><div class="n">25 / 28</div><div class="l">Role-and-level sign-ins present (3 viewers missing)</div></div>
+</div>
+<p>Every screen in the approved plan exists and opens at every level. No link is broken, no button is dead, and no panel is a placeholder.</p>
+<p>What remains is depth. Many flows in the memoranda exist as a simpler version, or not yet:</p>
+<ul>
+  <li>key failure handling;</li>
+  <li>the L1→L2 close-out;</li>
+  <li>pack certification;</li>
+  <li>the developer path to production;</li>
+  <li>several billing rules;</li>
+  <li>some security controls, such as a second person for the emergency stop and break-glass.</li>
+</ul>
+<p>Four decisions from this morning are not finished everywhere (§7).</p>
+
+<table>
+  <tr><th>Level</th><th>Walkable end to end?</th><th>Main things missing or partial</th></tr>
+  <tr><td><strong>L1 Guarded</strong><br>Demo Traders</td><td class="B">Yes</td><td>
+    <ul>
+      <li>Decide screen: no before→after diff, gate results, payload digest or blast radius.</li>
+      <li>No reversal, no "Approve and draft a rule", no fail-closed "Approvals unavailable" page.</li>
+      <li>Auditor pack is JSON only (no PDF, compliance map or README) and its manifest is unsigned.</li>
+      <li>Erasure is still gated at L2 on the record page.</li>
+      <li>No pilot tier or tracker.</li>
+      <li>Approve-by-link sign-in skips the two-step code.</li>
+    </ul></td></tr>
+  <tr><td><strong>L2 Attested</strong><br>Northbank</td><td class="B">Yes</td><td>
+    <ul>
+      <li>Key failure: no compromise flow, "signing off" state, KMS reconciliation or DNS/printable fingerprint.</li>
+      <li>Upgrade close-out: no key-bind step, first-ten check, closing record, rollback or customer notices.</li>
+      <li>Export guards and the nightly integrity run are missing.</li>
+      <li>Pack factory: no certification, T1–T8 or P1–P12, and gates are hard-coded "Met".</li>
+      <li>The two invoice builders disagree on profile and bundle lines.</li>
+      <li>No viewer sign-in.</li>
+    </ul></td></tr>
+  <tr><td><strong>L3 Proven</strong><br>Kaveri</td><td class="B">Yes</td><td>
+    <ul>
+      <li>Graduation: no automatic revocation, cooldown or precedent score. Sampled calls are not in the Work queues.</li>
+      <li>Counterparties: no replay detection, dual-control accept or first-issue warning.</li>
+      <li>Disclosure: no saved profiles, no range bundle, and no revoke or dispute for issued receipts.</li>
+      <li>No viewer sign-in.</li>
+    </ul></td></tr>
+  <tr><td><strong>Sovereign</strong><br>Deccan Cooperative Bank</td><td class="B">Yes</td><td>
+    <ul>
+      <li>The deployment console is strong.</li>
+      <li>But Channels, You and Webhooks still offer Slack, WhatsApp and external URLs, which deny-all egress forbids.</li>
+      <li>Deccan appears on Elan1's public hosted <code>/status</code>.</li>
+      <li>No egress log, no way to carry the meter out offline, and no rollback of an update.</li>
+      <li>The emergency stop and break-glass need only one person.</li>
+      <li>HSM and retention figures disagree with the docs.</li>
+      <li>No viewer sign-in.</li>
+    </ul></td></tr>
+</table>
+
+<h2>2. Demo sign-ins</h2>
+<p>Every listed account signs in to the right organisation and role with an active membership. Everyone except viewers has the two-step code, which the demo authenticator passes.</p>
+<table>
+  <tr><th>Role</th><th>L1 Demo Traders</th><th>L2 Northbank</th><th>L3 Kaveri</th><th>Sovereign Deccan</th></tr>
+  <tr><td>Owner</td><td>Ananya Rao</td><td>Rohan Kapoor</td><td>Dr Lakshmi Pillai</td><td>Suresh Nambiar</td></tr>
+  <tr><td>Admin</td><td>Rahul Menon</td><td>Neha Bhatia</td><td>Arvind Swamy</td><td>Anjali Kulkarni</td></tr>
+  <tr><td>Approver</td><td>Venkat Iyer</td><td>Gaurav Sethi</td><td>Revathi Natarajan</td><td>Prakash Deshpande</td></tr>
+  <tr><td>Second approver</td><td>Tom Whitfield, Arjun Nair</td><td>Imran Qureshi <span class="P">(wrong label)</span></td><td>Mohammed Rafi <span class="P">(no backup label)</span></td><td>Farhan Siddiqui <span class="P">(vague label)</span></td></tr>
+  <tr><td>Data protection officer (admin)</td><td>Fatima Sheikh</td><td>Shalini Rao</td><td>Dr Sneha Varghese</td><td>Meenakshi Sundaram</td></tr>
+  <tr><td>Viewer</td><td>Meera Shah (password only)</td><td class="M">Missing (Pooja Malhotra exists, no sign-in)</td><td class="M">Missing (Nandini Hegde exists)</td><td class="M">Missing (Sunita Joshi exists)</td></tr>
+  <tr><td>Auditor</td><td>Kavita Desai (lands here)</td><td>Kavita, via switcher</td><td>Kavita, via switcher</td><td>Kavita, via switcher</td></tr>
+  <tr><td>Portals</td><td colspan="4">Nisha Menon (counterparty, from Kaveri), R. Venkataraman (regulator, from Deccan), Vikram Desai (partner, from Kaveri). These work only while the issuing organisation has a live disclosure. There is no two-step code for them.</td></tr>
+</table>
+<h3>Sign-in gaps from the morning check</h3>
+<table>
+  <tr><th>Gap</th><th>Status</th><th>Evidence</th></tr>
+  <tr><td>No viewer sign-in at L2, L3, Sovereign</td><td class="s M">Still open</td><td><code>mock/users.ts:93-103</code>, <code>auth/registry.ts:129-144</code></td></tr>
+  <tr><td>Approve-by-link skips two-step code, lockout, SSO-only and suspension; no session record or sign-in receipt</td><td class="s M">Still open</td><td><code>ApproveByLinkPage.tsx:291,304</code></td></tr>
+  <tr><td>Backup-approver labels contradict the escalation policy</td><td class="s M">Still open</td><td><code>registry.ts:135,139,142</code> vs <code>platform.ts:180</code></td></tr>
+  <tr><td>README said any 6 digits pass</td><td class="s B">Fixed</td><td><code>README.md:16</code></td></tr>
+  <tr><td>Auditor suspension in one organisation blocks all four</td><td class="s M">Still open</td><td><code>registry.ts:391-393</code>, <code>LoginPage.tsx:65-70</code></td></tr>
+  <tr><td>Sign-out leaves the session open and writes no receipt</td><td class="s M">Still open</td><td><code>store/session.ts:59-62</code></td></tr>
+  <tr><td>Forgot password does not cover portal accounts</td><td class="s M">Still open</td><td><code>registry.ts:599</code></td></tr>
+  <tr><td>Portal sign-in depends only on <code>?as=</code></td><td class="s M">Still open</td><td><code>LoginPage.tsx:186</code></td></tr>
+  <tr><td>SAML "enforced" has no effect on password sign-in</td><td class="s M">Still open</td><td><code>orgApi.ts:246-251</code>, <code>Sso.tsx:372</code></td></tr>
+  <tr><td>A two-step code cannot be reused within 30 s (live-demo trap)</td><td class="s P">Partial</td><td>The message now explains it (<code>registry.ts:288-291</code>)</td></tr>
+  <tr><td>Lockout has no unlock; "Reset demo data" does not clear locks</td><td class="s P">Partial</td><td>A password reset clears it (<code>registry.ts:632</code>, <code>db.ts:848</code>)</td></tr>
+  <tr><td>No pre-seeded suspended account</td><td class="s M">Still open</td><td>No <code>status: 'suspended'</code> in <code>src/mock</code></td></tr>
+</table>
+
+<h2>3. Links</h2>
+<table>
+  <tr><th>Check</th><th>Result</th></tr>
+  <tr><td>Static: every link target in the code (<code>to=</code>, <code>href</code>, <code>navigate()</code>, nav and palette entries, settings redirects)</td><td><strong>989 targets, 91 distinct paths — none unresolved.</strong>
+    <ul>
+      <li>Every <code>?tab=</code> value exists on its page.</li>
+      <li>All spot-checked query parameters are read.</li>
+      <li>Every <code>#anchor</code> resolves.</li>
+    </ul></td></tr>
+  <tr><td>Live crawl, every link followed in the running app (receipt, record and approval detail pages sampled)</td><td><strong>1,151 pages loaded, signed in as each level's owner — 0 broken links, 0 error pages, 0 script errors.</strong> L1 Demo Traders 315 pages (22,344 links followed or checked), L2 Northbank 248 (15,688), L3 Kaveri 321, Sovereign Deccan 267. Four <code>#EG-…</code> anchors on Coverage pages were flagged, but the page turns them into <code>?control=EG-…</code> as designed, so they are not broken.</td></tr>
+  <tr><td>Not opened on purpose</td><td>
+    <ul>
+      <li>Portal token links (<code>/counterparty/:token</code>): opening one records a view.</li>
+      <li>Single-use approval links (<code>/approve/:token</code>): opening one uses it up.</li>
+    </ul></td></tr>
+  <tr><td>Content problem behind a valid link</td><td class="P"><code>developers/TryIt.tsx:250</code> links to <code>/rulebooks/invoice-bot</code>. That slug exists only at Demo Traders, so it shows "not found" when signed in at L2, L3 or Sovereign.</td></tr>
+</table>
+
+<h2>4. Buttons and controls</h2>
+<p>Every button, menu item and palette item in <code>features/</code> and <code>shell/</code> has a working action.</p>
+<ul>
+  <li>No <code>href="#"</code> and no toast-only actions.</li>
+  <li>No "coming soon", "TODO" or "lorem" text.</li>
+  <li>Every permanently disabled button has a tooltip giving the reason.</li>
+</ul>
+<p>Five controls do less than their label promises:</p>
+<table>
+  <tr><th>Control</th><th>Where</th><th>Problem</th></tr>
+  <tr><td>Sign out</td><td><code>shell/TopBar.tsx:121</code>, <code>Sessions.tsx:86</code></td><td>Clears this browser only. The session stays live in Sessions and no receipt is written.</td></tr>
+  <tr><td>Reset demo data</td><td><code>TopBar.tsx:119</code> → <code>db.ts:844-851</code></td><td>Keeps sign-in locks, used codes, changed passwords and accounts created in this browser.</td></tr>
+  <tr><td>Require SAML for everyone</td><td><code>settings/sections/Sso.tsx:372</code></td><td>Saves the flag, but sign-in never reads it.</td></tr>
+  <tr><td>Sign in on an approval link</td><td><code>ApproveByLinkPage.tsx:337</code></td><td>Weaker than <code>/login</code> (see §2).</td></tr>
+  <tr><td>Sample bundles on the public <code>/verify</code></td><td><code>verify/bundle.ts:249,271</code></td><td>Clicking a sample writes <code>evidence.exported</code> to Northbank, Kaveri or Deccan, which is billed as a ₹2,500 bundle.</td></tr>
+</table>
+
+<h2>5. Screens, panels and actions by area</h2>
+<p class="small">B = built, P = partial, M = missing. <span class="new">NEW</span> = not in the morning check. Evidence paths are under <code>elan1-govern-web/src/</code>.</p>
+
+<h3>5.1 Approvals and Work (L1 and up)</h3>
+<table>
+  <tr><th>Item</th><th>Status</th><th>What is missing / evidence</th></tr>
+  <tr><td>Decide screen: field-by-field before→after diff, "Show all fields"</td><td class="s M">Missing</td><td>Only an arguments table (<code>approvals/ApprovalDetail.tsx:210-212</code>)</td></tr>
+  <tr><td>Decide screen: every gate's result with its version</td><td class="s P">Partial</td><td>Rule and rulebook version only; no G1–G9 results</td></tr>
+  <tr><td>Decide screen: payload digest</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Decide screen: blast radius</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Gate summary on queue rows</td><td class="s M">Missing</td><td><code>ApprovalsPage.tsx:261-295</code></td></tr>
+  <tr><td>"Payment recorded · proof #N", Open the record, Reverse this (30 days)</td><td class="s P">Partial</td><td>Result receipt link exists; no reversal or rollback anywhere</td></tr>
+  <tr><td>Approve and draft a rule</td><td class="s M">Missing</td><td>Only a separate Suggestions page</td></tr>
+  <tr><td>"Approvals unavailable" fail-closed page and outage state</td><td class="s M">Missing</td><td>A generic error banner only</td></tr>
+  <tr><td>Queue filters in the URL (waiting on me, expiring in 1 h, tool, counterparty)</td><td class="s P">Partial</td><td>View, search and agent only</td></tr>
+  <tr><td>One declared expiry extension</td><td class="s B">Built</td><td><code>ApprovalDetail.tsx:447-494</code></td></tr>
+  <tr><td>Same-actor copy / forbid mode</td><td class="s P">Partial</td><td>Flagged, never blocked (<code>work/backend.ts:143-154</code>)</td></tr>
+  <tr><td>Named, time-boxed delegate</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Step-up for irreversible or high-value approvals</td><td class="s P">Partial</td><td>Password re-asked only when the sign-in is over 10 minutes old</td></tr>
+  <tr><td>Emergency stop under dual control</td><td class="s M">Missing</td><td>One person engages and lifts at every level, Sovereign included</td></tr>
+  <tr><td>Break-glass as a visible dual-control write</td><td class="s M">Missing</td><td>Advisory text only (<code>Sso.tsx:242,371</code>)</td></tr>
+  <tr><td>Today due-dates panel</td><td class="s M">Missing</td><td>Countdowns on queue items only</td></tr>
+  <tr><td>Approver telemetry and rubber-stamp sampling</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Supervised 1-in-10 samples in the Work queues <span class="new">NEW</span></td><td class="s M">Missing</td><td>Reviewable only on Agents › Autonomy</td></tr>
+</table>
+
+<h3>5.2 Agents, autonomy and keys</h3>
+<table>
+  <tr><th>Item</th><th>Status</th><th>What is missing / evidence</th></tr>
+  <tr><td>Model name and version on agents and AI systems</td><td class="s M">Missing</td><td><code>types.ts:80-99</code>, <code>types.ts:332-349</code></td></tr>
+  <tr><td>Graduation to A3: two people, 90 days / 200 records / 100 approvals, 30-day supervision, one-press revoke</td><td class="s B">Built</td><td><code>lib/autonomy.ts</code>, <code>mock/platform.ts:1296-1399</code></td></tr>
+  <tr><td>Graduation: precedent score</td><td class="s M">Missing</td><td>Numbers only</td></tr>
+  <tr><td>Graduation: 8 eligibility checks</td><td class="s P">Partial</td><td>3 checks, the ones decision 4 names</td></tr>
+  <tr><td>Graduation: automatic revocation and cooldown</td><td class="s M">Missing</td><td>Revoke is manual; re-proposal is allowed at once</td></tr>
+  <tr><td>Key-compromise flow (stop signing, unsigned interval, 24-hour notice)</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Key windows: overlap, revoked status, refusal while a chain incident is open</td><td class="s P">Partial</td><td>Active / retired only (<code>types.ts:479</code>)</td></tr>
+  <tr><td>"Key bound · signing off" state</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>KMS Sign-call reconciliation</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Auditor's evidence request as a recorded write</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Fingerprint as a printable page and a DNS TXT record</td><td class="s P">Partial</td><td>Copy and PEM download only</td></tr>
+  <tr><td>KMS rotation writes its approval receipt before the rotation runs <span class="new">NEW</span></td><td class="s P">Partial</td><td><code>agentsdoor/KeysPage.tsx:139-140</code>. A failed rotation leaves an orphan approval.</td></tr>
+</table>
+
+<h3>5.3 Evidence, exports, upgrade and the verifier</h3>
+<table>
+  <tr><th>Item</th><th>Status</th><th>What is missing / evidence</th></tr>
+  <tr><td>L1 auditor pack: PDF summary, compliance map, README</td><td class="s M">Missing</td><td>4-part JSON (<code>ExportPackDialog.tsx:38-44</code>)</td></tr>
+  <tr><td>L1 auditor pack manifest signed (last hash, file hashes, counts) <span class="new">NEW</span></td><td class="s M">Missing</td><td><code>db.ts:1475</code>. A cut-off tail is caught only if a checkpoint covers it.</td></tr>
+  <tr><td>Framework report as PDF</td><td class="s M">Missing</td><td>JSON and CSV only</td></tr>
+  <tr><td>Nightly integrity-run history and continuity report</td><td class="s M">Missing</td><td>On-demand check only</td></tr>
+  <tr><td>Enforcement mode on the Assurance door and in every export</td><td class="s P">Partial</td><td>On screen, not in the bundle or pack manifests</td></tr>
+  <tr><td>L2 export guards (oversize split, clean range, residency gate, "Verify it yourself first")</td><td class="s P">Partial</td><td>Only VERIFY.txt and a "Check it here" button</td></tr>
+  <tr><td>Sandbox receipts marked as sandbox</td><td class="s M">Missing</td><td>No environment field on a receipt</td></tr>
+  <tr><td>Console export is one <code>.json</code>; docs say ZIP <span class="new">NEW</span></td><td class="s P">Partial</td><td>Only <code>/verify</code> re-saves as ZIP</td></tr>
+  <tr><td>"Export ready" screen shows the bundle digest <span class="new">NEW</span></td><td class="s M">Missing</td><td><code>ExportPackDialog.tsx:245-258</code></td></tr>
+  <tr><td>"Continuous" shown with a green tick; spec says never, with a "not checked over this range" state <span class="new">NEW</span></td><td class="s P">Partial</td><td><code>AssuranceHomePage.tsx:150</code></td></tr>
+  <tr><td>A tampered L1 sample on <code>/verify</code> <span class="new">NEW</span></td><td class="s M">Missing</td><td>The FAIL_INTEGRITY sample is an L2 bundle</td></tr>
+  <tr><td>Upgrade L1→L2: separate key-bind step</td><td class="s P">Partial</td><td>A tick box; key created at the final confirm</td></tr>
+  <tr><td>Upgrade: "Signing on at seq N" before the switch</td><td class="s P">Partial</td><td>Shown only afterwards</td></tr>
+  <tr><td>Upgrade: first-ten-records fingerprint check</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Upgrade: tenant's first bundle, tampered copy exits 1</td><td class="s P">Partial</td><td>Export and verify works; no tampered run</td></tr>
+  <tr><td>Upgrade: closing record with seven checks; signed-island rollback; customer notices</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Chain gap as a sealed gap record</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Withdraw a declaration version</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>RBI model-documentation export</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Hosting profile 2 (dedicated residency domain)</td><td class="s M">Missing</td><td>—</td></tr>
+</table>
+
+<h3>5.4 Data protection</h3>
+<table>
+  <tr><th>Item</th><th>Status</th><th>What is missing / evidence</th></tr>
+  <tr><td>Consent ledger</td><td class="s M">Missing</td><td>Consent exists only as pack gate G1</td></tr>
+  <tr><td>Erasure plan preview, and refusal when statutory retention conflicts</td><td class="s P">Partial</td><td>A count of matching receipts only</td></tr>
+  <tr><td>Legal pages: privacy notice, cookie policy, sub-processor list</td><td class="s P">Partial</td><td>Terms and DPA only (<code>/developers/legal</code>); sub-processors are one DPA clause</td></tr>
+</table>
+
+<h3>5.5 Regulatory packs and verifier profiles</h3>
+<table>
+  <tr><th>Item</th><th>Status</th><th>What is missing / evidence</th></tr>
+  <tr><td>Dry run at L1, live from L2 (decision 5)</td><td class="s B">Built</td><td><code>packs/*</code>, <code>platform.ts</code>, <code>lib/profiles.ts</code></td></tr>
+  <tr><td>Pack admission flow and portfolio register</td><td class="s P">Partial</td><td>Gates hard-coded "Met" (<code>lib/packs.ts:10-16</code>); no candidate or rejected packs</td></tr>
+  <tr><td>11-block pack detail</td><td class="s P">Partial</td><td>About 9 panels, not the factory's 11 blocks</td></tr>
+  <tr><td>T1–T8 test results; pilot block; 90-day pilot tracker</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Separate author and certifier roles; certification flow; P1–P12; withdrawn status</td><td class="s M">Missing</td><td>Profile status is draft / certified / superseded only</td></tr>
+  <tr><td>Two-way reconciliation against the target system's audit trail</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td><code>not_measurable</code> and <code>out_of_scope</code> dispositions</td><td class="s M">Missing</td><td>pass / fail / not applicable only</td></tr>
+  <tr><td>Verifier-profile entitlement enforced <span class="new">NEW</span></td><td class="s P">Partial</td><td>A profile can be run or claimed without ordering it. The seeded L2+ orgs have no profile orders.</td></tr>
+  <tr><td>Uninstall or cancel a pack <span class="new">NEW</span></td><td class="s M">Missing</td><td>Once installed, billed for good</td></tr>
+  <tr><td>Profile run from a pack page writes a receipt with no role check <span class="new">NEW</span></td><td class="s P">Partial</td><td><code>PackPage.tsx:84</code>; <code>ProfilesPage.tsx:57</code> says L1 previews are not recorded</td></tr>
+</table>
+
+<h3>5.6 Counterparties and disclosure (L3)</h3>
+<table>
+  <tr><th>Item</th><th>Status</th><th>What is missing / evidence</th></tr>
+  <tr><td>Register read-only from L1 (decision 6d)</td><td class="s B">Built</td><td><code>CounterpartiesPage.tsx</code></td></tr>
+  <tr><td>Selective-disclosure bundle over a range</td><td class="s P">Partial</td><td>Up to 10 receipts, each its own package; no range or single file</td></tr>
+  <tr><td>Saved disclosure profiles</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Replay detection</td><td class="s M">Missing</td><td>No nonce check</td></tr>
+  <tr><td>Dual-control receipt accept</td><td class="s M">Missing</td><td>One person; the API has no role check</td></tr>
+  <tr><td>Volume and reversal warning before the first issue</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>REVOKED and dispute states for issued receipts</td><td class="s P">Partial</td><td>Only disclosure packages can be revoked</td></tr>
+  <tr><td>Recorded check of a received receipt uses the key inside the receipt <span class="new">NEW</span></td><td class="s P">Partial</td><td><code>platform.ts:927-933</code>. The in-browser check uses the published key, so the two can differ.</td></tr>
+</table>
+
+<h3>5.7 Billing and meter</h3>
+<table>
+  <tr><th>Item</th><th>Status</th><th>What is missing / evidence</th></tr>
+  <tr><td>Unreconciled period blocks the invoice</td><td class="s P">Partial</td><td>Screen says "the invoice uses the lower number" (<code>BillingPage.tsx:296</code>); docs say it holds the invoice</td></tr>
+  <tr><td>Dispute settlement outcome (upheld, credit note, rejected)</td><td class="s P">Partial</td><td>Open and withdraw only</td></tr>
+  <tr><td>Discount line with an end date</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Pilot tier (90 days free, 2,000-action stop)</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>"Modelled list price" label; "+4% a year after March 2029"</td><td class="s P">Partial</td><td>Says flat to March 2029; no +4% and no label</td></tr>
+  <tr><td>Overage discount cap</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Cost per governed action published beside the refusal share</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Main export dialog shows the ₹2,500 charge before generating <span class="new">NEW</span></td><td class="s M">Missing</td><td>Only in Data settings</td></tr>
+  <tr><td>Today "Meter" tile agrees with <code>/billing</code> <span class="new">NEW</span></td><td class="s P">Partial</td><td>
+    <ul>
+      <li>The tile uses modelled figures; <code>/billing</code> uses the chain.</li>
+      <li>At Sovereign the tile adds a monthly floor, while billing uses a yearly licence.</li>
+      <li>The year on the tile starts in January; the allowance year starts in April.</li>
+    </ul></td></tr>
+  <tr><td>Pack and profile lines pro-rated <span class="new">NEW</span></td><td class="s P">Partial</td><td>Billed a full month; the floor is pro-rated</td></tr>
+</table>
+<p>Every other price on screen matches the financial model: floors, allowances, per-action rates, ₹1,35,000, ₹3,00,000, ₹45,000 and ₹2,500.</p>
+
+<h3>5.8 Developer portal and the path to production</h3>
+<table>
+  <tr><th>Item</th><th>Status</th><th>What is missing / evidence</th></tr>
+  <tr><td>Conformance suite C1–C14, levels CL-1 to CL-D</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Offline-verifier release page (SHA256SUMS, signature, vectors, tampered bundle)</td><td class="s P">Partial</td><td>Install commands and a tampered sample only</td></tr>
+  <tr><td>43-code refusal register with a page per code</td><td class="s M">Missing</td><td>6 system ids listed (<code>sections/More.tsx:146-155</code>)</td></tr>
+  <tr><td>Glossary</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Action Receipt standard: licences, governance, certification</td><td class="s P">Partial</td><td>Format and APIs only</td></tr>
+  <tr><td>Built-in MCP tool catalogue</td><td class="s P">Partial</td><td>Examples only</td></tr>
+  <tr><td>Rate-limit and Deprecation/Sunset headers</td><td class="s P">Partial</td><td>Rate-limit headers only</td></tr>
+  <tr><td>Support tiers</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Self-serve sandbox tenant metered at 0</td><td class="s P">Partial</td><td><code>sk_sbx_</code> keys and the TryIt sandbox; sandbox calls are still metered</td></tr>
+  <tr><td>Production-key request with human review</td><td class="s M">Missing</td><td>Owners and admins issue <code>gk_</code> keys directly</td></tr>
+  <tr><td>Promotion review, advisory → enforced</td><td class="s M">Missing</td><td>Route fixed when the agent is created</td></tr>
+  <tr><td>Onboarding refusal sentences for the 8 applicant categories</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Changelog out of date order <span class="new">NEW</span></td><td class="s P">Minor</td><td><code>More.tsx:166</code></td></tr>
+</table>
+
+<h3>5.9 Operations and incidents</h3>
+<table>
+  <tr><th>Item</th><th>Status</th><th>What is missing / evidence</th></tr>
+  <tr><td>Incident classes beyond stop, auto-pause and health</td><td class="s P">Partial</td><td>TSA, KMS, chain break, WORM, node and update exist. Missing: key compromise, isolation breach, declaring one by hand.</td></tr>
+  <tr><td>CERT-In 6-hour clock</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>L1 chain or write failure opens an incident <span class="new">NEW</span></td><td class="s P">Partial</td><td>Health detectors start at L2 (<code>work/backend.ts:852</code>)</td></tr>
+  <tr><td><code>/status</code>: SLO cards, error budget, meter and writer components</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Elan1-to-tenant notices (named contact, 30-minute updates, post-incident note, daily chain-head receipt)</td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Mobile PWA manifest</td><td class="s M">Missing</td><td>No manifest or icons in <code>public/</code> or <code>index.html</code></td></tr>
+  <tr><td>System pages reachable (<code>/403</code>, <code>/offline</code>, <code>/maintenance</code>) <span class="new">NEW</span></td><td class="s P">Partial</td><td>Routes exist; nothing navigates to them and there is no offline listener</td></tr>
+</table>
+
+<h3>5.10 Sovereign-specific</h3>
+<table>
+  <tr><th>Item</th><th>Status</th><th>What is missing / evidence</th></tr>
+  <tr><td>Deployment console: cluster, components, PostgreSQL RLS, OpenBao, object lock, customer HSM, local TSAs, deny-all egress, air-gapped signed bundles (import → verify → stage → apply)</td><td class="s B">Built</td><td><code>deployment/DeploymentPage.tsx</code></td></tr>
+  <tr><td>Channels, You and Webhooks respect deny-all egress <span class="new">NEW</span></td><td class="s W">Wrong</td><td>Slack, WhatsApp and external webhook URLs are offered to Deccan (<code>work/ChannelsPage.tsx:100</code>, <code>you/YouPage.tsx:218-229</code>, <code>Webhooks.tsx:214</code>)</td></tr>
+  <tr><td>Deccan kept off Elan1's public hosted <code>/status</code> <span class="new">NEW</span></td><td class="s W">Wrong</td><td>Its chain integrity and HSM row are shown publicly (<code>StatusPage.tsx:42-46,83-93</code>)</td></tr>
+  <tr><td>Egress log <span class="new">NEW</span></td><td class="s P">Partial</td><td>A 24-hour blocked count only</td></tr>
+  <tr><td>Carrying the meter to Elan1 with no egress (signed usage statement) <span class="new">NEW</span></td><td class="s M">Missing</td><td>—</td></tr>
+  <tr><td>Rollback of an applied update bundle <span class="new">NEW</span></td><td class="s M">Missing</td><td>Stage and apply only</td></tr>
+  <tr><td>Figures match the docs <span class="new">NEW</span></td><td class="s P">Partial</td><td>FIPS 140-2 and 10-year retention (<code>platform.ts:1867-1868</code>) vs FIPS 140-3 and 8 years in the docs</td></tr>
+  <tr><td>Emergency stop and break-glass need two people</td><td class="s M">Missing</td><td>Single person, as at every level</td></tr>
+</table>
+
+<h2>6. Built since the morning check</h2>
+<ul>
+  <li><strong>L1 copy.</strong> L1 copy says "sealed in a hash chain"; L2 and above say "signed".</li>
+  <li><strong>Autonomy.</strong> Graduation only. A2 is the starting level, A3 comes by a two-person graduation with 30-day supervision, revoke is one press, and A4/A5 are shown as not yet available.</li>
+  <li><strong>Approvals.</strong> One declared 24-hour extension.</li>
+  <li><strong>Verifier.</strong> A batch timestamped by one authority is reported as degraded, not failed.</li>
+  <li><strong>Packs.</strong> They install at L1 as an unbilled dry run, and checks that need L2 evidence read not applicable.</li>
+  <li><strong>Erasure</strong> is available from L1 on <code>/records/erasure</code>. A test erasure kept the chain verifying.</li>
+  <li><strong>Counterparty register.</strong> Listed read-only from L1.</li>
+  <li><strong>Billing.</strong> The verifier profile is billed as its own line; each L2+ bundle is ₹2,500 and the L1 auditor pack is free.</li>
+  <li><strong>Keys.</strong> Agent keys are <code>gk_</code> and <code>sk_sbx_</code>.</li>
+  <li><strong>README.</strong> The two-step code text is now correct.</li>
+</ul>
+
+<h2>7. Decisions not finished everywhere</h2><div class="note"><strong>Update, 28 October 2026:</strong> all four rows below have since been fixed and checked in the running app. Erasure opens from L1 on the record and DPDP pages, and the remaining L1 wording now says "sealed". Both invoice builders now bill the same pack, profile and bundle lines. Revathi's journey text now matches the review-after-run sampling.</div>
+<table>
+  <tr><th>Decision</th><th>Where it is incomplete</th></tr>
+  <tr><td>6c Erasure from L1</td><td>
+    <ul>
+      <li>The record page still shows an L2 preview instead of the request form (<code>records/actions.tsx:369-375</code>).</li>
+      <li>"Erasure starts at L2" text remains in <code>RecordPage.tsx:186</code>, <code>RecordsPage.tsx:331</code> and <code>settings/orgApi.ts:52</code>.</li>
+      <li>The DPDP framework page shows an upgrade link at L1 (<code>FrameworkPage.tsx:275</code>).</li>
+    </ul></td></tr>
+  <tr><td>2 "Sealed", not "signed", at L1</td><td>
+    <ul>
+      <li>The <code>/status</code> row detail says "checkpoint #N signature verifies" (<code>mock/platform.ts:2059</code>).</li>
+      <li>The verifier's Claim section for L1 packs (<code>verify/bundle.ts:392</code>).</li>
+      <li>The page description in <code>index.html:8</code>.</li>
+    </ul></td></tr>
+  <tr><td>6e / 6f Billing lines</td><td>
+    <ul>
+      <li>The second invoice builder (<code>mock/db.ts deriveBilling</code>) never bills a verifier-profile line.</li>
+      <li>It hard-codes two bundles in September instead of counting exports.</li>
+      <li>In an upgrade month it bills packs differently from <code>chainMeter</code>.</li>
+    </ul></td></tr>
+  <tr><td>4 Autonomy</td><td>The approver Revathi's demo journey text says she "decides held calls" sampled in supervision. Sampling is a review after the call runs (<code>auth/registry.ts</code>).</td></tr>
+</table>
+
+<h2>8. Open questions for you</h2>
+<ul>
+  <li><strong>Supervision sampling.</strong> Is the 1-in-10 sample a review after the call runs (as built), or a hold before it?</li>
+  <li><strong>Graduation checks.</strong> Are 3 checks enough, or are the memorandum's other 5 checks still wanted?</li>
+  <li><strong>Re-proposal.</strong> Should there be a cooldown after a revoke before a graduation can be proposed again?</li>
+  <li><strong>Emergency stop.</strong> Should engaging it, lifting it, or both need a second person, and at which levels?</li>
+  <li><strong>Public status page.</strong> Should hosted customers' chain integrity appear by name on the public <code>/status</code>?</li>
+  <li><strong>Sandbox.</strong> Do per-agent sandbox keys plus the TryIt sandbox stand in for a separate sandbox tenant?</li>
+  <li><strong><code>/verify</code> samples.</strong> Should clicking a sample on the public verifier write to, and bill, a demo tenant?</li>
+</ul>
+
+<p class="small" style="margin-top:14pt">Prepared from five read-only code reviews, a static link scan and a live crawl of the running demo, 28 October 2026.</p>
+</body>
+</html>
